@@ -1,0 +1,3 @@
+URxvt.imlocale:zh_CN.UTF-8
+URxvt.scrollBar:false
+URxvt.font:9*15

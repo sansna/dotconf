@@ -24,6 +24,7 @@ function __rfc {
 alias ls="ls --color=auto"
 alias ll="ls -al --color=auto"
 alias l.="ls -d .* --color=auto"
+alias lc="ls -d *.c --color=auto"
 alias c="chromium-browser"
 alias cu="cd .."
 alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"

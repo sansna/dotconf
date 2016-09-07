@@ -21,6 +21,10 @@ function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
 }
 
+function __wk {
+    w3m http://www.kernel.org/doc
+}
+
 alias ls="ls --color=auto"
 alias ll="ls -al --color=auto"
 alias l.="ls -d .* --color=auto"
@@ -32,8 +36,9 @@ alias cu="cd .."
 alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
 alias e="xdg-open ."
 alias m="cd /usr/mf/"
-alias s="shutdown now"
+#alias s="shutdown now"
 alias w="w3m https://www.google.com.sg"
 alias wr="__rfc"
+alias wk="__wk"
 xrdb ~/.Xresources
 stty -ixon ixany

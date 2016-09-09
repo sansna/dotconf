@@ -28,7 +28,6 @@ function __wk {
 alias ls="ls --color=auto"
 alias ll="ls -al --color=auto"
 alias l.="ls -d .* --color=auto"
-alias lc="ls -d *.c --color=auto"
 alias lr="ls -R"
 alias lg="ls -R|grep"
 alias c="chromium-browser"
@@ -40,5 +39,14 @@ alias m="cd /usr/mf/"
 alias w="w3m https://www.google.com.sg"
 alias wr="__rfc"
 alias wk="__wk"
-xrdb ~/.Xresources
+alias r="aria2c *.meta4"
+alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
+[ $TERM == "linux" ]||xrdb ~/.Xresources
 stty -ixon ixany
+
+xmodmap -e "remove Lock = Caps_Lock"
+xmodmap -e "remove Control = Control_L"
+xmodmap -e "keysym Caps_Lock = Control_L"
+xmodmap -e "keycode 37 = Caps_Lock"
+xmodmap -e "add Lock = Caps_Lock"
+xmodmap -e "add Control = Control_L"

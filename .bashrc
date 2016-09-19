@@ -46,13 +46,14 @@ alias wr="__rfc"
 alias wk="__wk"
 alias r="aria2c *.meta4"
 alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
-[ $TERM == "linux" ]||xrdb ~/.Xresources
 # Disable ctrl+s functionality.
 stty -ixon ixany
 
-xmodmap -e "remove Lock = Caps_Lock"
-xmodmap -e "remove Control = Control_L"
-xmodmap -e "keysym Caps_Lock = Control_L"
-xmodmap -e "keycode 37 = Caps_Lock"
-xmodmap -e "add Lock = Caps_Lock"
-xmodmap -e "add Control = Control_L"
+[ $TERM == "linux" ]||xrdb ~/.Xresources
+
+[ $TERM == "linux" ]||xmodmap -e "remove Lock = Caps_Lock"
+[ $TERM == "linux" ]||xmodmap -e "remove Control = Control_L"
+[ $TERM == "linux" ]||xmodmap -e "keysym Caps_Lock = Control_L"
+[ $TERM == "linux" ]||xmodmap -e "keycode 37 = Caps_Lock"
+[ $TERM == "linux" ]||xmodmap -e "add Lock = Caps_Lock"
+[ $TERM == "linux" ]||xmodmap -e "add Control = Control_L"

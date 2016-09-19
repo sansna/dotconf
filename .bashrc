@@ -17,6 +17,7 @@
 # alias cp='cp -i'
 # alias mv='mv -i'
 
+# Using function for alias because needs parameter.
 function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
 }
@@ -28,8 +29,10 @@ function __wk {
 alias ls="ls --color=auto"
 alias ll="ls -al --color=auto"
 alias l.="ls -d .* --color=auto"
-alias lr="ls -R"
-alias lg="ls -R|grep"
+alias lr="ls -Ra"
+alias lg="ls -Ra|grep"
+#alias lgf="ls -Ra |awk '{print i\$0}' i=`pwd`'/'|grep"
+#alias lgd="ls -FRa | grep \/\$ | sed "s:^:`pwd`/:"|grep"
 alias c="chromium-browser"
 alias cu="cd .."
 alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
@@ -42,6 +45,7 @@ alias wk="__wk"
 alias r="aria2c *.meta4"
 alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 [ $TERM == "linux" ]||xrdb ~/.Xresources
+# Disable ctrl+s functionality.
 stty -ixon ixany
 
 xmodmap -e "remove Lock = Caps_Lock"

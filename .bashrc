@@ -17,6 +17,10 @@
 # alias cp='cp -i'
 # alias mv='mv -i'
 
+function __cd {
+    cd $*;ls;
+}
+
 # Using function for alias because needs parameter.
 function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
@@ -38,6 +42,7 @@ alias gfs="grep -rnwle"
 alias rgf="lgf|awk -vORS="\0" '{print \$0}'|xargs -0 rm -f"
 alias rgd="lgd|awk -vORS="\0" '{print \$0}'|xargs -0 rm -frd"
 alias c="chromium-browser"
+alias cd="__cd"
 alias cu="cd .."
 alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
 alias e="xdg-open ."

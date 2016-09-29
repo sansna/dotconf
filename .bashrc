@@ -52,7 +52,7 @@ alias cu="cd .."
 alias w="w3m https://www.google.com.sg"
 alias wr="__rfc"
 alias wk="__wk"
-alias i="vim REA*"
+alias i="vim -O REA*"
 #alias r="aria2c *.meta4"
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 # Disable ctrl+s functionality.

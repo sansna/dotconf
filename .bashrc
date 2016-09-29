@@ -53,6 +53,7 @@ alias w="w3m https://www.google.com.sg"
 alias wr="__rfc"
 alias wk="__wk"
 alias i="vim -O REA*"
+alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com"
 #alias r="aria2c *.meta4"
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 # Disable ctrl+s functionality.

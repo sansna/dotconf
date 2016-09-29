@@ -8,6 +8,8 @@
 # PS1="[\u@\h \W]# "
 # umask 022
 
+unalias -a
+
 # You may uncomment the following lines if you want `ls' to be colorized:
 # export LS_OPTIONS='--color=auto'
 # eval "`dircolors`"

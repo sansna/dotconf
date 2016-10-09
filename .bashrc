@@ -8,6 +8,10 @@
 # PS1="[\u@\h \W]# "
 # umask 022
 
+# The following distinguishes filename globbing between lowercase and
+# uppercase letters in a character range between brackets.
+export LC_COLLATE=C
+
 unalias -a
 
 # You may uncomment the following lines if you want `ls' to be colorized:

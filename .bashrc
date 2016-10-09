@@ -6,6 +6,8 @@
 # PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
 # CentOS prompt:
 # PS1="[\u@\h \W]# "
+# The following is used when -x is set in debugging the bash scripts.
+# PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 # umask 022
 
 # The following distinguishes filename globbing between lowercase and

@@ -11,7 +11,7 @@
 # umask 022
 
 # The following distinguishes filename globbing between lowercase and
-# uppercase letters in a character range between brackets.
+#+ uppercase letters in a character range between brackets.
 export LC_COLLATE=C
 
 unalias -a
@@ -44,6 +44,10 @@ function __wk {
     w3m http://www.kernel.org/doc
 }
 
+function __sgs {
+    grep $1 -rl . | xargs sed -i".bak" "s/$1/$2/g"
+}
+
 alias ll="ls -al --color=auto"
 alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
@@ -51,23 +55,24 @@ alias lg="ls -Ra|grep"
 alias lgf="find . -type f|grep"
 alias lgd="find . -type d|grep"
 alias lgs="find . -type f -print0|xargs -0 grep"
+alias sgs="__sgs"
 alias gfs="grep -rnwle"
 alias rgf="lgf|awk -vORS="\0" '{print \$0}'|xargs -0 rm -f"
 alias rgd="lgd|awk -vORS="\0" '{print \$0}'|xargs -0 rm -frd"
-#alias c="chromium-browser"
+# alias c="chromium-browser"
 alias cd="__cd"
 alias cu="cd .."
-#alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
-#alias e="xdg-open ."
-#alias m="cd /usr/mf/"
-#alias s="shutdown now"
+# alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
+# alias e="xdg-open ."
+# alias m="cd /usr/mf/"
+# alias s="shutdown now"
 alias w="w3m https://www.google.com.sg"
 alias wr="__rfc"
 alias wk="__wk"
 alias i="vim -O REA*"
 alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com"
-#alias r="aria2c *.meta4"
-#alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
+# alias r="aria2c *.meta4"
+# alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 # Disable ctrl+s functionality.
 stty -ixon ixany
 

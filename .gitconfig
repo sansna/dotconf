@@ -1,0 +1,7 @@
+[user]
+	name = sansna
+	email = 1185280650@qq.com
+[color]
+	ui = auto
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

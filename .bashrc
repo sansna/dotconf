@@ -60,7 +60,7 @@ function __rgd {
 }
 
 function __gush {
-    git add -A; git commit -m "$1"; git push origin master;
+    git add -A; git commit -m "$*"; git push origin master;
 }
 
 alias ll="ls -al --color=auto"

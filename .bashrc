@@ -48,17 +48,30 @@ function __sgs {
     grep $1 -rl . | xargs sed -i".bak" "s/$1/$2/g"
 }
 
+alias lgf="find . -type f|grep"
+alias lgd="find . -type d|grep"
+
+function __rgf {
+    lgf $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -f
+}
+
+function __rgd {
+    lgd $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -frd
+}
+
+function __gush {
+    git add -A; git commit -m "$1"; git push origin master;
+}
+
 alias ll="ls -al --color=auto"
 alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
 alias lg="ls -Ra|grep"
-alias lgf="find . -type f|grep"
-alias lgd="find . -type d|grep"
 alias lgs="find . -type f -print0|xargs -0 grep"
 alias sgs="__sgs"
 alias gfs="grep -rnwle"
-alias rgf="lgf|awk -vORS="\0" '{print \$0}'|xargs -0 rm -f"
-alias rgd="lgd|awk -vORS="\0" '{print \$0}'|xargs -0 rm -frd"
+alias rgf="__rgf"
+alias rgd="__rgd"
 # alias c="chromium-browser"
 alias cd="__cd"
 alias cu="cd .."
@@ -71,16 +84,17 @@ alias wr="__rfc"
 alias wk="__wk"
 alias i="vim -O REA*"
 alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com"
+alias gush="__gush"
 # alias r="aria2c *.meta4"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 # Disable ctrl+s functionality.
 stty -ixon ixany
 
-[ $TERM == "linux" ]||xrdb ~/.Xresources
-
-[ $TERM == "linux" ]||xmodmap -e "remove Lock = Caps_Lock"
-[ $TERM == "linux" ]||xmodmap -e "remove Control = Control_L"
-[ $TERM == "linux" ]||xmodmap -e "keysym Caps_Lock = Control_L"
-[ $TERM == "linux" ]||xmodmap -e "keycode 37 = Caps_Lock"
-[ $TERM == "linux" ]||xmodmap -e "add Lock = Caps_Lock"
-[ $TERM == "linux" ]||xmodmap -e "add Control = Control_L"
+#[ $TERM == "linux" ]||xrdb ~/.Xresources
+#
+#[ $TERM == "linux" ]||xmodmap -e "remove Lock = Caps_Lock"
+#[ $TERM == "linux" ]||xmodmap -e "remove Control = Control_L"
+#[ $TERM == "linux" ]||xmodmap -e "keysym Caps_Lock = Control_L"
+#[ $TERM == "linux" ]||xmodmap -e "keycode 37 = Caps_Lock"
+#[ $TERM == "linux" ]||xmodmap -e "add Lock = Caps_Lock"
+#[ $TERM == "linux" ]||xmodmap -e "add Control = Control_L"

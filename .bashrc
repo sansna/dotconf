@@ -59,8 +59,21 @@ function __rgd {
     lgd $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -frd
 }
 
+function __gt {
+    mkdir -p ~/GitRepo
+    git clone https://github.com/$1 ~/GitRepo/$1
+}
+
 function __gush {
     git add -A; git commit -m "$*"; git push origin master;
+}
+
+function __cget {
+    curl -u just:123 -o $1 ftp://10.0.2.33/$1
+}
+
+function __cput {
+    curl -u just:123 -T $1 ftp://10.0.2.33/$1
 }
 
 alias ll="ls -al --color=auto"
@@ -84,7 +97,10 @@ alias wr="__rfc"
 alias wk="__wk"
 alias i="vim -O REA*"
 alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com;git config --global color.ui auto"
+alias gt="__gt"
 alias gush="__gush"
+alias cget="__cget"
+alias cput="__cput"
 # alias r="aria2c *.meta4"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 # Disable ctrl+s functionality.

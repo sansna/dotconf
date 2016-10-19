@@ -87,6 +87,7 @@ alias rgf="__rgf"
 alias rgd="__rgd"
 # alias c="chromium-browser"
 alias cd="__cd"
+alias gr="cd ~/GitRepo"
 alias cu="cd .."
 # alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
 # alias e="xdg-open ."
@@ -114,3 +115,10 @@ stty -ixon ixany
 #[ $TERM == "linux" ]||xmodmap -e "keycode 37 = Caps_Lock"
 #[ $TERM == "linux" ]||xmodmap -e "add Lock = Caps_Lock"
 #[ $TERM == "linux" ]||xmodmap -e "add Control = Control_L"
+
+# Uncomment the following in arch to enable ibus input method,
+#+ first to install ibus as ibus/ibus-libpinyin.
+#export GTK_IM_MODULE=ibus
+#export XMODIFIERS=ibus
+#export QT_IM_MODULE=ibus
+#ibus-daemon -d -x

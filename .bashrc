@@ -107,6 +107,10 @@ function __cput {
     curl -u just:123 -T $1 ftp://10.0.2.33/$1
 }
 
+function __cog {
+    gcc -O0 -g $1 -o $(expr substr $1 1 $(expr index $1 .))out
+}
+
 alias ll="ls -al --color=auto"
 alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
@@ -138,6 +142,7 @@ alias gt="__gt"
 alias gush="__gush"
 alias cget="__cget"
 alias cput="__cput"
+alias cog="__cog"
 # alias r="aria2c *.meta4"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 

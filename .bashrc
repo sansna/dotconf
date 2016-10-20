@@ -47,6 +47,10 @@ function __wk {
     w3m http://www.kernel.org/doc
 }
 
+function __i {
+    pandoc $1|w3m -T text/html
+}
+
 function __sgs {
     grep $1 -rl . | xargs sed -i".bak" "s/$1/$2/g"
 }
@@ -136,7 +140,7 @@ alias cu="cd .."
 alias w="w3m https://www.google.com.sg"
 alias wr="__rfc"
 alias wk="__wk"
-alias i="vim -O REA*"
+alias i="__i"
 alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com;git config --global color.ui auto"
 alias gt="__gt"
 alias gush="__gush"

@@ -14,6 +14,9 @@
 #+ uppercase letters in a character range between brackets.
 export LC_COLLATE=C
 
+# The following specifies TERM for cur-bash window.
+#export TERM=rxvt-unicode-256color
+
 unalias -a
 
 # You may uncomment the following lines if you want `ls' to be colorized:
@@ -48,8 +51,20 @@ function __sgs {
     grep $1 -rl . | xargs sed -i".bak" "s/$1/$2/g"
 }
 
+function __sgsl {
+    find . -maxdepth 1|xargs|grep $1 -l | sed -i".bak" "s/$1/$2/g"
+}
+
 alias lgf="find . -type f|grep"
 alias lgd="find . -type d|grep"
+alias lgb="find . |grep .bak$"
+alias lgfl="find . -maxdepth 1 -type f|grep"
+alias lgdl="find . -maxdepth 1 -type d|grep"
+alias lgbl="find . -maxdepth 1 |grep .bak$"
+
+# Do much same as what xargs do? So change to nts.
+#alias nt0="awk -vORS='\0' '{print \$0}'"
+alias nts="awk -vORS='\ ' '{print \$0}'"
 
 function __rgf {
     lgf $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -f
@@ -57,6 +72,22 @@ function __rgf {
 
 function __rgd {
     lgd $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -frd
+}
+
+function __rgb {
+    lgb|xargs rm -ird
+}
+
+function __rgbl {
+    lgbl|xargs rm -ird
+}
+
+function __rgfl {
+    lgfl $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -f
+}
+
+function __rgdl {
+    lgdl $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -frd
 }
 
 function __gt {
@@ -82,9 +113,14 @@ alias lr="ls -Ra"
 alias lg="ls -Ra|grep"
 alias lgs="find . -type f -print0|xargs -0 grep --color=auto"
 alias sgs="__sgs"
+alias sgsl="__sgsl"
 alias gfs="grep -rnwle"
 alias rgf="__rgf"
 alias rgd="__rgd"
+alias rgb="__rgb"
+alias rgfl="__rgfl"
+alias rgdl="__rgdl"
+alias rgbl="__rgbl"
 # alias c="chromium-browser"
 alias cd="__cd"
 alias gr="cd ~/GitRepo"
@@ -104,6 +140,7 @@ alias cget="__cget"
 alias cput="__cput"
 # alias r="aria2c *.meta4"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
+
 # Disable ctrl+s functionality.
 stty -ixon ixany
 

@@ -71,11 +71,11 @@ alias lgbl="find . -maxdepth 1 |grep .bak$"
 alias nts="awk -vORS='\ ' '{print \$0}'"
 
 function __rgf {
-    lgf $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -f
+    lgf $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -f
 }
 
 function __rgd {
-    lgd $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -frd
+    lgd $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -frd
 }
 
 function __rgb {
@@ -87,11 +87,11 @@ function __rgbl {
 }
 
 function __rgfl {
-    lgfl $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -f
+    lgfl $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -f
 }
 
 function __rgdl {
-    lgdl $1|awk -vORS="\0" '{print \$0}'|xargs -0 rm -frd
+    lgdl $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -frd
 }
 
 function __gt {

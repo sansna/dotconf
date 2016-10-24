@@ -56,7 +56,7 @@ function __sgs {
 }
 
 function __sgsl {
-    find . -maxdepth 1|xargs|grep $1 -l | sed -i".bak" "s/$1/$2/g"
+    find . -maxdepth 1 -type f|xargs grep $1 -l . | sed -i".bak" "s/$1/$2/g"
 }
 
 alias lgf="find . -type f|grep"
@@ -120,9 +120,11 @@ alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
 alias lg="ls -Ra|grep"
 alias lgs="find . -type f -print0|xargs -0 grep --color=auto"
+alias lgsl="find . -maxdepth 1 -type f -print0|xargs -0 grep --color=auto"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
-alias gfs="grep -rnwle"
+# if need to show the exact line info of each match remove the last l
+alias gfs="grep -rnwel"
 alias rgf="__rgf"
 alias rgd="__rgd"
 alias rgb="__rgb"

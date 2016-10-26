@@ -123,8 +123,8 @@ alias lgs="find . -type f -print0|xargs -0 grep --color=auto"
 alias lgsl="find . -maxdepth 1 -type f -print0|xargs -0 grep --color=auto"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
-# if need to show the exact line info of each match remove the last l
-alias gfs="grep -rnwel"
+# if need to show the exact line info of each match remove the l
+alias gfs="grep -rlnwe"
 alias rgf="__rgf"
 alias rgd="__rgd"
 alias rgb="__rgb"

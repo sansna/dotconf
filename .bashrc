@@ -19,6 +19,11 @@ export LC_COLLATE=C
 
 unalias -a
 
+# base-16 color scheme, see chriskempson/base16-shell
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+base16_twilight
+
 # You may uncomment the following lines if you want `ls' to be colorized:
 # export LS_OPTIONS='--color=auto'
 # eval "`dircolors`"

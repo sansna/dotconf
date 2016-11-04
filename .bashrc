@@ -25,7 +25,7 @@ unalias -a
 # base-16 color scheme, see chriskempson/base16-shell
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-base16_twilight
+base16_google-dark
 
 # You may uncomment the following lines if you want `ls' to be colorized:
 # export LS_OPTIONS='--color=auto'
@@ -127,7 +127,7 @@ alias ll="ls -al --color=auto"
 alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
 alias lg="ls -Ra|grep"
-alias lgs="find . -type f -print0|xargs -0 grep --color=auto"
+alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs grep --color=auto"
 alias lgsl="find . -maxdepth 1 -type f -print0|xargs -0 grep --color=auto"
 alias sgs="__sgs"
 alias sgsl="__sgsl"

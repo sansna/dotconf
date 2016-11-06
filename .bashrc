@@ -13,9 +13,14 @@
 # The following distinguishes filename globbing between lowercase and
 #+ uppercase letters in a character range between brackets.
 export LC_COLLATE=C
+
 # The following prevent python from warning ascii codec can't decode 
 #+ unicode.
 # export LC_ALL=C
+
+# The Golang paths
+export GOPATH=~/GO
+export PATH=$PATH:$GOPATH/bin
 
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color

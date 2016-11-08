@@ -61,7 +61,7 @@ function __wk {
 }
 
 function __i {
-    pandoc $1|w3m -T text/html
+    pandoc "$1"|w3m -T text/html
 }
 
 function __sgs {
@@ -136,8 +136,8 @@ alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs grep --colo
 alias lgsl="find . -maxdepth 1 -type f -print0|xargs -0 grep --color=auto"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
-alias gfs="grep -rnwe"
-alias gsf="grep -rlnwe"
+alias gfs="grep . -rnwe"
+alias gsf="grep . -rlnwe"
 alias rgf="__rgf"
 alias rgd="__rgd"
 alias rgb="__rgb"
@@ -152,7 +152,7 @@ alias cu="cd .."
 # alias e="xdg-open ."
 # alias m="cd /usr/mf/"
 # alias s="shutdown now"
-alias w="w3m https://www.google.com.sg"
+alias w="w3m https://www.google.com/ncr"
 alias wr="__rfc"
 alias wk="__wk"
 alias i="__i"

@@ -56,6 +56,10 @@ function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
 }
 
+function __we {
+    w3m https://en.wikipedia.org/wiki/$*
+}
+
 function __wk {
     w3m http://www.kernel.org/doc
 }
@@ -155,6 +159,7 @@ alias cu="cd .."
 alias w="w3m https://www.google.com/ncr"
 alias wr="__rfc"
 alias wk="__wk"
+alias we="__we"
 alias i="__i"
 alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com;git config --global color.ui auto"
 alias gt="__gt"

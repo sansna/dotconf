@@ -48,7 +48,9 @@ alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 
 function __cd {
-    cd $*;ls;
+    cd $*;ls;wordcount=`ls -a|wc -w`
+    [ $wordcount -eq 2 ] && echo "No Entries in this Folder."
+    unset wordcount;
 }
 
 # Using function for alias because needs parameter.

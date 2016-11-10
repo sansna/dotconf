@@ -89,6 +89,28 @@ alias lgbl="find . -maxdepth 1 |grep .bak$"
 #alias nt0="awk -vORS='\0' '{print \$0}'"
 alias nts="awk -vORS='\ ' '{print \$0}'"
 
+function __rcd {
+    filecount__=`ls -a|wc -w`;
+    filecount__=$((filecount__-2))
+    foldername__=`pwd`
+    [ "$1" == "-f" ] \
+        && cd ..\
+        && rm -frd $foldername__\
+        && unset foldername__\
+        && unset filecount__\
+        && ls\
+        && return 0
+    [ $filecount__ -eq 0 ] \
+        && rm -frd $foldername__ \
+        && cd ..\
+        && ls\
+        || printf "Note: Current folder has %d sub-contents.\
+ Use 'rcd -f' instead.\n" $filecount__
+    unset foldername__
+    unset filecount__
+    return 0
+}
+
 function __rgf {
     lgf $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -i
 }
@@ -144,6 +166,7 @@ alias sgs="__sgs"
 alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"
 alias gsf="grep . -rlnwe"
+alias rcd="__rcd"
 alias rgf="__rgf"
 alias rgd="__rgd"
 alias rgb="__rgb"

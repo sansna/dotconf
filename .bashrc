@@ -53,6 +53,25 @@ function __cd {
     unset wordcount;
 }
 
+function __cu {
+    [ "x$HOME" == "x" ]\
+        && printf "Please set \$HOME first.\n"\
+        && return 1
+    [ "x$1" == "x" ] \
+        && cd ..\
+        || ([ $1 -ge 0 ] \
+            && for i in `seq $1`; do cd ..; done\
+            && echo `pwd`>${HOME}/cdtmpfile__)
+    [ -e ${HOME}/cdtmpfile__ ]\
+        && location__=`cat ${HOME}/cdtmpfile__`\
+        && rm ${HOME}/cdtmpfile__\
+        && cd $location__\
+        && unset location__
+    ls
+}
+alias cd="__cd"
+alias cu="__cu"
+
 # Using function for alias because needs parameter.
 function __w {
     [ "x$*" == "x" ] \
@@ -181,9 +200,7 @@ alias rgfl="__rgfl"
 alias rgdl="__rgdl"
 alias rgbl="__rgbl"
 # alias c="chromium-browser"
-alias cd="__cd"
 alias gr="cd ~/GitRepo"
-alias cu="cd .."
 # alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
 # alias e="xdg-open ."
 # alias m="cd /usr/mf/"

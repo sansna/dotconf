@@ -54,6 +54,13 @@ function __cd {
 }
 
 # Using function for alias because needs parameter.
+function __w {
+    [ "x$*" == "x" ] \
+        && w3m https://www.google.com/ncr\
+        || (website__=$(sed "s/\ /+/"<<<$*)\
+            && w3m https://www.google.com/search?ie=ISO-8859-1\&hl=en\&source=hp\&biw=\&bih=\&q=${website__}\&btnG=Google+Search\&gbv=1)
+}
+
 function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
 }
@@ -181,7 +188,7 @@ alias cu="cd .."
 # alias e="xdg-open ."
 # alias m="cd /usr/mf/"
 # alias s="shutdown now"
-alias w="w3m https://www.google.com/ncr"
+alias w="__w"
 alias wr="__rfc"
 alias wk="__wk"
 alias we="__we"

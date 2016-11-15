@@ -76,8 +76,9 @@ alias cu="__cu"
 function __w {
     [ "x$*" == "x" ] \
         && w3m https://www.google.com/ncr\
-        || (website__=$(sed "s/\ /+/"<<<$*)\
+        || (website__=$(sed "s/\ /+/g"<<<$*)\
             && w3m https://www.google.com/search?ie=ISO-8859-1\&hl=en\&source=hp\&biw=\&bih=\&q=${website__}\&btnG=Google+Search\&gbv=1)
+    unset website__
 }
 
 function __rfc {

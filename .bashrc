@@ -75,7 +75,7 @@ alias cu="__cu"
 # Using function for alias because needs parameter.
 function __w {
     [ "x$*" == "x" ] \
-        && w3m https://www.google.com/ncr\
+        && (w3m https://www.google.com; return 0 )\
         || (website__=$(sed "s/\ /+/g"<<<$*)\
             && w3m https://www.google.com/search?ie=ISO-8859-1\&hl=en\&source=hp\&biw=\&bih=\&q=${website__}\&btnG=Google+Search\&gbv=1)
     unset website__

@@ -139,32 +139,34 @@ function __rcd {
 }
 
 function __rgf {
-    lgf $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -i
+    lgf $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -f
 }
 
 function __rgd {
-    lgd $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -ird
+    lgd $1|awk '{print $0}'|xargs rm -frd
 }
 
 function __rgb {
-    lgb|xargs rm -ird
+    lgb|xargs rm -frd
 }
 
 function __rgbl {
-    lgbl|xargs rm -ird
+    lgbl|xargs rm -frd
 }
 
 function __rgfl {
-    lgfl $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -i
+    lgfl $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -f
 }
 
 function __rgdl {
-    lgdl $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -ird
+    lgdl $1|awk -vORS="\0" '{print $0}'|xargs -0 rm -frd
 }
 
 function __gt {
     mkdir -p ~/GitRepo
-    git clone https://github.com/$1 ~/GitRepo/$1
+    [[ $1 == *"/"* ]]\
+        && (git clone https://github.com/$1 ~/GitRepo/$1;return 0)\
+        || (git clone https://github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
 }
 
 function __gush {

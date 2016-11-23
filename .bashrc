@@ -107,9 +107,11 @@ function __sgsl {
 
 alias lgf="find . -type f|grep"
 alias lgd="find . -type d|grep"
+alias lgl="find . -type l|grep"
 alias lgb="find . |grep .bak$"
 alias lgfl="find . -maxdepth 1 -type f|grep"
 alias lgdl="find . -maxdepth 1 -type d|grep"
+alias lgll="find . -maxdepth 1 -type l|grep"
 alias lgbl="find . -maxdepth 1 |grep .bak$"
 
 # Do much same as what xargs do? So change to nts.

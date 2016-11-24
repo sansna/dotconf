@@ -226,6 +226,7 @@ alias gush="__gush"
 alias cget="__cget"
 alias cput="__cput"
 alias cog="__cog"
+alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"
 # alias r="aria2c *.meta4"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 

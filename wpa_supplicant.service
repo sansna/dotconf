@@ -1,0 +1,16 @@
+# /usr/lib/systemd/system/wpa_supplicant.service:
+# configuration file of wpa_supplicant service.
+[Unit]
+Description=WPA supplicant
+Before=network.target
+Wants=network.target
+
+[Service]
+Type=dbus
+RemainAfterExit=yes
+BusName=fi.w1.wpa_supplicant1
+ExecStart=/usr/bin/wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+
+[Install]
+WantedBy=multi-user.target
+Alias=dbus-fi.w1.wpa_supplicant1.service

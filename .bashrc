@@ -102,7 +102,7 @@ function __sgs {
 }
 
 function __sgsl {
-    find . -maxdepth 1 -type f|xargs grep $1 -l | sed -i".bak" "s/$1/$2/g"
+    find . -maxdepth 1 -type f|xargs grep $1 -l |xargs sed -i".bak" "s/$1/$2/g"
 }
 
 alias lgf="find . -type f|grep"

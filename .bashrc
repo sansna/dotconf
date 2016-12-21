@@ -105,6 +105,7 @@ function __sgsl {
     find . -maxdepth 1 -type f|xargs grep $1 -l |xargs sed -i".bak" "s/$1/$2/g"
 }
 
+#alias ct="cp -t ~/test/"
 alias lgf="find . -type f|grep"
 alias lgd="find . -type d|grep"
 alias lgl="find . -type l|grep"

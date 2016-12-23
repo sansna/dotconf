@@ -189,6 +189,7 @@ function __cog {
 }
 
 alias ll="ls -al --color=auto"
+alias llh="ll -h"
 alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
 alias lg="ls -Ra|grep"

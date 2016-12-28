@@ -199,6 +199,12 @@ alias sgs="__sgs"
 alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"
 alias gsf="grep . -rlnwe"
+
+function __gtf {
+    gsf ^struct\ "$1"\ \{
+}
+
+alias gtf="__gtf"
 alias rcd="__rcd"
 alias rgf="__rgf"
 alias rgd="__rgd"

@@ -48,9 +48,9 @@ alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 
 function __cd {
-    cd $*;ls;wordcount=`ls -a|wc -w`
-    [ $wordcount -eq 2 ] && echo "No Entries in this Folder."
-    unset wordcount;
+    cd $*;ls;wordcount__=`ls -a|wc -w`
+    [ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
+    unset wordcount__;
 }
 
 function __cu {
@@ -75,7 +75,7 @@ alias cu="__cu"
 # Using function for alias because needs parameter.
 function __w {
     [ "x$*" == "x" ] \
-        && (w3m https://www.google.com; return 0 )\
+        && (w3m https://www.google.com/ncr; return 0 )\
         || (website__=$(sed "s/\ /+/g"<<<$*)\
             && w3m https://www.google.com/search?ie=ISO-8859-1\&hl=en\&source=hp\&biw=\&bih=\&q=${website__}\&btnG=Google+Search\&gbv=1)
     unset website__
@@ -119,6 +119,7 @@ alias lgbl="find . -maxdepth 1 |grep .bak$"
 #alias nt0="awk -vORS='\0' '{print \$0}'"
 alias nts="awk -vORS='\ ' '{print \$0}'"
 
+#Remove current dir
 function __rcd {
     filecount__=`ls -a|wc -w`;
     filecount__=$((filecount__-2))
@@ -184,6 +185,7 @@ function __cput {
     curl -u just:123 -T $1 ftp://10.0.2.33/$1
 }
 
+#expr string modifier
 function __cog {
     gcc -O0 -g $1 -o $(expr substr $1 1 $(expr index $1 .))out
 }
@@ -199,6 +201,17 @@ alias sgs="__sgs"
 alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"
 alias gsf="grep . -rlnwe"
+
+#grep certain extension: Command concat
+function __gesf {
+    ext__="--include=\*.$1"
+    command__="grep -rl ${ext__} $2"
+    eval $command__
+    unset command__
+    unset ext__
+}
+
+alias gesf="__gesf"
 
 function __gtf {
     gsf ^struct\ "$1"\ \{

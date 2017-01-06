@@ -202,11 +202,14 @@ alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"
 alias gsf="grep . -rlnwe"
 
-#grep certain extension: Command concat
+#grep certain extension: Command concat, from 2nd arg to last.
 function __gesf {
     ext__="--include=\*.$1"
-    command__="grep -rl ${ext__} $2"
+    arg__=${@:2}
+    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    command__="grep -rl ${ext__} $arg__"
     eval $command__
+    unset arg__
     unset command__
     unset ext__
 }

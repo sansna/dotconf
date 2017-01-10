@@ -19,8 +19,9 @@ export LC_COLLATE=C
 # export LC_ALL=C
 
 # The Golang paths
-export GOPATH=~/GO
-export PATH=$PATH:$GOPATH/bin
+[ -n "$GOPATH" ] &&\
+    export GOPATH=~/GO\
+    export PATH=$PATH:$GOPATH/bin
 
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color

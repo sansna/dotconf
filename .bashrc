@@ -191,6 +191,12 @@ function __cog {
     gcc -O0 -g $1 -o $(expr substr $1 1 $(expr index $1 .))out
 }
 
+function __kd {
+    while [ $? -ne 0 ]; do
+        eval "$*"
+    done
+}
+
 alias ll="ls -al --color=auto"
 alias llh="ll -h"
 alias l.="ls -d .* --color=auto"
@@ -254,6 +260,7 @@ alias gush="__gush"
 alias cget="__cget"
 alias cput="__cput"
 alias cog="__cog"
+alias kd="__kd"
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
 alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"
 #alias pacman="sudo pacman"

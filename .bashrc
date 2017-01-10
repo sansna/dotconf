@@ -19,7 +19,7 @@ export LC_COLLATE=C
 # export LC_ALL=C
 
 # The Golang paths
-[ -n "$GOPATH" ] &&\
+[ "x$GOPATH" == "x" ] &&\
     export GOPATH=~/GO\
     export PATH=$PATH:$GOPATH/bin
 

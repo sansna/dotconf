@@ -192,9 +192,10 @@ function __cog {
 }
 
 function __kd {
-    while [ $? -ne 0 ]; do
+    while true ; do
         date
         eval "$*"
+        [ $? -ne 0 ] && break
     done
 }
 

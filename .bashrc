@@ -195,7 +195,7 @@ function __kd {
     while true ; do
         date
         eval "$*"
-        [ $? -ne 0 ] && break
+        [ $? -eq 0 ] && break
     done
 }
 

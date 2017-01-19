@@ -49,9 +49,11 @@ alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 
 function __cd {
-    cd $*;ls;wordcount__=`ls -a|wc -w`
+    tmpdir__=$*
+    cd "${tmpdir__}";ls;wordcount__=`ls -a|wc -w`
     [ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
     unset wordcount__;
+    unset tmpdir__
 }
 
 function __cu {

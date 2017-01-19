@@ -50,7 +50,10 @@ alias grep="grep --color=auto"
 
 function __cd {
     tmpdir__=$*
-    cd "${tmpdir__}";ls;wordcount__=`ls -a|wc -w`
+    [ "x$tmpdir__" == "x" ]\
+        && cd\
+        || cd "${tmpdir__}"
+    ls;wordcount__=`ls -a|wc -w`
     [ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
     unset wordcount__;
     unset tmpdir__

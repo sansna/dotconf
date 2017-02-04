@@ -9,7 +9,7 @@
     },
     "_comment": {
         "file":"/etc/shadowsocks.json",
-        "command":"ssserver -c /etc/shadowsocks.json -d start"
+        "command":"ssserver -c /etc/shadowsocks.json -d start",
         "Youknow":"ThatThisIsAComment",
         "port_password":"above is used for multi-user",
         "1080":"default",

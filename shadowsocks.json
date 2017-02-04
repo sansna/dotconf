@@ -1,0 +1,18 @@
+{
+    "server":"0.0.0.0",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open":false,
+    "port_password": {
+        "1080":"blah-blah-blah-password",
+        "1081":"halb-halb-another-password"
+    },
+    "_comment": {
+        "file":"/etc/shadowsocks.json",
+        "command":"ssserver -c /etc/shadowsocks.json -d start"
+        "Youknow":"ThatThisIsAComment",
+        "port_password":"above is used for multi-user",
+        "1080":"default",
+        "1081":"incase"
+    }
+}

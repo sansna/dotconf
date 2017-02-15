@@ -204,6 +204,14 @@ function __kd {
     done
 }
 
+function __updatesystem {
+    arc__=`cat /etc/os-release |grep ^NAME|awk -vRS='=\"' '{print $1}'|grep -v NAME`
+    [ "x" == "x$arc__" ] && echo "No OS detected.\n"&& return 1
+    [ "CentOS" == "$arc__" ]&&sudo yum update &&sudo yum upgrade
+    [ "Arch" == "$arc__" ]&&sudo pacman -Syu
+    [ "Raspbian" == "$arc__" ]||[ "Ubuntu" == "$arc__" ]||[ "Debian" == "$arc__" ]&&sudo apt-get update && sudo apt-get upgrade
+}
+
 alias ll="ls -al --color=auto"
 alias llh="ll -h"
 alias l.="ls -d .* --color=auto"
@@ -270,6 +278,7 @@ alias cog="__cog"
 alias kd="__kd"
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
 alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"
+alias us="__updatesystem"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"

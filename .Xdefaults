@@ -4,3 +4,5 @@ Rxvt.scrollBar:no
 #Rxvt.backgroundPixmap:/root/Desktop/hinata1.jpg
 #Rxvt.blurRadius:1x41
 URxvt.font:xft:Droid Sans Mono:style=Regular:pixelsize=15
+URxvt.iso14755:false
+URxvt.iso14755_52:false

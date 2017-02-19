@@ -104,11 +104,11 @@ function __i {
 }
 
 function __sgs {
-    grep $1 -rl . | xargs sed -i".bak" "s/$1/$2/g"
+    grep $1 -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
 
 function __sgsl {
-    find . -maxdepth 1 -type f|xargs grep $1 -l |xargs sed -i".bak" "s/$1/$2/g"
+    find . -maxdepth 1 -type f|xargs -d '\n' grep $1 -l |xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
 
 #alias ct="cp -t ~/test/"
@@ -217,8 +217,8 @@ alias llh="ll -h"
 alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
 alias lg="ls -Ra|grep"
-alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs grep --color=auto"
-alias lgsl="find . -maxdepth 1 -type f -print0|xargs -0 grep --color=auto"
+alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
+alias lgsl="find . -maxdepth 1 -type f |xargs -d '\n' grep --color=auto"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"

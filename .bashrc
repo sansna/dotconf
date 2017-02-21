@@ -279,7 +279,7 @@ alias kd="__kd"
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
 alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"
 alias us="__updatesystem"
-alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ $*"
+alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"

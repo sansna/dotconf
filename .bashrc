@@ -180,7 +180,7 @@ function __gt {
 }
 
 function __gush {
-    git add -A; git commit -m "$*"; git push origin master;
+    git add -A; git commit -m "${@:2}"; git push origin $1;
 }
 
 function __cget {
@@ -271,6 +271,7 @@ alias i="__i"
 alias v="vim -R"
 alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com;git config --global color.ui auto"
 alias gt="__gt"
+alias gs="git status"
 alias gush="__gush"
 alias cget="__cget"
 alias cput="__cput"

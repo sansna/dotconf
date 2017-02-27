@@ -1,5 +1,5 @@
 # ~/.gitconfig: git common config for myself
-#
+# difftool usage: git dt branch1..branch2 file
 
 [user]
 	name = sansna
@@ -8,3 +8,6 @@
 	ui = auto
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    dt = difftool
+[diff]
+    tool = vimdiff

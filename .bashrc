@@ -248,6 +248,13 @@ function __gtf {
     gsf ^struct\ "$1"\ \{
 }
 
+function __git_create {
+    mkdir -p ~/GitRepo/Trii
+    [ -d "/Trii/$1" ] && echo "Repo exists." && return 1\
+                      ||( git init --bare ~/GitRepo/Trii/$1\
+                          && chown -R git ~/GitRepo/Trii/$1)
+}
+
 alias gtf="__gtf"
 alias rcd="__rcd"
 alias rgf="__rgf"
@@ -292,6 +299,7 @@ alias us="__updatesystem"
 alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
+alias git-create="__git_create"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 
 # Disable ctrl+s functionality.

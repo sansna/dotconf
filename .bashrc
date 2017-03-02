@@ -185,7 +185,7 @@ function __gt {
 
 function __gush {
     commitinfo__=${@:2}
-    git add -A; git commit -m $commitinfo__; git push origin $1;
+    git add -A; git commit -m "$commitinfo__"; git push origin $1;
     unset commitinfo__
 }
 

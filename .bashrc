@@ -23,6 +23,10 @@ export LC_COLLATE=C
     export GOPATH=~/GO\
     export PATH=$PATH:$GOPATH/bin
 
+# In case bash-completion not load itself:
+#[ "x$bashcomplete__" == "x1" ] || source /usr/share/bash-completion/bash_completion
+#export bashcomplete__=1
+
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
 
@@ -180,7 +184,9 @@ function __gt {
 }
 
 function __gush {
-    git add -A; git commit -m "${@:2}"; git push origin $1;
+    commitinfo__=${@:2}
+    git add -A; git commit -m $commitinfo__; git push origin $1;
+    unset commitinfo__
 }
 
 function __cget {
@@ -251,6 +257,7 @@ alias rgfl="__rgfl"
 alias rgdl="__rgdl"
 alias rgbl="__rgbl"
 alias gr="cd ~/GitRepo"
+alias grT="cd ~/GitRepo/Trii"
 # The first two is used in archlinux's chromium, the second is used in raspbian
 #+ in archlinux, the chromium's flash should is chromium-pepper-flash.
 # alias c="chromium"

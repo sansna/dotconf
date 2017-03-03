@@ -23,6 +23,10 @@ export LC_COLLATE=C
     export GOPATH=~/GO\
     export PATH=$PATH:$GOPATH/bin
 
+# In case bash-completion not load itself:
+#[ "x$bashcomplete__" == "x1" ] || source /usr/share/bash-completion/bash_completion
+#export bashcomplete__=1
+
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
 
@@ -180,7 +184,9 @@ function __gt {
 }
 
 function __gush {
-    git add -A; git commit -m "$*"; git push origin master;
+    commitinfo__=${@:2}
+    git add -A; git commit -m "$commitinfo__"; git push origin $1;
+    unset commitinfo__
 }
 
 function __cget {
@@ -242,6 +248,13 @@ function __gtf {
     gsf ^struct\ "$1"\ \{
 }
 
+function __git_create {
+    mkdir -p ~/GitRepo/Trii
+    [ -d "/Trii/$1" ] && echo "Repo exists." && return 1\
+                      ||( git init --bare ~/GitRepo/Trii/$1\
+                          && chown -R git ~/GitRepo/Trii/$1)
+}
+
 alias gtf="__gtf"
 alias rcd="__rcd"
 alias rgf="__rgf"
@@ -251,6 +264,7 @@ alias rgfl="__rgfl"
 alias rgdl="__rgdl"
 alias rgbl="__rgbl"
 alias gr="cd ~/GitRepo"
+alias grT="cd ~/GitRepo/Trii"
 # The first two is used in archlinux's chromium, the second is used in raspbian
 #+ in archlinux, the chromium's flash should is chromium-pepper-flash.
 # alias c="chromium"
@@ -271,6 +285,9 @@ alias i="__i"
 alias v="vim -R"
 alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com;git config --global color.ui auto"
 alias gt="__gt"
+alias gs="git status"
+alias gc="git checkout"
+alias gd="git difftool"
 alias gush="__gush"
 alias cget="__cget"
 alias cput="__cput"
@@ -282,6 +299,7 @@ alias us="__updatesystem"
 alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
+alias git-create="__git_create"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 
 # Disable ctrl+s functionality.

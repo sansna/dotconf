@@ -30,6 +30,10 @@ export LC_COLLATE=C
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
 
+# Before using alias, one thing should know is that:
+# aliases just replaces defined chars.. It has no idea of params..
+# So if need to pass params in bash.. Use alias to define functions,
+# instead, please.
 unalias -a
 
 # base-16 color scheme, see chriskempson/base16-shell

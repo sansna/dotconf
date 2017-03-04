@@ -218,6 +218,12 @@ function __updatesystem {
     [ "Raspbian" == "$arc__" ]||[ "Ubuntu" == "$arc__" ]||[ "Debian" == "$arc__" ]&&sudo apt-get update && sudo apt-get upgrade
 }
 
+#function __startsshd {
+#    sudo mkdir -p /var/run/sshd
+#    sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+#    sudo /usr/sbin/sshd
+#}
+
 alias ll="ls -al --color=auto"
 alias llh="ll -h"
 alias l.="ls -d .* --color=auto"
@@ -297,6 +303,7 @@ alias kd="__kd"
 alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"
 alias us="__updatesystem"
 alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
+#alias startsshd="__startsshd"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
 alias git-create="__git_create"

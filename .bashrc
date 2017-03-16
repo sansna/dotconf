@@ -325,6 +325,10 @@ stty -ixon ixany
 #[ $TERM == "linux" ]||xmodmap -e "add Lock = Caps_Lock"
 #[ $TERM == "linux" ]||xmodmap -e "add Control = Control_L"
 
+# Chromebook mapkey Ctrl_L to win/super.
+#[ $TERM == "linux" ]||xmodmap -e "keycode 66 = Super_L"
+#[ $TERM == "linux" ]||xmodmap -e "add mod4 = Super_L"
+
 # Uncomment the following in arch to enable ibus input method,
 #+ first to install ibus as ibus/ibus-libpinyin.
 #export GTK_IM_MODULE=ibus
@@ -351,5 +355,4 @@ stty -ixon ixany
 #            cat /var/log/dpkg.log
 #            ;;
 #    esac
-#
 #}

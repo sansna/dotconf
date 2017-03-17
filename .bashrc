@@ -10,6 +10,10 @@
 # PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 # umask 022
 
+# The following is used in Gentoo to specify default editor. Otherwise
+#+ would be nano.
+# EDITOR='/usr/share/vim'
+
 # The following distinguishes filename globbing between lowercase and
 #+ uppercase letters in a character range between brackets.
 export LC_COLLATE=C
@@ -325,9 +329,9 @@ stty -ixon ixany
 #[ $TERM == "linux" ]||xmodmap -e "add Lock = Caps_Lock"
 #[ $TERM == "linux" ]||xmodmap -e "add Control = Control_L"
 
-# Chromebook mapkey Ctrl_L to win/super.
+# Chromebook mapkey Ctrl_L to win/super. Here we assign key which is
+#+ 66 to function as Super_L[pre-defined value].
 #[ $TERM == "linux" ]||xmodmap -e "keycode 66 = Super_L"
-#[ $TERM == "linux" ]||xmodmap -e "add mod4 = Super_L"
 
 # Uncomment the following in arch to enable ibus input method,
 #+ first to install ibus as ibus/ibus-libpinyin.

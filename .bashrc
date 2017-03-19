@@ -219,7 +219,7 @@ function __kd {
 }
 
 function __updatesystem {
-    arc__=`cat /etc/os-release |grep ^NAME|awk -vRS='=\"' '{print $1}'|grep -v NAME`
+    arc__=`cat /etc/os-release |grep ^NAME|awk -vRS='\"' '{print $1}'|grep -v NAME`
     [ "x" == "x$arc__" ] && echo "No OS detected.\n"&& return 1
     [ "CentOS" == "$arc__" ]&&sudo yum update &&sudo yum upgrade
     [ "Arch" == "$arc__" ]&&sudo pacman -Syu
@@ -262,7 +262,7 @@ function __gtf {
     gsf ^struct\ "$1"\ \{
 }
 
-function __git_create {
+function __git_createserver {
     mkdir -p ~/GitRepo/Trii
     [ -d "/Trii/$1" ] && echo "Repo exists." && return 1\
                       ||( git init --bare ~/GitRepo/Trii/$1\
@@ -314,7 +314,7 @@ alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/
 #alias startsshd="__startsshd"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
-alias git-create="__git_create"
+alias git-cs="__git_createserver"
 # alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 
 # Disable ctrl+s functionality.

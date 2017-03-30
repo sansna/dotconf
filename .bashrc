@@ -223,7 +223,7 @@ function __updatesystem {
     [ "x" == "x$arc__" ] && echo "No OS detected.\n"&& return 1
     [ "CentOS" == "$arc__" ]&&sudo yum update &&sudo yum upgrade
     [ "Arch" == "$arc__" ]&&sudo pacman -Syu
-    [ "Raspbian" == "$arc__" ]||[ "Ubuntu" == "$arc__" ]||[ "Debian" == "$arc__" ]&&sudo apt-get update && sudo apt-get upgrade
+    [ "Raspbian" == "$arc__" ]||[ "Ubuntu" == "$arc__" ]||[ "Debian" == "$arc__" ]&&sudo apt-get update && sudo apt-get -y upgrade
 }
 
 #function __startsshd {
@@ -232,13 +232,17 @@ function __updatesystem {
 #    sudo /usr/sbin/sshd
 #}
 
+#function __scpp {
+#    scp $1 pi@host:/home/pi/
+#}
+
 alias ll="ls -al --color=auto"
 alias llh="ll -h"
 alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
 alias lg="ls -Ra|grep"
 alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
-alias lgsl="find . -maxdepth 1 -type f |xargs -d '\n' grep --color=auto"
+alias lgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' grep --color=auto"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"
@@ -312,6 +316,10 @@ alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"
 alias us="__updatesystem"
 alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 #alias startsshd="__startsshd"
+#alias sp="ssh -C user@host -pport"
+#alias scpp="__scpp"
+#alias rp="rdesktop -z -u user -p passwd host:port -f -r sound:local -r clipboard:PRIMARYCLIPBOARD"
+#alias sxp="ssh -X -C user@host -pport"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
 alias git-cs="__git_createserver"

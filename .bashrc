@@ -218,11 +218,14 @@ function __kd {
     done
 }
 
+# auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
+#+ always update on comfirmation.. Although can also be automated by adding --no-comfirm..
 function __updatesystem {
-    arc__=`cat /etc/os-release |grep ^NAME|awk -vRS='\"' '{print $1}'|grep -v NAME`
+    arc__=`cat /etc/os-release |grep ^NAME|awk -vRS='\"' '{print $1}'|awk -vRS='=' '{print $1}'|grep -v NAME`
     [ "x" == "x$arc__" ] && echo "No OS detected.\n"&& return 1
-    [ "CentOS" == "$arc__" ]&&sudo yum update &&sudo yum upgrade
+    [ "CentOS" == "$arc__" ]||[ "Red" == "$arc__" ]||[ "Fedora" == "$arc__" ]&&sudo yum update &&sudo yum upgrade -y
     [ "Arch" == "$arc__" ]&&sudo pacman -Syu
+    [ "Gentoo" == "$arc__" ]&&emerge --sync
     [ "Raspbian" == "$arc__" ]||[ "Ubuntu" == "$arc__" ]||[ "Debian" == "$arc__" ]&&sudo apt-get update && sudo apt-get -y upgrade
 }
 

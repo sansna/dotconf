@@ -1,0 +1,9 @@
+# All files should be ignored.
+*
+# but .c/.h/.cxx/.cpp/.cc/.py.
+!*.c
+!*.h
+!*.cxx
+!*.cpp
+!*.cc
+!*.py

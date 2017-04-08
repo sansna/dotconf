@@ -304,6 +304,7 @@ alias wk="__wk"
 alias we="__we"
 alias i="__i"
 alias v="vim -R"
+#alias x="omxplayer"
 alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com;git config --global color.ui auto"
 alias gt="__gt"
 alias gs="git status"
@@ -319,14 +320,18 @@ alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"
 alias us="__updatesystem"
 alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 #alias startsshd="__startsshd"
+
+# Some templates of ssh/rdesktop.
 #alias sp="ssh -C user@host -pport"
 #alias scpp="__scpp"
-#alias rp="rdesktop -z -u user -p passwd host:port -f -r sound:local -r clipboard:PRIMARYCLIPBOARD"
+#alias rp="rdesktop -P -b -z -a 8 -x lan -u user -p passwd host:port -f -r sound:local -r clipboard:PRIMARYCLIPBOARD"
 #alias sxp="ssh -X -C user@host -pport"
+
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
 alias git-cs="__git_createserver"
-# alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
+#alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
+#alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"
 
 # Disable ctrl+s functionality.
 stty -ixon ixany
@@ -340,9 +345,11 @@ stty -ixon ixany
 #[ $TERM == "linux" ]||xmodmap -e "add Lock = Caps_Lock"
 #[ $TERM == "linux" ]||xmodmap -e "add Control = Control_L"
 
-# Chromebook mapkey Ctrl_L to win/super. Here we assign key which is
-#+ 66 to function as Super_L[pre-defined value].
+# Chromebook mapkey Ctrl_L to win/super.
+#[ $TERM == "linux" ]||xmodmap -e "remove Lock = Caps_Lock"
+#[ $TERM == "linux" ]||xmodmap -e "keysym Caps_Lock = Super_L"
 #[ $TERM == "linux" ]||xmodmap -e "keycode 66 = Super_L"
+#[ $TERM == "linux" ]||xmodmap -e "add mod4 = Super_L"
 
 # Uncomment the following in arch to enable ibus input method,
 #+ first to install ibus as ibus/ibus-libpinyin.

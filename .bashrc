@@ -279,6 +279,7 @@ function __git_createserver {
 }
 
 function __getasn {
+    whois -h whois.cymru.com -v $1
     whois -h whois.cymru.com " -v `dig +short $1`"
     # The following is an example of using xargs to pass complicated args.
     #dig +short $1|xargs -I{} -d "\n" whois -h whois.cymru.com -v {}

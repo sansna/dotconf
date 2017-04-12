@@ -278,6 +278,10 @@ function __git_createserver {
                           && chown -R git ~/GitRepo/Trii/$1)
 }
 
+function __getasn {
+    whois -h whois.cymru.com " -v `dig +short $1`"
+}
+
 alias gtf="__gtf"
 alias rcd="__rcd"
 alias rgf="__rgf"
@@ -329,6 +333,7 @@ alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/
 #alias rp="rdesktop -P -b -z -a 8 -x lan -u user -p passwd host:port -f -r sound:local -r clipboard:PRIMARYCLIPBOARD"
 #alias sxp="ssh -X -C user@host -pport"
 
+alias getasn="__getasn"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
 alias git-cs="__git_createserver"

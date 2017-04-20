@@ -278,6 +278,13 @@ function __git_createserver {
                           && chown -R git ~/GitRepo/Trii/$1)
 }
 
+function __getasn {
+    whois -h whois.cymru.com -v $1
+    whois -h whois.cymru.com " -v `dig +short $1`"
+    # The following is an example of using xargs to pass complicated args.
+    #dig +short $1|xargs -I{} -d "\n" whois -h whois.cymru.com -v {}
+}
+
 alias gtf="__gtf"
 alias rcd="__rcd"
 alias rgf="__rgf"
@@ -331,6 +338,7 @@ alias lsn="find . ! -name "*.*"|xargs -n1 basename|sort -u"
 #alias rp="rdesktop -P -b -z -a 8 -x lan -u user -p passwd host:port -f -r sound:local -r clipboard:PRIMARYCLIPBOARD"
 #alias sxp="ssh -X -C user@host -pport"
 
+alias getasn="__getasn"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
 alias git-cs="__git_createserver"

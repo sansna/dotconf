@@ -321,6 +321,8 @@ alias kd="__kd"
 alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"
 alias us="__updatesystem"
 alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
+alias lse="find . | perl -ne 'print $1 if m/\.([^.\/]+)$/' | sort -u"
+alias lsn="find . ! -name "*.*"|xargs -n1 basename|sort -u"
 #alias startsshd="__startsshd"
 
 # Some templates of ssh/rdesktop.

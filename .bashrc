@@ -330,7 +330,14 @@ alias us="__updatesystem"
 alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 alias lse="find . -type f |grep -v \.git\/|perl -ne 'print \$1 if m/\.([^.\/]+)$/' | sort -u"
 alias lsn="find . -type f ! -name '*.*'|grep -v \.git\/|xargs -n1 basename|sort -u"
-alias ggi="mv .gitignore .gitignore.bak;echo '# [File Extensions]' >> \.gitignore;lse|sed -e 's/^/!*\./g' >> \.gitignore;echo '# [Normal Files]' >> \.gitignore; lsn |sed -e 's/^/!/g' >> \.gitignore"
+alias ggi="\
+    mv .gitignore .gitignore.bak;\
+    echo '# [Exclude All Files]' >> \.gitignore;\
+    echo '/*' >> \.gitignore;\
+    echo '# [File Extensions]' >> \.gitignore;\
+    lse|sed -e 's/^/!*\./g' >> \.gitignore;\
+    echo '# [Normal Files]' >> \.gitignore;\
+    lsn |sed -e 's/^/!/g' >> \.gitignore"
 #alias startsshd="__startsshd"
 
 # Some templates of ssh/rdesktop.

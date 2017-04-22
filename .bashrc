@@ -187,8 +187,8 @@ function __rgdl {
 function __gt {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
-        && (git clone https://github.com/$1 ~/GitRepo/$1;return 0)\
-        || (git clone https://github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
+        && (git clone ssh://git@github.com/$1 ~/GitRepo/$1;return 0)\
+        || (git clone ssh://git@github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
 }
 
 function __gush {

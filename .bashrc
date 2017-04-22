@@ -335,9 +335,9 @@ alias ggi="\
     echo '# [Exclude All Files]' >> \.gitignore;\
     echo '/*' >> \.gitignore;\
     echo '# [File Extensions]' >> \.gitignore;\
-    lse|sed -e 's/^/!*\./g' >> \.gitignore;\
+    lse | sed -e 's/^/!*\./g' >> \.gitignore;\
     echo '# [Normal Files]' >> \.gitignore;\
-    lsn |sed -e 's/^/!/g' >> \.gitignore"
+    lsn | sed -e 's/^/!/g' >> \.gitignore"
 #alias startsshd="__startsshd"
 
 # Some templates of ssh/rdesktop.

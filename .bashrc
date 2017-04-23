@@ -187,6 +187,13 @@ function __rgdl {
 function __gt {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
+        && (git clone https://github.com/$1 ~/GitRepo/$1;return 0)\
+        || (git clone https://github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
+}
+
+function __gts {
+    mkdir -p ~/GitRepo
+    [[ $1 == *"/"* ]]\
         && (git clone ssh://git@github.com/$1 ~/GitRepo/$1;return 0)\
         || (git clone ssh://git@github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
 }
@@ -316,6 +323,7 @@ alias v="vim -R"
 #alias x="omxplayer"
 alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com;git config --global color.ui auto"
 alias gt="__gt"
+alias gts="__gts"
 alias gs="git status"
 alias gc="git checkout"
 alias gd="git difftool"

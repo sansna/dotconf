@@ -248,6 +248,7 @@ function __updatesystem {
 
 alias ll="ls -al --color=auto"
 alias llh="ll -h"
+alias llhd="llh -d"
 alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
 alias lg="ls -Ra|grep"
@@ -265,7 +266,18 @@ function __gesf {
     ext__="--include=\*.$1"
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="grep -rl ${ext__} $arg__"
+    command__="grep ${ext__} -rl $arg__"
+    eval $command__
+    unset arg__
+    unset command__
+    unset ext__
+}
+
+function __gefs {
+    ext__="--include=\*.$1"
+    arg__=${@:2}
+    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    command__="grep ${ext__} -rnwe $arg__"
     eval $command__
     unset arg__
     unset command__
@@ -273,6 +285,7 @@ function __gesf {
 }
 
 alias gesf="__gesf"
+alias gefs="__gefs"
 
 function __gtf {
     gsf ^struct\ "$1"\ \{

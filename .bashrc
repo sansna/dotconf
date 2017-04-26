@@ -168,6 +168,10 @@ function __rgd {
     lgd $1|xargs -d "\n" rm -frd
 }
 
+function __rgl {
+    lgl $1|xargs -d "\n" rm -frd
+}
+
 function __rgb {
     lgb|xargs -d "\n" rm -frd
 }
@@ -309,6 +313,7 @@ alias gtf="__gtf"
 alias rcd="__rcd"
 alias rgf="__rgf"
 alias rgd="__rgd"
+alias rgl="__rgl"
 alias rgb="__rgb"
 alias rgfl="__rgfl"
 alias rgdl="__rgdl"

@@ -359,9 +359,9 @@ alias lsn="find . -type f ! -name '*.*'|grep -v \.git\/|xargs -n1 basename|sort 
 alias ggi="\
     mv .gitignore .gitignore.bak;\
     echo '# [Exclude All Files]' >> \.gitignore;\
-    echo '/**' >> \.gitignore;\
+    echo '/**/*' >> \.gitignore;\
     echo '# [File Extensions]' >> \.gitignore;\
-    lse | sed -e 's/^/!\/**\/\./g' >> \.gitignore;\
+    lse | sed -e 's/^/!\/**\/*\./g' >> \.gitignore;\
     echo '# [Normal Files]' >> \.gitignore;\
     lsn | sed -e 's/^/!\/**\//g' >> \.gitignore"
 #alias startsshd="__startsshd"

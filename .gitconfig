@@ -1,6 +1,7 @@
 # ~/.gitconfig: git common config for myself
 # difftool usage: git dt branch1..branch2 file
 
+# Common git
 [user]
 	name = sansna
 	email = 1185280650@qq.com
@@ -13,3 +14,11 @@
     tool = vimdiff
 [push]
     default = simple
+
+# Following are gpg related
+[gpg]
+    program = gpg2
+[commit]
+    gpgsign = true
+#[user]
+#    signingkey = DED06923

@@ -6,14 +6,15 @@
 # PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
 # CentOS prompt:
 #ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
-#PS1="[\u@\h:$ttyid__ \W]\$ "
+#PS1="[\u@\h#$ttyid__ \W]\$ "
+#unset ttyid__
 # The following is used when -x is set in debugging the bash scripts.
 # PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 # umask 022
 export GPG_TTY=$(tty)
 
 # After executing each bach command, the following content will be executed.
-PROMPT_COMMAND="date"
+#PROMPT_COMMAND="date"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.

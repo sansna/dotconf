@@ -5,10 +5,15 @@
 # Debian prompt:
 # PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
 # CentOS prompt:
-# PS1="[\u@\h \W]# "
+#ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
+#PS1="[\u@\h:$ttyid__ \W]\$ "
 # The following is used when -x is set in debugging the bash scripts.
 # PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 # umask 022
+export GPG_TTY=$(tty)
+
+# After executing each bach command, the following content will be executed.
+PROMPT_COMMAND="date"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
@@ -204,7 +209,7 @@ function __gts {
 
 function __gush {
     commitinfo__=${@:2}
-    git add -A; git commit -m "$commitinfo__"; git push origin $1;
+    git add -A; git commit -S -m "$commitinfo__"; git push origin $1;
     unset commitinfo__
 }
 
@@ -257,9 +262,9 @@ alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
 alias lg="ls -Ra|grep"
 alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
-alias lgls="find . -type l |xargs -d '\n' grep --color=auto"
+alias lgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
 alias lgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' grep --color=auto"
-alias lglsl="find . -maxdepth 1 -type l |xargs -d '\n' grep --color=auto"
+alias lglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"

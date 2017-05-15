@@ -2,15 +2,15 @@
 
 # Note: PS1 and umask are already set in /etc/profile. You should not
 # need this unless you want different defaults for root.
-# Debian prompt:
-# PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
-# CentOS prompt:
 #ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
+# Debian prompt:
+#PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\$ '
+# CentOS prompt:
 #PS1="[\u@\h#$ttyid__ \W]\$ "
 #unset ttyid__
 # The following is used when -x is set in debugging the bash scripts.
-# PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-# umask 022
+#PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+#umask 022
 export GPG_TTY=$(tty)
 
 # After executing each bach command, the following content will be executed.
@@ -18,7 +18,7 @@ export GPG_TTY=$(tty)
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
-# EDITOR='/usr/share/vim'
+#EDITOR='/usr/share/vim'
 
 # The following distinguishes filename globbing between lowercase and
 #+ uppercase letters in a character range between brackets.
@@ -26,7 +26,7 @@ export LC_COLLATE=C
 
 # The following prevent python from warning ascii codec can't decode 
 #+ unicode.
-# export LC_ALL=C
+#export LC_ALL=C
 
 # The Golang paths
 [ "x$GOPATH" == "x" ] &&\
@@ -54,14 +54,14 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 # You may uncomment the following lines if you want `ls' to be colorized:
 # export LS_OPTIONS='--color=auto'
 # eval "`dircolors`"
-# alias ls='ls $LS_OPTIONS'
-# alias ll='ls $LS_OPTIONS -l'
-# alias l='ls $LS_OPTIONS -lA'
+#alias ls='ls $LS_OPTIONS'
+#alias ll='ls $LS_OPTIONS -l'
+#alias l='ls $LS_OPTIONS -lA'
 #
 # Some more alias to avoid making mistakes:
-# alias rm='rm -i'
-# alias cp='cp -i'
-# alias mv='mv -i'
+#alias rm='rm -i'
+#alias cp='cp -i'
+#alias mv='mv -i'
 
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
@@ -328,12 +328,12 @@ alias gr="cd ~/GitRepo"
 alias grT="cd ~/GitRepo/Trii"
 # The first two is used in archlinux's chromium, the second is used in raspbian
 #+ in archlinux, the chromium's flash should is chromium-pepper-flash.
-# alias c="chromium"
-# alias chromium="chromium --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version=12.0.0.77 -password-store=detect -user-data-dir"
-# alias c="chromium-browser"
-# alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
-# alias e="xdg-open ."
-# alias m="cd /usr/mf/"
+#alias c="chromium"
+#alias chromium="chromium --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version=12.0.0.77 -password-store=detect -user-data-dir"
+#alias c="chromium-browser"
+#alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
+#alias e="xdg-open ."
+#alias m="cd /usr/mf/"
 alias w="__w"
 alias how="w how to"
 alias what="w what is"
@@ -380,7 +380,7 @@ alias ggi="\
 
 alias getasn="__getasn"
 #alias pacman="sudo pacman"
-# alias r="aria2c *.meta4"
+#alias r="aria2c *.meta4"
 alias git-cs="__git_createserver"
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 #alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"

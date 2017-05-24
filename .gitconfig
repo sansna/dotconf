@@ -1,5 +1,6 @@
 # ~/.gitconfig: git common config for myself
-# difftool usage: git dt branch1..branch2 file
+# difftool usage: git difftool branch1..branch2 file
+# git difftree usage: git dt -r commit-reg
 
 # Common git
 [user]

@@ -350,12 +350,8 @@ alias we="__we"
 alias i="__i"
 alias v="vim -R"
 #alias x="omxplayer"
-alias gcfg="git config --global user.name sansna; git config --global user.email 1185280650@qq.com;git config --global color.ui auto"
 alias gt="__gt"
 alias gts="__gts"
-alias gs="git status"
-alias gc="git checkout"
-alias gd="git difftool"
 alias gush="__gush"
 alias cget="__cget"
 alias cput="__cput"
@@ -385,14 +381,9 @@ alias ggi="\
 
 alias getasn="__getasn"
 #alias pacman="sudo pacman"
-<<<<<<< HEAD
-# alias r="aria2c *.meta4"
+#alias r="aria2c *.meta4"
 alias gcT="__gcT"
 alias gch="__gch"
-=======
-#alias r="aria2c *.meta4"
-alias git-cs="__git_createserver"
->>>>>>> 2f8123bfbe4ec47be89615a405fb962e20779a35
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 #alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"
 

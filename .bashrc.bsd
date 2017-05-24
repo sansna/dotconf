@@ -1,5 +1,11 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
+# BSD system network initialization:
+#hostname -s uhoh
+#ifconfig wm0 10.0.2.28/24
+#route add default 10.0.2.1
+# BSD system process start:
+#/etc/rc.d/sshd onerestart
 # Note: PS1 and umask are already set in /etc/profile. You should not
 # need this unless you want different defaults for root.
 ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
@@ -154,6 +160,7 @@ function __lgll {
 }
 
 #alias ct="cp -t ~/test/"
+alias c="cd /usr/pkgsrc"
 alias lgf="__lgf"
 alias lgd="__lgd"
 alias lgl="__lgl"

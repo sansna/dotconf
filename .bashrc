@@ -301,11 +301,16 @@ function __gtf {
     gsf ^struct\ "$1"\ \{
 }
 
-function __git_createserver {
+function __gcT {
     mkdir -p ~/GitRepo/Trii
     [ -d "/Trii/$1" ] && echo "Repo exists." && return 1\
                       ||( git init --bare ~/GitRepo/Trii/$1\
                           && chown -R git ~/GitRepo/Trii/$1)
+}
+
+function __gch {
+    [ "x" == "x$1" ] && echo "Repo name required." && return 1\
+        || curl -u 'sansna' https://api.github.com/user/repos -d "{\"name\":\"$1\"}"
 }
 
 function __getasn {
@@ -381,7 +386,8 @@ alias ggi="\
 alias getasn="__getasn"
 #alias pacman="sudo pacman"
 # alias r="aria2c *.meta4"
-alias git-cs="__git_createserver"
+alias gcT="__gcT"
+alias gch="__gch"
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 #alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"
 

@@ -1,12 +1,18 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
+# BSD system network initialization:
+#hostname -s uhoh
+#ifconfig wm0 10.0.2.28/24
+#route add default 10.0.2.1
+# BSD system process start:
+#/etc/rc.d/sshd onerestart
 # Note: PS1 and umask are already set in /etc/profile. You should not
 # need this unless you want different defaults for root.
-#ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
+ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
 # Debian prompt:
 #PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\$ '
 # CentOS prompt:
-#PS1="[\u@\h#$ttyid__ \W]\$ "
+PS1="[\u@\h#$ttyid__ \W]\$ "
 #unset ttyid__
 # The following is used when -x is set in debugging the bash scripts.
 #PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
@@ -63,7 +69,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 #alias cp='cp -i'
 #alias mv='mv -i'
 
-alias ls="ls --color=auto"
+alias ls="colorls -G"
 alias grep="grep --color=auto"
 
 function __cd {
@@ -122,22 +128,47 @@ function __i {
 }
 
 function __sgs {
-    grep $1 -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
+    grep $1 -rl . | xargs sed -i".bak" "s/$1/$2/g"
 }
 
 function __sgsl {
-    find . -maxdepth 1 -type f|xargs -d '\n' grep $1 -l |xargs -d '\n' sed -i".bak" "s/$1/$2/g"
+    find . -maxdepth 1 -type f|xargs grep $1 -l |xargs sed -i".bak" "s/$1/$2/g"
+}
+
+function __lgf {
+    find . -type f|grep -E "$*"
+}
+
+function __lgd {
+    find . -type d|grep -E "$*"
+}
+
+function __lgl {
+    find . -type l|grep -E "$*"
+}
+
+function __lgfl {
+    find . -maxdepth 1 -type f|grep -E "$*"
+}
+
+function __lgdl {
+    find . -maxdepth 1 -type d|grep -E "$*"
+}
+
+function __lgll {
+    find . -maxdepth 1 -type l|grep -E "$*"
 }
 
 #alias ct="cp -t ~/test/"
-alias lgf="find . -type f|grep"
-alias lgd="find . -type d|grep"
-alias lgl="find . -type l|grep"
-alias lgb="find . |grep .bak$"
-alias lgfl="find . -maxdepth 1 -type f|grep"
-alias lgdl="find . -maxdepth 1 -type d|grep"
-alias lgll="find . -maxdepth 1 -type l|grep"
-alias lgbl="find . -maxdepth 1 |grep .bak$"
+alias c="cd /usr/pkgsrc"
+alias lgf="__lgf"
+alias lgd="__lgd"
+alias lgl="__lgl"
+alias lgb="find . |grep -E '*\\.bak$'"
+alias lgfl="__lgfl"
+alias lgdl="__lgdl"
+alias lgll="__lgll"
+alias lgbl="find . -maxdepth 1 |grep -E '*\\.bak$'"
 
 # Do much same as what xargs do? So change to nts.
 #alias nt0="awk -vORS='\0' '{print \$0}'"
@@ -210,16 +241,16 @@ function __gts {
 
 function __gush {
     commitinfo__=${@:2}
-    git add -A; git commit -S -m "$commitinfo__"; git push origin $1;
+    git add -A; git commit -m "$commitinfo__"; git push origin $1;
     unset commitinfo__
 }
 
 function __cget {
-    curl -u just:123 -o $1 ftp://10.0.2.33/$1
+    curl -u just:123 -o $1 ftp://10.0.2.51/$1
 }
 
 function __cput {
-    curl -u just:123 -T $1 ftp://10.0.2.33/$1
+    curl -u just:123 -T $1 ftp://10.0.2.51/$1
 }
 
 #expr string modifier
@@ -256,16 +287,16 @@ function __updatesystem {
 #    scp $1 pi@host:/home/pi/
 #}
 
-alias ll="ls -al --color=auto"
-alias llh="ll -h"
-alias llhd="llh -d"
-alias l.="ls -d .* --color=auto"
+alias ll="colorls -al -G"
+alias llh="\\ls -alh"
+alias llhd="\\ls -alhd"
+#alias l.="ls -d .* --color=auto"
 alias lr="ls -Ra"
 alias lg="ls -Ra|grep"
-alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
-alias lgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
-alias lgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' grep --color=auto"
-alias lglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
+alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs grep --color=auto"
+alias lgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs grep --color=auto"
+alias lgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs grep --color=auto"
+alias lglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs grep --color=auto"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"
@@ -276,7 +307,7 @@ function __gesf {
     ext__="--include=\*.$1"
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="grep ${ext__} -rl $arg__"
+    command__="grep ${ext__} -rl $arg__ ."
     eval $command__
     unset arg__
     unset command__
@@ -287,7 +318,7 @@ function __gefs {
     ext__="--include=\*.$1"
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="grep ${ext__} -rnwe $arg__"
+    command__="grep ${ext__} -rnwe $arg__ ."
     eval $command__
     unset arg__
     unset command__
@@ -301,16 +332,11 @@ function __gtf {
     gsf ^struct\ "$1"\ \{
 }
 
-function __gcT {
+function __git_createserver {
     mkdir -p ~/GitRepo/Trii
     [ -d "/Trii/$1" ] && echo "Repo exists." && return 1\
                       ||( git init --bare ~/GitRepo/Trii/$1\
                           && chown -R git ~/GitRepo/Trii/$1)
-}
-
-function __gch {
-    [ "x" == "x$1" ] && echo "Repo name required." && return 1\
-        || curl -u 'sansna' https://api.github.com/user/repos -d "{\"name\":\"$1\"}"
 }
 
 function __getasn {
@@ -385,14 +411,8 @@ alias ggi="\
 
 alias getasn="__getasn"
 #alias pacman="sudo pacman"
-<<<<<<< HEAD
-# alias r="aria2c *.meta4"
-alias gcT="__gcT"
-alias gch="__gch"
-=======
 #alias r="aria2c *.meta4"
 alias git-cs="__git_createserver"
->>>>>>> 2f8123bfbe4ec47be89615a405fb962e20779a35
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 #alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"
 

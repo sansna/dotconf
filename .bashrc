@@ -353,6 +353,14 @@ alias v="vim -R"
 alias gt="__gt"
 alias gts="__gts"
 alias gush="__gush"
+
+function __pkz {
+    [[ $1 == *"/" ]]\
+        && tar cfz $(expr substr $1 1 `echo "$(expr length $1)-1"|bc`).tgz $1\
+        || tar cfz $1.tgz $1/
+}
+
+alias pkz="__pkz"
 alias cget="__cget"
 alias cput="__cput"
 alias cog="__cog"

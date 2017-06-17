@@ -287,7 +287,29 @@ function __gefs {
     ext__="--include=\*.$1"
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="grep ${ext__} -rnwe $arg__"
+    command__="grep ${ext__} -rne $arg__"
+    eval $command__
+    unset arg__
+    unset command__
+    unset ext__
+}
+
+function __gbsf {
+    ext__="--include=$1"
+    arg__=${@:2}
+    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    command__="grep ${ext__} -rl $arg__"
+    eval $command__
+    unset arg__
+    unset command__
+    unset ext__
+}
+
+function __gbfs {
+    ext__="--include=$1"
+    arg__=${@:2}
+    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    command__="grep ${ext__} -rne $arg__"
     eval $command__
     unset arg__
     unset command__
@@ -296,6 +318,8 @@ function __gefs {
 
 alias gesf="__gesf"
 alias gefs="__gefs"
+alias gbsf="__gbsf"
+alias gbfs="__gbfs"
 
 function __gtf {
     gsf ^struct\ "$1"\ \{

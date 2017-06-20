@@ -1,0 +1,8 @@
+#!/bin/bash
+cd
+cd GitRepo
+cd racaljk/hosts
+git pull origin master
+cp hosts /etc
+sed -i".bak" "s/localhost/`hostname`/g" /etc/hosts
+cd

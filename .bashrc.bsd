@@ -10,9 +10,9 @@
 # need this unless you want different defaults for root.
 ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
 # Debian prompt:
-#PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\$ '
+#PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
 # CentOS prompt:
-PS1="[\u@\h#$ttyid__ \W]\$ "
+PS1="[\u@\h#$ttyid__ \W]\\$ "
 #unset ttyid__
 # The following is used when -x is set in debugging the bash scripts.
 #PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'

@@ -344,11 +344,6 @@ function __getasn {
     #dig +short $1|xargs -I{} -d "\n" whois -h whois.cymru.com -v {}
 }
 
-#function __exit {
-#    exit
-#    echo "" > ~/.bash_history
-#}
-
 alias gtf="__gtf"
 alias rcd="__rcd"
 alias rgf="__rgf"
@@ -423,7 +418,20 @@ alias getasn="__getasn"
 #alias r="aria2c *.meta4"
 alias gcT="__gcT"
 alias gch="__gch"
+
+#function __exit {
+#    exit
+#    echo "" > ~/.bash_history
+#}
+
+#function __reboot {
+#	sleep 1
+#	reboot
+#}
+
 #alias exit="__exit"
+#alias reboot="__reboot"
+
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 #alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"
 

@@ -252,6 +252,14 @@ function __updatesystem {
 #    sudo /usr/sbin/sshd
 #}
 
+# To modify mount dir, edit /etc/vsftpd.conf
+#function __startvsftpd {
+#    sudo mkdir -p -m0755 /var/run/vsftpd
+#    sudo mkdir -p -m0755 /var/run/vsftpd/empty
+#    sudo iptables -I INPUT -p tcp --dport 21 -j ACCEPT
+#    sudo /usr/sbin/vsftpd &
+#}
+
 #function __scpp {
 #    scp $1 pi@host:/home/pi/
 #}
@@ -406,6 +414,7 @@ alias ggi="\
     echo '# [Normal Files]' >> \.gitignore;\
     lsn | sed -e 's/^/!\/**\//g' >> \.gitignore"
 #alias startsshd="__startsshd"
+#alias startvsftpd="__startvsftpd"
 
 # Some templates of ssh/rdesktop.
 #alias sp="ssh -C user@host -pport"

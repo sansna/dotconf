@@ -65,6 +65,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
+alias pcregrep="pcre2grep --color=auto"
 
 function __cd {
     tmpdir__=$*
@@ -274,6 +275,15 @@ alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' gre
 alias lgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
 alias lgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' grep --color=auto"
 alias lglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
+# Using pcre2-tools other than grep
+alias pgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -sn"
+# Search with perl-5 regexp support
+alias pgms="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -snM"
+alias pgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -sn"
+alias pgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' pcre2grep --color -sn"
+# Search with perl-5 regexp support
+alias pgmsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' pcre2grep --color -snM"
+alias pglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -sn"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"
@@ -324,10 +334,59 @@ function __gbfs {
     unset ext__
 }
 
+function __pesf {
+    ext__="--include=\.\*\\\\.$1"
+    arg__=${@:2}
+    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    command__="pcregrep ${ext__} -rlM $arg__ ."
+    eval $command__
+    unset arg__
+    unset command__
+    unset ext__
+}
+
+function __pefs {
+    ext__="--include=\.\*\\\\.$1"
+    arg__=${@:2}
+    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    command__="pcregrep ${ext__} -rnM $arg__ ."
+    eval $command__
+    unset arg__
+    unset command__
+    unset ext__
+}
+
+function __pbsf {
+    ext__="--include=^$1$"
+    arg__=${@:2}
+    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    command__="pcregrep ${ext__} -rlM $arg__ ."
+    eval $command__
+    unset arg__
+    unset command__
+    unset ext__
+}
+
+function __pbfs {
+    ext__="--include=^$1$"
+    arg__=${@:2}
+    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    command__="pcregrep ${ext__} -rnM $arg__ ."
+    eval $command__
+    unset arg__
+    unset command__
+    unset ext__
+}
+
 alias gesf="__gesf"
 alias gefs="__gefs"
 alias gbsf="__gbsf"
 alias gbfs="__gbfs"
+
+alias pesf="__pesf"
+alias pefs="__pefs"
+alias pbsf="__pbsf"
+alias pbfs="__pbfs"
 
 function __gtf {
     gsf ^struct\ "$1"\ \{

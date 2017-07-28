@@ -34,8 +34,10 @@ export LC_COLLATE=C
     export PATH=$PATH:$GOPATH/bin
 
 # In case bash-completion not load itself:
-#[ "x$bashcomplete__" == "x1" ] || source /usr/share/bash-completion/bash_completion
-#export bashcomplete__=1
+[ "x$bashcomplete__" == "x1" ]\
+    || ([ -s /usr/share/bash-completion/bash_completion ]\
+    && source /usr/share/bash-completion/bash_completion\
+    && export bashcomplete__=1)
 
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
@@ -456,7 +458,7 @@ alias cget="__cget"
 alias cput="__cput"
 alias cog="__cog"
 # To add src file in other dir recursively
-alias gdbs="gdb `find /usr/local/src/debug -type d -printf '-d %p '`"
+#alias gdbs="gdb `find /usr/local/src/debug -type d -printf '-d %p '`"
 alias kd="__kd"
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
 alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"

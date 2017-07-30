@@ -35,6 +35,7 @@ export LC_COLLATE=C
 
 # In case bash-completion not load itself:
 [ "x$bashcomplete__" == "x1" ]\
+    # File exist check.
     || ([ -s /usr/share/bash-completion/bash_completion ]\
     && source /usr/share/bash-completion/bash_completion\
     && export bashcomplete__=1)
@@ -79,6 +80,8 @@ function __cd {
     unset wordcount__;
     unset tmpdir__
 }
+# Functons to be called in bash -c or xargs should be exported in this way.
+export -f __cd
 
 function __cu {
     [ "x$HOME" == "x" ]\
@@ -488,6 +491,16 @@ alias getasn="__getasn"
 #alias r="aria2c *.meta4"
 alias gcT="__gcT"
 alias gch="__gch"
+
+function __gu {
+    cd $*
+    # Folder exist check.
+    [ -d .git ] && git pull origin master\
+        && git submodule update --init --recursive
+    cd -
+}
+export -f __gu
+alias gu="cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 #function __exit {
 #    exit

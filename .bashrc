@@ -502,6 +502,18 @@ function __gu {
 export -f __gu
 alias gu="cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
+#function __ncs {
+#	tar cf - $1|nc -l -p $2
+#}
+#
+#function __ncc {
+#	nc $*|tar xf -
+#}
+#
+## Usage: server: ncs file port. client: ncc server port.
+#alias ncs="__ncs"
+#alias ncc="__ncc"
+
 #function __exit {
 #    exit
 #    echo "" > ~/.bash_history

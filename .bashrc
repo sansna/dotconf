@@ -34,8 +34,8 @@ export LC_COLLATE=C
     export PATH=$PATH:$GOPATH/bin
 
 # In case bash-completion not load itself:
+#+ File exist check. [ -s file ]
 [ "x$bashcomplete__" == "x1" ]\
-    # File exist check.
     || ([ -s /usr/share/bash-completion/bash_completion ]\
     && source /usr/share/bash-completion/bash_completion\
     && export bashcomplete__=1)
@@ -494,7 +494,7 @@ alias gch="__gch"
 
 function __gu {
     cd $*
-    # Folder exist check.
+    # Folder exist check. [ -d folder ]
     [ -d .git ] && git pull origin master\
         && git submodule update --init --recursive
     cd -

@@ -482,10 +482,10 @@ alias ggi="\
 
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
-function __s {
-	ssh $*; ssh $* 'cat /dev/null > ~/.bash_profile && history -c'
-}
-alias s = "__s"
+#function __s {
+#	ssh $*; ssh $* 'cat /dev/null > ~/.bash_profile && history -c'
+#}
+#alias s="__s"
 
 # Some templates of ssh/rdesktop.
 #alias sp="ssh -C user@host -pport"

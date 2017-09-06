@@ -483,7 +483,7 @@ alias ggi="\
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
 #function __s {
-#	ssh $*; ssh $* 'cat /dev/null > ~/.bash_profile && history -c'
+#	ssh $*; ssh $* 'cat /dev/null > ~/.bash_history && history -c'
 #}
 #alias s="__s"
 

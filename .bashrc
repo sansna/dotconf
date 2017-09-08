@@ -128,11 +128,11 @@ function __i {
 }
 
 function __sgs {
-    grep $1 -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
+    grep "$1" -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
 
 function __sgsl {
-    find . -maxdepth 1 -type f|xargs -d '\n' grep $1 -l |xargs -d '\n' sed -i".bak" "s/$1/$2/g"
+    find . -maxdepth 1 -type f|xargs -d '\n' grep "$1" -l |xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
 
 #alias ct="cp -t ~/test/"
@@ -173,15 +173,15 @@ function __rcd {
 }
 
 function __rgf {
-    lgf $1|xargs -d "\n" rm -f
+    lgf "$1"|xargs -d "\n" rm -f
 }
 
 function __rgd {
-    lgd $1|xargs -d "\n" rm -frd
+    lgd "$1"|xargs -d "\n" rm -frd
 }
 
 function __rgl {
-    lgl $1|xargs -d "\n" rm -frd
+    lgl "$1"|xargs -d "\n" rm -frd
 }
 
 function __rgb {
@@ -193,11 +193,11 @@ function __rgbl {
 }
 
 function __rgfl {
-    lgfl $1|xargs -d "\n" rm -f
+    lgfl "$1"|xargs -d "\n" rm -f
 }
 
 function __rgdl {
-    lgdl $1|xargs -d "\n" rm -frd
+    lgdl "$1"|xargs -d "\n" rm -frd
 }
 
 function __gt {
@@ -221,16 +221,16 @@ function __gush {
 }
 
 function __cget {
-    curl -u just:123 -o $1 ftp://10.0.2.33/$1
+    curl -u just:123 -o "$1" ftp://10.0.2.33/"$1"
 }
 
 function __cput {
-    curl -u just:123 -T $1 ftp://10.0.2.33/$1
+    curl -u just:123 -T "$1" ftp://10.0.2.33/"$1"
 }
 
 #expr string modifier
 function __cog {
-    gcc -O0 -g $1 -o $(expr substr $1 1 $(expr index $1 .))out
+    gcc -O0 -g "$1" -o $(expr substr "$1" 1 $(expr index "$1" .))out
 }
 
 function __kd {
@@ -267,7 +267,7 @@ function __updatesystem {
 #}
 
 #function __scpp {
-#    scp $1 pi@host:/home/pi/
+#    scp "$1" pi@host:/home/pi/
 #}
 
 alias ll="ls -al --color=auto"
@@ -296,7 +296,7 @@ alias gsf="grep . -rlnwe"
 
 #grep certain extension: Command concat, from 2nd arg to last.
 function __gesf {
-    ext__="--include=\*.$1"
+    ext__="--include=\*."$1""
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rl $arg__"
@@ -307,7 +307,7 @@ function __gesf {
 }
 
 function __gefs {
-    ext__="--include=\*.$1"
+    ext__="--include=\*."$1""
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rne $arg__"
@@ -318,7 +318,7 @@ function __gefs {
 }
 
 function __gbsf {
-    ext__="--include=$1"
+    ext__="--include=^"$1"$"
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rl $arg__"
@@ -329,7 +329,7 @@ function __gbsf {
 }
 
 function __gbfs {
-    ext__="--include=$1"
+    ext__="--include=^"$1"$"
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rne $arg__"
@@ -340,7 +340,7 @@ function __gbfs {
 }
 
 function __pesf {
-    ext__="--include=\.\*\\\\.$1"
+    ext__="--include=\.\*\\\\."$1""
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rlM $arg__ ."
@@ -351,7 +351,7 @@ function __pesf {
 }
 
 function __pefs {
-    ext__="--include=\.\*\\\\.$1"
+    ext__="--include=\.\*\\\\."$1""
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rnM $arg__ ."
@@ -362,7 +362,7 @@ function __pefs {
 }
 
 function __pbsf {
-    ext__="--include=^$1$"
+    ext__="--include=^"$1"$"
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rlM $arg__ ."
@@ -373,7 +373,7 @@ function __pbsf {
 }
 
 function __pbfs {
-    ext__="--include=^$1$"
+    ext__="--include=^"$1"$"
     arg__=${@:2}
     arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rnM $arg__ ."
@@ -399,9 +399,9 @@ function __gtf {
 
 function __gcT {
     mkdir -p ~/GitRepo/Trii
-    [ -d "/Trii/$1" ] && echo "Repo exists." && return 1\
-                      ||( git init --bare ~/GitRepo/Trii/$1\
-                          && chown -R git ~/GitRepo/Trii/$1)
+    [ -d "/Trii/"$1"" ] && echo "Repo exists." && return 1\
+                      ||( git init --bare ~/GitRepo/Trii/"$1"\
+                          && chown -R git ~/GitRepo/Trii/"$1")
 }
 
 function __gch {
@@ -452,8 +452,8 @@ alias gush="__gush"
 
 function __pkz {
     [[ $1 == *"/" ]]\
-        && tar cfz $(expr substr $1 1 `echo "$(expr length $1)-1"|bc`).tgz $1\
-        || tar cfz $1.tgz $1/
+        && tar cfz $(expr substr "$1" 1 `echo "$(expr length "$1")-1"|bc`).tgz "$1"\
+        || tar cfz "$1".tgz "$1"/
 }
 
 alias pkz="__pkz"
@@ -500,7 +500,7 @@ alias gcT="__gcT"
 alias gch="__gch"
 
 function __gu {
-    cd $*
+    cd "$1"
     # Folder exist check. [ -d folder ]
     [ -d .git ] && git pull origin master\
         && git submodule update --init --recursive
@@ -510,7 +510,7 @@ export -f __gu
 alias gu="cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 #function __ncs {
-#	tar cf - $1|nc -l -p $2
+#	tar cf - "$1"|nc -l -p $2
 #}
 #
 #function __ncc {
@@ -569,7 +569,7 @@ stty -ixon ixany
 #            cat /var/log/dpkg.log | grep 'install '
 #            ;;
 #        upgrade|remove)
-#            cat /var/log/dpkg.log | grep $1
+#            cat /var/log/dpkg.log | grep "$1"
 #            ;;
 #        rollback)
 #            cat /var/log/dpkg.log | grep upgrade | \

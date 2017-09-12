@@ -149,6 +149,40 @@ alias lgbl="find . -maxdepth 1 |grep .bak$"
 #alias nt0="awk -vORS='\0' '{print \$0}'"
 alias nts="awk -vORS='\ ' '{print \$0}'"
 
+function __rndf {
+    [ "x$*" == "x" ]\
+        && rndfregexp__="."\
+        || rndfregexp__="$*"
+    rndfcount__=`lgf $rndfregexp__|wc -l`
+    [ $rndfcount__ -eq 0 ]\
+        && echo "Both  Current Folder and Subfolder has no File"\
+        && unset rndfcount__\
+        && return 1
+    rndfnum__=`shuf -i 1-${rndfcount__} -n 1`
+    lgf $rndfregexp__|nts|awk '{print $'$rndfnum__'}'
+    unset rndfnum__
+    unset rndfcount__
+    unset rndfregexp__
+}
+alias rndf="__rndf"
+
+function __rndfl {
+    [ "x$*" == "x" ]\
+        && rndflregexp__="."\
+        || rndflregexp__="$*"
+    rndflcount__=`lgfl $rndflregexp__|wc -l`
+    [ $rndflcount__ -eq 0 ]\
+        && echo "Current Folder has no File"\
+        && unset rndflcount__\
+        && return 1
+    rndflnum__=`shuf -i 1-${rndflcount__} -n 1`
+    lgfl $rndflregexp__|nts|awk '{print $'$rndflnum__'}'
+    unset rndflnum__
+    unset rndflcount__
+    unset rndflregexp__
+}
+alias rndfl="__rndfl"
+
 #Remove current dir
 function __rcd {
     filecount__=`ls -a|wc -w`;

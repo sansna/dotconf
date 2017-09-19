@@ -155,7 +155,7 @@ function __rndf {
         || rndfregexp__="$*"
     rndfcount__=`lgf $rndfregexp__|wc -l`
     [ $rndfcount__ -eq 0 ]\
-        && echo "Both  Current Folder and Subfolder has no File"\
+        && echo "No such File Exist."\
         && unset rndfcount__\
         && return 1
     rndfnum__=`shuf -i 1-${rndfcount__} -n 1`
@@ -172,7 +172,7 @@ function __rndfl {
         || rndflregexp__="$*"
     rndflcount__=`lgfl $rndflregexp__|wc -l`
     [ $rndflcount__ -eq 0 ]\
-        && echo "Current Folder has no File"\
+        && echo "No such File Exist."\
         && unset rndflcount__\
         && return 1
     rndflnum__=`shuf -i 1-${rndflcount__} -n 1`
@@ -232,6 +232,14 @@ function __rgfl {
 
 function __rgdl {
     lgdl "$1"|xargs -d "\n" rm -frd
+}
+
+function __swf {
+	[ -e $1 ] && [ -e $2 ] || return 1
+	local tmp=$(date +%s)
+	mv $1 $tmp
+	mv $2 $1
+	mv $tmp $2
 }
 
 function __gt {
@@ -459,6 +467,7 @@ alias rgb="__rgb"
 alias rgfl="__rgfl"
 alias rgdl="__rgdl"
 alias rgbl="__rgbl"
+alias swf="__swf"
 alias gr="cd ~/GitRepo"
 alias grT="cd ~/GitRepo/Trii"
 # The first two is used in archlinux's chromium, the second is used in raspbian

@@ -189,7 +189,7 @@ function __rcd {
     filecount__=$((filecount__-2))
     foldername__=`pwd`
     [ "$1" == "-f" ] \
-        && cd ..\
+        && \cd ..\
         && rm -frd $foldername__\
         && unset foldername__\
         && unset filecount__\
@@ -197,7 +197,7 @@ function __rcd {
         && return 0
     [ $filecount__ -eq 0 ] \
         && rm -frd $foldername__ \
-        && cd ..\
+        && \cd ..\
         && ls\
         || printf "Note: Current folder has %d sub-contents.\
  Use 'rcd -f' instead.\n" $filecount__
@@ -507,7 +507,7 @@ alias cog="__cog"
 #alias gdbs="gdb `find /usr/local/src/debug -type d -printf '-d %p '`"
 alias kd="__kd"
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
-alias ts="cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;cd -;"
+alias ts="\cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;\cd -;"
 alias us="__updatesystem"
 alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 alias lse="find . -type f |grep -v \.git\/|perl -ne 'print \$1 if m/\.([^.\/]+)$/' | sort -u"
@@ -547,10 +547,10 @@ function __gu {
     # Folder exist check. [ -d folder ]
     [ -d .git ] && git pull origin master\
         && git submodule update --init --recursive
-    cd -
+    \cd -
 }
 export -f __gu
-alias gu="cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
+alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 #function __ncs {
 #	tar cf - "$1"|nc -l -p $2

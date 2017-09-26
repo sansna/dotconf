@@ -135,6 +135,16 @@ bindsym Mod1+Shift+7 move container to workspace 7
 bindsym Mod1+Shift+8 move container to workspace 8
 bindsym Mod1+Shift+9 move container to workspace 9
 bindsym Mod1+Shift+0 move container to workspace 10
+bindsym Mod1+Control+Shift+1 move container to workspace 11
+bindsym Mod1+Control+Shift+2 move container to workspace 12
+bindsym Mod1+Control+Shift+3 move container to workspace 13
+bindsym Mod1+Control+Shift+4 move container to workspace 14
+bindsym Mod1+Control+Shift+5 move container to workspace 15
+bindsym Mod1+Control+Shift+6 move container to workspace 16
+bindsym Mod1+Control+Shift+7 move container to workspace 17
+bindsym Mod1+Control+Shift+8 move container to workspace 18
+bindsym Mod1+Control+Shift+9 move container to workspace 19
+bindsym Mod1+Control+Shift+0 move container to workspace 20
 
 # reload the configuration file
 bindsym Mod1+Shift+c reload

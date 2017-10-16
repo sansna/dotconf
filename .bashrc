@@ -584,7 +584,7 @@ function __ssr {
 	[ "x$running__" == "x" ]\
 		&& (sslocal -s serv-addr -p serv-port -k password -t time_out &)\
 		&& (polipo -c /etc/polipo/config &)\
-		&& alias pxy="http://localhost:8123"
+		&& alias pxy="http_proxy=http://localhost:8123"
 }
 alias ssr="__ssr"
 

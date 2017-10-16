@@ -588,6 +588,12 @@ function __ssr {
 }
 alias ssr="__ssr"
 
+# automatically detect if sslocal started and alias.
+running__=`ps aux|grep sslocal|grep -v grep`
+[ "x$running__" != "x" ]\
+	&& alias pxy="http_proxy=http://localhost:8123"
+unset running__
+
 # Disable ctrl+s functionality.
 stty -ixon ixany
 

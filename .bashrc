@@ -579,6 +579,14 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 #alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"
+function __ssr {
+	local running__=`ps aux|grep sslocal|grep -v grep`
+	[ "x$running__" == "x" ]\
+		&& (sslocal -s serv-addr -p serv-port -k password -t time_out &)\
+		&& (polipo -c /etc/polipo/config &)\
+		&& alias pxy="http://localhost:8123"
+}
+alias ssr="__ssr"
 
 # Disable ctrl+s functionality.
 stty -ixon ixany

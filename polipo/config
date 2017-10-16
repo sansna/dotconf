@@ -1,0 +1,6 @@
+# /etc/polipo/config: Popipo config file
+# Usage with bashrc: ssr;pxy bash_commands
+socksParentProxy = "localhost:local_port"
+socksProxyType = socks5
+logFile = /var/log/polipo
+logLevel = 4

@@ -127,6 +127,13 @@ function __i {
     pandoc "$1"|w3m -T text/html
 }
 
+function __v {
+	local filename__=$(expr substr "$1" 1 `echo "$(expr index "$1" :)-1"|bc`)
+	local exist__=`ls -- "$1" 2>/dev/null |wc -l`
+	[ "x$filename__" == "x" ] && vim -R -- "$1"\
+		|| ([ 0 -ne $exist__ ] && vim -R -- "$1" || vim -R -- "$filename__")
+}
+
 function __sgs {
     grep "$1" -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
@@ -144,6 +151,8 @@ alias lgfl="find . -maxdepth 1 -type f|grep"
 alias lgdl="find . -maxdepth 1 -type d|grep"
 alias lgll="find . -maxdepth 1 -type l|grep"
 alias lgbl="find . -maxdepth 1 |grep .bak$"
+alias i="__i"
+alias v="__v"
 
 # Do much same as what xargs do? So change to nts.
 #alias nt0="awk -vORS='\0' '{print \$0}'"
@@ -486,8 +495,6 @@ alias def="w definition"
 alias wr="__rfc"
 alias wk="__wk"
 alias we="__we"
-alias i="__i"
-alias v="vim -R"
 #alias x="omxplayer"
 alias gt="__gt"
 alias gts="__gts"

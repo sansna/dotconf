@@ -7,7 +7,7 @@
 # 2. To run .exe with paramters, just call wine a.exe par1 par2..
 #
 # 3. wine notepad calles the notepad.exe of windows. It is located in
-# drive_c/windows. Same about regedit, explorer.
+# drive_c/windows. Same about regedit, explorer, cmd.
 #
 # 4. wine locale can also be changed when calling exe programs, by:
 # LANG="locale.charset" wine a.exe params. where the locales should

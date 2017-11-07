@@ -37,8 +37,8 @@ export LC_COLLATE=C
 #+ File exist check. [ -s file ]
 [ "x$bashcomplete__" == "x1" ]\
     || ([ -s /usr/share/bash-completion/bash_completion ]\
-    && source /usr/share/bash-completion/bash_completion\
-    && export bashcomplete__=1)
+		&& source /usr/share/bash-completion/bash_completion\
+		&& export bashcomplete__=1)
 
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
@@ -48,6 +48,13 @@ export LC_COLLATE=C
 # So if need to pass params in bash.. Use alias to define functions,
 # instead, please.
 unalias -a
+
+# prompt opt in git folder
+[ "x$gitpromptstring__" == "x1" ]\
+	|| ([ -s ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh ]\
+		&& GIT_PROMPT_ONLY_IN_REPO=1\
+		&& source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
+		&& export gitpromptstring__=1)
 
 # base-16 color scheme, see chriskempson/base16-shell
 BASE16_SHELL=$HOME/.config/base16-shell/

@@ -3,6 +3,12 @@ Rxvt.foreground:white
 Rxvt.scrollBar:no
 #Rxvt.backgroundPixmap:/root/Desktop/hinata1.jpg
 #Rxvt.blurRadius:1x41
-URxvt.font:xft:Droid Sans Mono:style=Regular:pixelsize=15
+# This means Droid is the default font, when some char
+#+ (unicode miscellaneous char) not found in Droid, it
+#+ will go to Dejavu(it is complete set).
+URxvt.font:xft:Droid Sans Mono:style=Regular:pixelsize=15,xft:Dejavu Sans Mono:stype=Regular:pixelsize=15
+# In case some char need 1 more space, default is 0 in
+#+ Droid Sans Mono.
+URxvt.letterSpace:1
 URxvt.iso14755:false
 URxvt.iso14755_52:false

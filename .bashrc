@@ -101,6 +101,8 @@ function __cu {
 }
 alias cd="__cd"
 alias cu="__cu"
+# Use sshrc(from russell91/sshrc) other than ssh
+#alias ssh="sshrc"
 
 # Using function for alias because needs parameter.
 function __w {
@@ -192,7 +194,7 @@ function __rndfl {
 }
 alias rndfl="__rndfl"
 
-#Remove current dir
+# Remove current dir
 function __rcd {
     filecount__=`ls -a|wc -w`;
     filecount__=$((filecount__-2))
@@ -279,7 +281,7 @@ function __cput {
     curl -u just:123 -T "$1" ftp://10.0.2.33/"$1"
 }
 
-#expr string modifier
+# Expr string modifier
 function __cog {
     gcc -O0 -g "$1" -o $(expr substr "$1" 1 $(expr index "$1" .))out
 }
@@ -345,7 +347,7 @@ alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"
 alias gsf="grep . -rlnwe"
 
-#grep certain extension: Command concat, from 2nd arg to last.
+# Grep certain extension: Command concat, from 2nd arg to last.
 function __gesf {
     ext__="--include=\*."$1""
     arg__=${@:2}

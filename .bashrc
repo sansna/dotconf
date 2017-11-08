@@ -50,11 +50,9 @@ export LC_COLLATE=C
 unalias -a
 
 # prompt opt in git folder
-[ "x$gitpromptstring__" == "x1" ]\
-	|| ([ -s ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh ]\
-		&& GIT_PROMPT_ONLY_IN_REPO=1\
-		&& source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
-		&& export gitpromptstring__=1)
+[ -s ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh ]\
+	&& GIT_PROMPT_ONLY_IN_REPO=1\
+	&& source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
 
 # base-16 color scheme, see chriskempson/base16-shell
 BASE16_SHELL=$HOME/.config/base16-shell/

@@ -33,6 +33,9 @@ export LC_COLLATE=C
     export GOPATH=~/GO\
     export PATH=$PATH:$GOPATH/bin
 
+# The Python env
+export PYTHONSTARTUP=~/.pythonrc
+
 # In case bash-completion not load itself:
 #+ File exist check. [ -s file ]
 [ "x$bashcomplete__" == "x1" ]\

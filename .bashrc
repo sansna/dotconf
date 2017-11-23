@@ -5,10 +5,10 @@
 #ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
 # Debian prompt:
 #PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
-# CentOS prompt:
+# CentOS prompt: between \033 are colored scripts
 #os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
 #ip_addr__=`ip a|grep inet|grep -v inet6|grep -v lo$|head -n 1|awk '{print $2}'`
-#PS1="[\u@$ip_addr__$os_str__#$ttyid__ \W]\\$ "
+#PS1="[\u@$ip_addr__\033[1;36m$os_str__\033[m#$ttyid__ \W]\\$ "
 #unset os_str__
 #unset ip_addr__
 #unset ttyid__

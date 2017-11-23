@@ -6,7 +6,11 @@
 # Debian prompt:
 #PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
 # CentOS prompt:
-#PS1="[\u@\h#$ttyid__ \W]\\$ "
+#os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
+#ip_addr__=`ip a|grep inet|grep -v inet6|grep -v lo$|head -n 1|awk '{print $2}'`
+#PS1="[\u@$ip_addr__$os_str__#$ttyid__ \W]\\$ "
+#unset os_str__
+#unset ip_addr__
 #unset ttyid__
 # The following is used when -x is set in debugging the bash scripts.
 #PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'

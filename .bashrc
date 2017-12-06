@@ -547,8 +547,10 @@ alias ggi="\
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
 #function __s {
-#    ssh $*; ssh $* 'cat /dev/null > ~/.bash_history && history -c\
-#               && cat /dev/null > /var/log/wtmp'
+#    ssh $*; \ssh $* 'cat /dev/null > ~/.bash_history && history -c\
+#               && cat /dev/null > /var/log/wtmp\
+#			   && cat /dev/null > ~/.ssh/known_hosts\
+#			   && find /tmp -type d|grep sshrc|xargs rm -frd'
 #}
 #alias s="__s"
 

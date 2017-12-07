@@ -548,9 +548,9 @@ alias ggi="\
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
 #function __s {
 #    ssh $*; \ssh $* 'cat /dev/null > ~/.bash_history && history -c\
-#               && cat /dev/null > /var/log/wtmp\
-#			   && cat /dev/null > ~/.ssh/known_hosts\
-#			   && find /tmp -type d|grep sshrc|xargs rm -frd'
+#	   	&& cat /dev/null > /var/log/wtmp\
+#	   	&& cat /dev/null > ~/.ssh/known_hosts\
+#	   	&& find /tmp -type d -maxdepth 1|grep sshrc|xargs rm -frd'
 #}
 #alias s="__s"
 

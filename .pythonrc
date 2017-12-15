@@ -1,2 +1,4 @@
+# ~/.pythonrc: work together with bashrc to
+# let each python ide load the following scripts.
 import rlcompleter, readline
 readline.parse_and_bind('tab:complete')

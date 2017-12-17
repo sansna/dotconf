@@ -609,6 +609,44 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 #alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"
+
+# This function is used on debian machines to build ss-libev, however
+#+ in my tests, libev version seems not better but worse than pip version.
+#function __getss {
+#	vim /etc/apt/sources.list
+#	apt-get update
+#	apt-get install git -y
+#	apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake -y
+#	gt shadowsocks/shadowsocks-libev
+#	gr
+#	cd shadowsocks/shadowsocks-libev
+#	git submodule update --init --recursive
+#	{
+#		export LIBSODIUM_VER=1.0.13
+#		wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
+#		tar xfv libsodium-$LIBSODIUM_VER.tar.gz
+#		pushd libsodium-$LIBSODIUM_VER
+#		./configure --prefix=/usr && make
+#		make install
+#		popd
+#		ldconfig
+#	}
+#	{
+#		export MBEDTLS_VER=2.6.0
+#		wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
+#		tar xfv mbedtls-$MBEDTLS_VER-gpl.tgz
+#		pushd mbedtls-$MBEDTLS_VER
+#		make SHARED=1 CFLAGS=-fPIC
+#		make DESTDIR=/usr install
+#		popd
+#		ldconfig
+#	}
+#	./autogen.sh
+#	./configure; make; make install
+#	ss-server -s 0.0.0.0 -p port -k passwd -m method -t time &
+#}
+#alias getss="__getss"
+
 function __ssr {
 	local running__=`ps aux|grep ss-local|grep -v grep`
 	[ "x$running__" == "x" ]\

@@ -30,6 +30,7 @@ export LC_COLLATE=C
 
 # The following prevent python from warning ascii codec can't decode 
 #+ unicode.
+#+ Note: if this is set, vim/rxvt cannot display utf8 glyphs correctly.
 #export LC_ALL=C
 
 # The Golang paths

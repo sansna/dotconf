@@ -151,10 +151,11 @@ function __i {
 
 function __v {
 	local filename__=$(expr substr "$1" 1 `echo "$(expr index "$1" :)-1"|bc`)
-	local line__=`echo "$1"|awk -vFS=":" '{print $2}'`
-	local totalline__=`wc -l $filename__|cut -d ' ' -f 1`
-	[ $line__ -le $totalline__ ] 2>/dev/null && line__=+$line__ || unset line__
 	local exist__=`ls -- "$1" 2>/dev/null |wc -l`
+	local line__=`echo "$1"|awk -vFS=":" '{print $2}'`
+	[ 0 -ne $exist__ ] && local totalline__=`wc -l "$1"|cut -d ' ' -f 1`\
+		|| local totalline__=`wc -l $filename__|cut -d ' ' -f 1`
+	[ $line__ -le $totalline__ ] 2>/dev/null && line__=+$line__ || unset line__
 	[ "x$filename__" == "x" ] && vim -R $line__ -- "$1"\
 		|| ([ 0 -ne $exist__ ] && vim -R $line__ -- "$1" || vim -R $line__ -- "$filename__")
 }

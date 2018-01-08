@@ -151,10 +151,11 @@ function __i {
     pandoc "$1"|w3m -T text/html
 }
 
+# Open with longest match of file, together with line numbers.
 function __v {
 	local nf__=`echo $1|awk -vFS=":" '{print NF}'`
 	[ 1 -ge $nf__ ] && vim -R -- $1
-	for i in `seq $nf__`;
+	for i in `seq $nf__ -1 1`;
 	do
 		local filename__=`echo $1|awk -v count=$i -vFS=":" '{for(i=1;i<=count;i++)print $i}'|paste -sd:`;
 		local exist__=`ls -- $filename__ 2>/dev/null |wc -l`

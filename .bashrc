@@ -154,18 +154,18 @@ function __i {
 # Open with longest match of file, together with line numbers.
 function __v {
 	local nf__=`echo $1|awk -vFS=":" '{print NF}'`
-	[ 1 -ge $nf__ ] && vim -R -- $1
+	[ 1 -ge $nf__ ] && vim -R -- "$1" && return
 	for i in `seq $nf__ -1 1`;
 	do
 		local filename__=`echo $1|awk -v count=$i -vFS=":" '{for(i=1;i<=count;i++)print $i}'|paste -sd:`;
 		local line__=`echo $1|awk -v count=$i -vFS=":" '{print $(count+1)}'`
-		[ -f $filename__ ]\
-			&& local totalline__=`wc -l $filename__|cut -d ' ' -f 1`\
+		[ -f "$filename__" ]\
+			&& local totalline__=`wc -l "$filename__"|cut -d ' ' -f 1`\
 			&& ([ $line__ -le $totalline__ ] 2>/dev/null && line__=+$line__ || unset line__;\
-				vim -R $line__ -- $filename__)\
+				vim -R $line__ -- "$filename__")\
 			&& return
 	done;
-	vim -R -- $1
+	vim -R -- "$1"
 }
 
 function __sgs {

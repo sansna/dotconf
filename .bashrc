@@ -158,9 +158,8 @@ function __v {
 	for i in `seq $nf__ -1 1`;
 	do
 		local filename__=`echo $1|awk -v count=$i -vFS=":" '{for(i=1;i<=count;i++)print $i}'|paste -sd:`;
-		local exist__=`ls -- $filename__ 2>/dev/null |wc -l`
 		local line__=`echo $1|awk -v count=$i -vFS=":" '{print $(count+1)}'`
-		[ 0 -ne $exist__ ]\
+		[ -f $filename__ ]\
 			&& local totalline__=`wc -l $filename__|cut -d ' ' -f 1`\
 			&& ([ $line__ -le $totalline__ ] 2>/dev/null && line__=+$line__ || unset line__;\
 				vim -R $line__ -- $filename__)\

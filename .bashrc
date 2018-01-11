@@ -86,36 +86,19 @@ alias grep="grep --color=auto"
 alias pcregrep="pcre2grep --color=auto"
 
 function __cd {
-    tmpdir__=$*
-    [ "x$tmpdir__" == "x" ]\
-        && cd\
-        || cd "${tmpdir__}"
-    ls;wordcount__=`ls -a|wc -w`
-    [ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
-    unset wordcount__;
-    unset tmpdir__
+	local tmpdir__=$*
+	[ "x$tmpdir__" == "x" ]\
+		&& cd\
+		|| cd "${tmpdir__}"
+	ls
+	local wordcount__=`ls -a|wc -w`
+	[ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
+	return 0
 }
 # Functons to be called in bash -c or xargs should be exported in this way.
 export -f __cd
-
-function __cu {
-    [ "x$HOME" == "x" ]\
-        && printf "Please set \$HOME first.\n"\
-        && return 1
-    [ "x$1" == "x" ] \
-        && cd ..\
-        || ([ $1 -ge 0 ] \
-            && for i in `seq $1`; do cd ..; done\
-            && echo `pwd`>${HOME}/cdtmpfile__)
-    [ -e ${HOME}/cdtmpfile__ ]\
-        && location__=`cat ${HOME}/cdtmpfile__`\
-        && rm ${HOME}/cdtmpfile__\
-        && cd $location__\
-        && unset location__
-    ls
-}
 alias cd="__cd"
-alias cu="__cu"
+
 # Use sshrc(from russell91/sshrc) other than ssh
 #alias ssh="sshrc"
 # Bring basic vim shortcuts with sshrc, uncomment following in .sshrc file
@@ -318,12 +301,18 @@ function __cog {
     gcc -O0 -g "$1" -o $(expr substr "$1" 1 $(expr index "$1" .))out
 }
 
+# Now kd support option -n: no prompt for time.
 function __kd {
-    while true ; do
-        date
-        eval "$*"
-        [ $? -eq 0 ] && break
-    done
+	[ "x$1" == "x-n" ]\
+		&& while true ; do
+				eval "${@:2}"
+				[ $? -eq 0 ] && break
+			done\
+		|| while true ; do
+				date
+				eval "$*"
+				[ $? -eq 0 ] && break
+			done
 }
 
 # auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
@@ -547,6 +536,41 @@ alias cog="__cog"
 # To add src file in other dir recursively
 #alias gdbs="gdb `find /usr/local/src/debug -type d -printf '-d %p '`"
 alias kd="__kd"
+
+function __cu {
+	local nf__=0
+	local value__=0
+
+	[ "x$1" == "x" ] || [ $1 -ge 0 ] 2>/dev/null
+	[ $? -ne 0 ]\
+		&& echo "param should be nonnegative integer."\
+		&& return 0
+
+	[ "x$1" == "x" ]\
+		&& cd ..\
+		&& return\
+		|| nf__=$(nf__=`echo \`pwd\`|awk -vFS="/" '{print NF}'`;\
+			nf__=`echo "$nf__-$1"|bc`;\
+			[ $nf__ -gt 0 ]\
+				&& echo `echo \`pwd\`|awk -vFS="/" -vORS="/" -v count=$nf__ '{for(i=1;i<=count;i++)print $i}'`\
+				|| echo "??")
+
+	[ "??" == "$nf__" ]\
+		&& while true; 
+			do
+				[ "x$2" == "x-n" ]\
+					|| pwd;break 
+			done\
+		&& read -n 1 -s value__\
+		&& kd -n __cu $value__ -n\
+		|| cd $nf__
+
+	return 0
+}
+
+alias cu="__cu"
+alias cs="cu 100"
+
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
 alias ts="\cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;\cd -;"
 alias us="__updatesystem"

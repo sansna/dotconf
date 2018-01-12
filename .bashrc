@@ -113,9 +113,8 @@ alias vd="vim -d"
 function __w {
     [ "x$*" == "x" ] \
         && (w3m https://www.google.com/ncr; return 0 )\
-        || (website__=$(sed "s/\ /+/g"<<<$*)\
+        || (local website__=$(sed "s/\ /+/g"<<<$*)\
             && w3m https://www.google.com/search?ie=ISO-8859-1\&hl=en\&source=hp\&biw=\&bih=\&q=${website__}\&btnG=Google+Search\&gbv=1)
-    unset website__
 }
 
 function __rfc {
@@ -177,48 +176,38 @@ alias nts="awk -vORS='\ ' '{print \$0}'"
 
 function __rndf {
     [ "x$*" == "x" ]\
-        && rndfregexp__="."\
-        || rndfregexp__="$*"
-    rndfcount__=`lgf $rndfregexp__|wc -l`
+        && local rndfregexp__="."\
+        || local rndfregexp__="$*"
+    local rndfcount__=`lgf $rndfregexp__|wc -l`
     [ $rndfcount__ -eq 0 ]\
         && echo "No such File Exist."\
-        && unset rndfcount__\
         && return 1
-    rndfnum__=`shuf -i 1-${rndfcount__} -n 1`
+    local rndfnum__=`shuf -i 1-${rndfcount__} -n 1`
     lgf $rndfregexp__|nts|awk '{print $'$rndfnum__'}'
-    unset rndfnum__
-    unset rndfcount__
-    unset rndfregexp__
 }
 alias rndf="__rndf"
 
 function __rndfl {
     [ "x$*" == "x" ]\
-        && rndflregexp__="."\
-        || rndflregexp__="$*"
-    rndflcount__=`lgfl $rndflregexp__|wc -l`
+        && local rndflregexp__="."\
+        || local rndflregexp__="$*"
+    local rndflcount__=`lgfl $rndflregexp__|wc -l`
     [ $rndflcount__ -eq 0 ]\
         && echo "No such File Exist."\
-        && unset rndflcount__\
         && return 1
-    rndflnum__=`shuf -i 1-${rndflcount__} -n 1`
+    local rndflnum__=`shuf -i 1-${rndflcount__} -n 1`
     lgfl $rndflregexp__|nts|awk '{print $'$rndflnum__'}'
-    unset rndflnum__
-    unset rndflcount__
-    unset rndflregexp__
 }
 alias rndfl="__rndfl"
 
 # Remove current dir
 function __rcd {
-    filecount__=`ls -a|wc -w`;
+    local filecount__=`ls -a|wc -w`;
     filecount__=$((filecount__-2))
-    foldername__=`pwd`
+    local foldername__=`pwd`
     [ "$1" == "-f" ] \
         && \cd ..\
         && rm -frd $foldername__\
-        && unset foldername__\
-        && unset filecount__\
         && ls\
         && return 0
     [ $filecount__ -eq 0 ] \
@@ -227,8 +216,6 @@ function __rcd {
         && ls\
         || printf "Note: Current folder has %d sub-contents.\
  Use 'rcd -f' instead.\n" $filecount__
-    unset foldername__
-    unset filecount__
     return 0
 }
 
@@ -283,9 +270,8 @@ function __gts {
 }
 
 function __gush {
-    commitinfo__=${@:2}
+    local commitinfo__=${@:2}
     git add -A; git commit -S -m "$commitinfo__"; git push origin $1;
-    unset commitinfo__
 }
 
 function __cget {
@@ -370,91 +356,75 @@ alias gsf="grep . -rlnwe"
 
 # Grep certain extension: Command concat, from 2nd arg to last.
 function __gesf {
-    ext__="--include=\*."$1""
-    arg__=${@:2}
-    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    local ext__="--include=\*."$1""
+    local arg__=${@:2}
+    local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rl $arg__"
     eval $command__
-    unset arg__
-    unset command__
-    unset ext__
+	return 0
 }
 
 function __gefs {
-    ext__="--include=\*."$1""
-    arg__=${@:2}
-    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    local ext__="--include=\*."$1""
+    local arg__=${@:2}
+    local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rne $arg__"
     eval $command__
-    unset arg__
-    unset command__
-    unset ext__
+	return 0
 }
 
 function __gbsf {
-    ext__="--include=^"$1"$"
-    arg__=${@:2}
-    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    local ext__="--include=^"$1"$"
+    local arg__=${@:2}
+    local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rl $arg__"
     eval $command__
-    unset arg__
-    unset command__
-    unset ext__
+	return 0
 }
 
 function __gbfs {
-    ext__="--include=^"$1"$"
-    arg__=${@:2}
-    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    local ext__="--include=^"$1"$"
+    local arg__=${@:2}
+    local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rne $arg__"
     eval $command__
-    unset arg__
-    unset command__
-    unset ext__
+	return 0
 }
 
 function __pesf {
-    ext__="--include=\.\*\\\\."$1""
-    arg__=${@:2}
-    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    local ext__="--include=\.\*\\\\."$1""
+    local arg__=${@:2}
+    local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rlM $arg__ ."
     eval $command__
-    unset arg__
-    unset command__
-    unset ext__
+	return 0
 }
 
 function __pefs {
-    ext__="--include=\.\*\\\\."$1""
-    arg__=${@:2}
-    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    local ext__="--include=\.\*\\\\."$1""
+    local arg__=${@:2}
+    local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rnM $arg__ ."
     eval $command__
-    unset arg__
-    unset command__
-    unset ext__
+	return 0
 }
 
 function __pbsf {
-    ext__="--include=^"$1"$"
-    arg__=${@:2}
-    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    local ext__="--include=^"$1"$"
+    local arg__=${@:2}
+    local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rlM $arg__ ."
     eval $command__
-    unset arg__
-    unset command__
-    unset ext__
+	return 0
 }
 
 function __pbfs {
-    ext__="--include=^"$1"$"
-    arg__=${@:2}
-    arg__=`echo $arg__|sed 's/(/\\\(/g'`
+    local ext__="--include=^"$1"$"
+    local arg__=${@:2}
+    local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rnM $arg__ ."
     eval $command__
-    unset arg__
-    unset command__
-    unset ext__
+	return 0
 }
 
 alias gesf="__gesf"

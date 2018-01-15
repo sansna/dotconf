@@ -570,7 +570,6 @@ alias ggi="\
 #	\ssh $* 'while true; do\
 #		rm -f /tmp/taglist.vim
 #		rm -f ~/.ssh/known_hosts
-#		find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
 #		cat /dev/null > /var/log/wtmp
 #		cat /dev/null > ~/.bash_history
 #		history -c
@@ -727,3 +726,4 @@ stty -ixon ixany
 #            ;;
 #    esac
 #}
+find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd

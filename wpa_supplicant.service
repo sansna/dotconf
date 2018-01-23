@@ -9,7 +9,7 @@ Wants=network.target
 Type=dbus
 RemainAfterExit=yes
 BusName=fi.w1.wpa_supplicant1
-ExecStart=/usr/bin/wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+ExecStart=/usr/bin/wpa_supplicant -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
 
 [Install]
 WantedBy=multi-user.target

@@ -590,6 +590,13 @@ alias ggi="\
 #}
 #alias s="__s"
 
+function __sc {
+	screen -r
+	[ $? -eq 1 ] && screen
+}
+
+alias sc="__sc"
+
 # Some templates of ssh/rdesktop.
 #alias sp="ssh -C user@host -pport"
 #alias scpp="__scpp"

@@ -1,6 +1,7 @@
 dotconf
 =
 As inferred. these files are the hidden configure files.
+
 Usage
 =
 Most files without # path/to/file in the head of the file should be

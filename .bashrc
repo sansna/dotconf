@@ -518,6 +518,9 @@ alias cput="__cput"
 alias cog="__cog"
 # To add src file in other dir recursively
 #alias gdbs="gdb `find /usr/local/src/debug -type d -printf '-d %p '`"
+alias pdb="python -m pdb"
+alias pdb2="python2 -m pdb"
+alias pdb3="python3 -m pdb"
 alias kd="__kd"
 
 function __cu {

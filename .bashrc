@@ -10,7 +10,7 @@
 #ip_addr__=`echo $SSH_CONNECTION|cut -d ' ' -f 3`
 #[ "x$ip_addr__" == "x" ]\
 #	&& ip_addr__=`ip a|grep \`ip r|grep default|cut -d ' ' -f 5\`|grep inet|grep -v inet6|grep -v lo$|head -n 1|awk '{print $2}'`
-#export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]#$ttyid__§\$SHLVL \W]\\$ "
+#export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
 #unset os_str__
 #unset ip_addr__
 #unset ttyid__

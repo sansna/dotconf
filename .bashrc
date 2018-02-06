@@ -466,9 +466,28 @@ function __gch {
         || curl -u 'sansna' https://api.github.com/user/repos -d "{\"name\":\"$1\"}"
 }
 
+function __validate_ip4 {
+	local stats=1
+	if [[ $* =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+		OIFS=$IFS
+		IFS="."
+		ip=($*)
+		IFS=$OIFS
+		[[ ${ip[0]} -le 255 && ${ip[1]} -le 255\
+			&& ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+		stats=$?
+	fi
+	return $stats
+}
+alias val_ip="__validate_ip4"
+export -f __validate_ip4
+
 function __getasn {
-    whois -h whois.cymru.com -v $1
-    whois -h whois.cymru.com " -v `dig +short $1`"
+	val_ip $*
+	[ $? -eq 0 ]\
+	&& whois -h whois.cymru.com -v "$*"\
+	|| whois -h whois.cymru.com " -v `dig +short "$*"|xargs -I{}\
+		bash -c "__validate_ip4 {} && echo {}"`"
     # The following is an example of using xargs to pass complicated args.
     #dig +short $1|xargs -I{} -d "\n" whois -h whois.cymru.com -v {}
 }

@@ -1,5 +1,9 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
+# This function is used to load the bashrc script without the .bashrc.
+function __init {
+# Start of function __init.
+
 # Note: PS1 and umask are already set in /etc/profile. You should not
 # need this unless you want different defaults for root.
 #ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
@@ -112,7 +116,11 @@ export -f __cd
 alias cd="__cd"
 
 # Use sshrc(from russell91/sshrc) other than ssh
-#alias ssh="sshrc"
+function __ssh {
+    sshrc "$*"
+}
+alias ssh="__ssh"
+
 # Bring basic vim shortcuts with sshrc, uncomment following in .sshrc file
 #function __vim {
 #	vim \
@@ -596,7 +604,7 @@ alias ggi="\
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
 #function __s {
-#	ssh $*
+#	__ssh $*
 #	\ssh $* 'while true; do\
 #		rm -f /tmp/.a.tmp
 #		rm -f /tmp/.b.tmp
@@ -768,3 +776,8 @@ stty -ixon ixany
 #    esac
 #}
 find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
+
+# End of function __init.
+}
+export -f __init
+__init

@@ -282,6 +282,7 @@ function __gt {
         && (git clone https://github.com/$1 ~/GitRepo/$1;return 0)\
         || (git clone https://github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
 }
+export -f __gt
 
 function __gts {
     mkdir -p ~/GitRepo
@@ -685,7 +686,7 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #	apt-get install git -y
 #	apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake -y
 #	gt shadowsocks/shadowsocks-libev
-#	gr
+#	cd ~/GitRepo
 #	cd shadowsocks/shadowsocks-libev
 #	git submodule update --init --recursive
 #	{

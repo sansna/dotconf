@@ -6,18 +6,18 @@ function __init {
 
 # Note: PS1 and umask are already set in /etc/profile. You should not
 # need this unless you want different defaults for root.
-#ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
+ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
 # Debian prompt:
 #export PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
 # CentOS prompt: between \033 are colored scripts
-#os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
-#ip_addr__=`echo $SSH_CONNECTION|cut -d ' ' -f 3`
-#[ "x$ip_addr__" == "x" ]\
-#	&& ip_addr__=`ip a|grep \`ip r|grep default|cut -d ' ' -f 5\`|grep inet|grep -v inet6|grep -v lo$|head -n 1|awk '{print $2}'`
-#export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
-#unset os_str__
-#unset ip_addr__
-#unset ttyid__
+os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
+ip_addr__=`echo $SSH_CONNECTION|cut -d ' ' -f 3`
+[ "x$ip_addr__" == "x" ]\
+	&& ip_addr__=`ip a|grep \`ip r|grep default|cut -d ' ' -f 5\`|grep inet|grep -v inet6|grep -v lo$|head -n 1|awk '{print $2}'`
+export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
+unset os_str__
+unset ip_addr__
+unset ttyid__
 # The following is used when -x is set in debugging the bash scripts.
 #export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 #umask 022
@@ -28,7 +28,7 @@ export GPG_TTY=$(tty)
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
-#EDITOR='/usr/share/vim'
+EDITOR='/usr/share/vim'
 
 # The following distinguishes filename globbing between lowercase and
 #+ uppercase letters in a character range between brackets.
@@ -55,16 +55,16 @@ export PYTHONSTARTUP=~/.pythonrc
 		&& export bashcomplete__=1)
 
 # Prepare vim plugin for vim: need internet
-#[ -s /tmp/.a.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/a.vim -O /tmp/.a.tmp --quiet
-#[ -s /tmp/.b.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/auto-pairs.vim -O /tmp/.b.tmp --quiet
-#[ -s /tmp/.c.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/boolpat.vim -O /tmp/.c.tmp --quiet
-#[ -s /tmp/.d.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/pasta.vim -O /tmp/.d.tmp --quiet
-#[ -s /tmp/.e.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/taglist.vim -O /tmp/.e.tmp --quiet
+[ -s /tmp/.a.tmp ]\
+	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/a.vim -O /tmp/.a.tmp --quiet
+[ -s /tmp/.b.tmp ]\
+	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/auto-pairs.vim -O /tmp/.b.tmp --quiet
+[ -s /tmp/.c.tmp ]\
+	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/boolpat.vim -O /tmp/.c.tmp --quiet
+[ -s /tmp/.d.tmp ]\
+	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/pasta.vim -O /tmp/.d.tmp --quiet
+[ -s /tmp/.e.tmp ]\
+	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/taglist.vim -O /tmp/.e.tmp --quiet
 
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
@@ -122,12 +122,12 @@ function __ssh {
 alias ssh="__ssh"
 
 # Bring basic vim shortcuts with sshrc, uncomment following in .sshrc file
-#function __vim {
-#	vim \
-#		-c "set nocompatible| filetype off| set path+=/usr/include| set tags=tags;| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on| set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac| nnoremap <c-s> :w<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :w !sudo tee %<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp | nnoremap <leader>a :A<CR>| nnoremap <leader>b :BoolPat| normal zz"\
-#		$*
-#}
-#alias vim="__vim"
+function __vim {
+	vim \
+		-c "set nocompatible| filetype off| set path+=/usr/include| set tags=tags;| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on| set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac| nnoremap <c-s> :w<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :w !sudo tee %<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp | nnoremap <leader>a :A<CR>| nnoremap <leader>b :BoolPat| normal zz"\
+		$*
+}
+alias vim="__vim"
 alias vd="vim -d"
 
 # Using function for alias because needs parameter.
@@ -604,22 +604,22 @@ alias ggi="\
 
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
-#function __s {
-#	__ssh $*
-#	\ssh $* 'while true; do\
-#		rm -f /tmp/.a.tmp
-#		rm -f /tmp/.b.tmp
-#		rm -f /tmp/.c.tmp
-#		rm -f /tmp/.d.tmp
-#		rm -f /tmp/.e.tmp
-#		rm -f ~/.ssh/known_hosts
-#		cat /dev/null > /var/log/wtmp
-#		cat /dev/null > ~/.bash_history
-#		history -c
-#		break
-#	done'
-#}
-#alias s="__s"
+function __s {
+	__ssh $*
+	\ssh $* 'while true; do\
+		rm -f /tmp/.a.tmp
+		rm -f /tmp/.b.tmp
+		rm -f /tmp/.c.tmp
+		rm -f /tmp/.d.tmp
+		rm -f /tmp/.e.tmp
+		rm -f ~/.ssh/known_hosts
+		cat /dev/null > /var/log/wtmp
+		cat /dev/null > ~/.bash_history
+		history -c
+		break
+	done'
+}
+alias s="__s"
 
 function __sc {
 	screen -r
@@ -667,63 +667,63 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #    echo "" > ~/.bash_history
 #}
 
-#function __reboot {
-#	sleep 1
-#	reboot
-#}
+function __reboot {
+	sleep 1
+	reboot
+}
 
 #alias exit="__exit"
-#alias reboot="__reboot"
+alias reboot="__reboot"
 
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 #alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"
 
 # This function is used on debian machines to build ss-libev, however
 #+ in my tests, libev version seems not better but worse than pip version.
-#function __getss {
-#	vim /etc/apt/sources.list
-#	apt-get update
-#	apt-get install git -y
-#	apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake -y
-#	gt shadowsocks/shadowsocks-libev
-#	cd ~/GitRepo
-#	cd shadowsocks/shadowsocks-libev
-#	git submodule update --init --recursive
-#	{
-#		export LIBSODIUM_VER=1.0.13
-#		wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
-#		tar xfv libsodium-$LIBSODIUM_VER.tar.gz
-#		pushd libsodium-$LIBSODIUM_VER
-#		./configure --prefix=/usr && make
-#		make install
-#		popd
-#		ldconfig
-#	}
-#	{
-#		export MBEDTLS_VER=2.6.0
-#		wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
-#		tar xfv mbedtls-$MBEDTLS_VER-gpl.tgz
-#		pushd mbedtls-$MBEDTLS_VER
-#		make SHARED=1 CFLAGS=-fPIC
-#		make DESTDIR=/usr install
-#		popd
-#		ldconfig
-#	}
-#	./autogen.sh
-#	./configure; make; make install
+function __getss {
+	vim /etc/apt/sources.list
+	apt-get update
+	apt-get install git -y
+	apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake -y
+	gt shadowsocks/shadowsocks-libev
+	cd ~/GitRepo
+	cd shadowsocks/shadowsocks-libev
+	git submodule update --init --recursive
+	{
+		export LIBSODIUM_VER=1.0.13
+		wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
+		tar xfv libsodium-$LIBSODIUM_VER.tar.gz
+		pushd libsodium-$LIBSODIUM_VER
+		./configure --prefix=/usr && make
+		make install
+		popd
+		ldconfig
+	}
+	{
+		export MBEDTLS_VER=2.6.0
+		wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
+		tar xfv mbedtls-$MBEDTLS_VER-gpl.tgz
+		pushd mbedtls-$MBEDTLS_VER
+		make SHARED=1 CFLAGS=-fPIC
+		make DESTDIR=/usr install
+		popd
+		ldconfig
+	}
+	./autogen.sh
+	./configure; make; make install
 #	ss-server -s 0.0.0.0 -p port -k passwd -m method -t time &
-#}
-#alias getss="__getss"
-
-function __ssr {
-	local running__=`ps aux|grep ss-local|grep -v grep`
-	[ "x$running__" == "x" ]\
-		&& (ss-local -s serv-addr -p serv-port -k password -t time_out\
-			   -l local-port -m secret-method &)\
-		&& (polipo -c /etc/polipo/config &)\
-		&& alias pxy="http_proxy=http://localhost:8123"
 }
-alias ssr="__ssr"
+alias getss="__getss"
+
+#function __ssr {
+#	local running__=`ps aux|grep ss-local|grep -v grep`
+#	[ "x$running__" == "x" ]\
+#		&& (ss-local -s serv-addr -p serv-port -k password -t time_out\
+#			   -l local-port -m secret-method &)\
+#		&& (polipo -c /etc/polipo/config &)\
+#		&& alias pxy="http_proxy=http://localhost:8123"
+#}
+#alias ssr="__ssr"
 
 # automatically detect if sslocal started and alias.
 running__=`ps aux|grep ss-local|grep -v grep`

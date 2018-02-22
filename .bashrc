@@ -621,7 +621,7 @@ alias ggi="\
 #		cat /dev/null > ~/.bash_history
 #		history -c
 #		break
-#	done'
+#	done' &
 #}
 #alias s="__s"
 

@@ -325,6 +325,7 @@ function __kd {
 				[ $? -eq 0 ] && break
 			done
 }
+export -f __kd
 
 # auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
 #+ always update on comfirmation.. Although can also be automated by adding --no-comfirm..
@@ -564,7 +565,7 @@ function __cu {
 		&& return 0
 
 	[ "x$1" == "x" ]\
-		&& cd ..\
+		&& __cd ..\
 		&& return\
 		|| nf__=$(nf__=`echo \`pwd\`|awk -vFS="/" '{print NF}'`;\
 			nf__=`echo "$nf__-$1"|bc`;\
@@ -579,8 +580,8 @@ function __cu {
 					|| pwd;break 
 			done\
 		&& read -n 1 -s value__\
-		&& kd -n __cu $value__ -n\
-		|| cd $nf__
+		&& __kd -n __cu $value__ -n\
+		|| __cd $nf__
 
 	return 0
 }

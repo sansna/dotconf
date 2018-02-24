@@ -98,12 +98,12 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 #alias mv='mv -i'
 
 function __ls {
-	\ls --color=auto
+	\ls --color=auto $*
 }
 export -f __ls
 
 function __grep {
-	\grep --color=auto
+	\grep --color=auto $*
 }
 export -f __grep
 

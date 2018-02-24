@@ -117,7 +117,7 @@ function __cd {
 		&& cd\
 		|| cd "${tmpdir__}"
 	__ls
-	local wordcount__=`__ls -a|wc -w`
+	local wordcount__=`ls -a|wc -w`
 	[ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
 	return 0
 }

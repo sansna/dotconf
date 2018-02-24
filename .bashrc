@@ -97,8 +97,18 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 #alias cp='cp -i'
 #alias mv='mv -i'
 
-alias ls="ls --color=auto"
-alias grep="grep --color=auto"
+function __ls {
+	\ls --color=auto
+}
+export -f __ls
+
+function __grep {
+	\grep --color=auto
+}
+export -f __grep
+
+alias ls="__ls"
+alias grep="__grep"
 alias pcregrep="pcre2grep --color=auto"
 
 function __cd {
@@ -106,7 +116,7 @@ function __cd {
 	[ "x$tmpdir__" == "x" ]\
 		&& cd\
 		|| cd "${tmpdir__}"
-	ls
+	__ls
 	local wordcount__=`ls -a|wc -w`
 	[ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
 	return 0
@@ -183,14 +193,14 @@ function __sgsl {
 }
 
 #alias ct="cp -t ~/test/"
-alias lgf="find . -type f|grep"
-alias lgd="find . -type d|grep"
-alias lgl="find . -type l|grep"
-alias lgb="find . |grep .bak$"
-alias lgfl="find . -maxdepth 1 -type f|grep"
-alias lgdl="find . -maxdepth 1 -type d|grep"
-alias lgll="find . -maxdepth 1 -type l|grep"
-alias lgbl="find . -maxdepth 1 |grep .bak$"
+alias lgf="find . -type f|__grep"
+alias lgd="find . -type d|__grep"
+alias lgl="find . -type l|__grep"
+alias lgb="find . |__grep .bak$"
+alias lgfl="find . -maxdepth 1 -type f|__grep"
+alias lgdl="find . -maxdepth 1 -type d|__grep"
+alias lgll="find . -maxdepth 1 -type l|__grep"
+alias lgbl="find . -maxdepth 1 |__grep .bak$"
 alias i="__i"
 alias v="__v"
 
@@ -232,12 +242,12 @@ function __rcd {
     [ "$1" == "-f" ] \
         && \cd ..\
         && rm -frd $foldername__\
-        && ls\
+        && __ls\
         && return 0
     [ $filecount__ -eq 0 ] \
         && rm -frd $foldername__ \
         && \cd ..\
-        && ls\
+        && __ls\
         || printf "Note: Current folder has %d sub-contents.\
  Use 'rcd -f' instead.\n" $filecount__
     return 0
@@ -360,8 +370,8 @@ alias ll="ls -al --color=auto"
 alias llh="ll -h"
 alias llhd="llh -d"
 alias l.="ls -d .* --color=auto"
-alias lr="ls -Ra"
-alias lg="ls -Ra|grep"
+alias lr="__ls -Ra"
+alias lg="ls -Ra|__grep"
 alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto -n"
 alias lgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
 alias lgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' grep --color=auto -n"
@@ -377,15 +387,15 @@ alias pgmsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xa
 alias pglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -sn"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
-alias gfs="grep . -rnwe"
-alias gsf="grep . -rlnwe"
+alias gfs="__grep . -rnwe"
+alias gsf="__grep . -rlnwe"
 
 # Grep certain extension: Command concat, from 2nd arg to last.
 function __gesf {
     local ext__="--include=\*."$1""
     local arg__=${@:2}
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="grep ${ext__} -rl $arg__"
+    command__="__grep ${ext__} -rl $arg__"
     eval $command__
 	return 0
 }
@@ -394,7 +404,7 @@ function __gefs {
     local ext__="--include=\*."$1""
     local arg__=${@:2}
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="grep ${ext__} -rne $arg__"
+    command__="__grep ${ext__} -rne $arg__"
     eval $command__
 	return 0
 }
@@ -403,7 +413,7 @@ function __gbsf {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="grep ${ext__} -rl $arg__"
+    command__="__grep ${ext__} -rl $arg__"
     eval $command__
 	return 0
 }
@@ -412,7 +422,7 @@ function __gbfs {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="grep ${ext__} -rne $arg__"
+    command__="__grep ${ext__} -rne $arg__"
     eval $command__
 	return 0
 }

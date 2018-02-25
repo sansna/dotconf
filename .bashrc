@@ -503,10 +503,22 @@ function __getasn {
 #export -f __getsslproxy
 
 #function __writesslproxy {
-#	[ -f /etc/proxychains.conf ] && sed -i '$ d' /etc/proxychains.conf
-#	echo `__getsslproxy`|sed 's/^/socks5 /g'|sed 's/:/ /g' >> /etc/proxychains.conf
+#	[ -f /etc/proxychains.conf ] && sed -i '$ d' /etc/proxychains.conf\
+#		&& echo `__getsslproxy`|sed 's/^/socks5 /g'|sed 's/:/ /g' >> /etc/proxychains.conf
 #}
 #export -f __writesslproxy
+
+#function __wspbg {
+#	local sec__=600
+#	[ "$1" -lt 3600 ] && [ "$1" -gt 60 ]\
+#		&& sec__=$1 2>/dev/null
+#	__kd "while true ; do
+#		__writesslproxy
+#		sleep $sec__
+#		return 1
+#		break
+#	done" &
+#}
 
 alias gtf="__gtf"
 alias rcd="__rcd"
@@ -644,6 +656,7 @@ alias sc="__sc"
 alias getasn="__getasn"
 #alias getsslpxy="__getsslproxy"
 #alias wsp="__writesslproxy"
+#alias wspbg="__wspbg"
 #alias pacman="sudo pacman"
 #alias r="aria2c *.meta4"
 alias gcT="__gcT"

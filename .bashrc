@@ -532,12 +532,12 @@ function __writesslproxy {
 export -f __writesslproxy
 
 function __wspbg {
-	local sec__= 600
-	[ $1 -lt 3600 ] && [ $1 -gt 60 ]\
-		&& sec__=$1
+	local sec__=600
+	[ "$1" -lt 3600 ] && [ "$1" -gt 60 ]\
+		&& sec__=$1 2>/dev/null
 	__kd "while true ; do
 		__writesslproxy
-		sleep 600
+		sleep $sec__
 		return 1
 		break
 	done" &

@@ -515,14 +515,21 @@ function __getasn {
     #dig +short $1|xargs -I{} -d "\n" whois -h whois.cymru.com -v {}
 }
 
-function __getsslproxy {
-	local tmp__=`curl -s https://sockslist.net/list/proxy-socks-5-list/|grep CDATA -A 1 -B 3  -m 2|grep 'DontGrubMe\|t_ip\|document'`
-	eval `echo $tmp__|cut -d'<' -f 1|tr -d ' '|sed 's/=/=$((/g'|sed 's/;/));/g'`
-	eval `echo $tmp__|cut -d '(' -f 2|cut -d ')' -f 1|sed 's/^/local port__=$((/g'|sed 's/$/))/g'`
-	local ip__=`echo $tmp__|cut -d '>' -f 2|cut -d '<' -f 1`
-	echo $ip__:$port__
-}
-export -f __getsslproxy
+#function __getsslproxy {
+#	local tmp__=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"\
+#			   	-s https://sockslist.net/list/proxy-socks-5-list/|grep CDATA -A 1 -B 3  -m 2|grep 'DontGrubMe\|t_ip\|document'`
+#	eval `echo $tmp__|cut -d'<' -f 1|tr -d ' '|sed 's/=/=$((/g'|sed 's/;/));/g'`
+#	eval `echo $tmp__|cut -d '(' -f 2|cut -d ')' -f 1|sed 's/^/local port__=$((/g'|sed 's/$/))/g'`
+#	local ip__=`echo $tmp__|cut -d '>' -f 2|cut -d '<' -f 1`
+#	echo $ip__:$port__
+#}
+#export -f __getsslproxy
+
+#function __writesslproxy {
+#	[ -f /etc/proxychains.conf ] && sed -i '$ d' /etc/proxychains.conf
+#	echo `__getsslproxy`|sed 's/^/socks5 /g'|sed 's/:/ /g' >> /etc/proxychains.conf
+#}
+#export -f __writesslproxy
 
 alias gtf="__gtf"
 alias rcd="__rcd"
@@ -658,7 +665,8 @@ alias sc="__sc"
 #alias sxp="ssh -X -C user@host -pport"
 
 alias getasn="__getasn"
-alias getsslpxy="__getsslproxy"
+#alias getsslpxy="__getsslproxy"
+#alias wsp="__writesslproxy"
 #alias pacman="sudo pacman"
 #alias r="aria2c *.meta4"
 alias gcT="__gcT"

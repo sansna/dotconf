@@ -535,12 +535,12 @@ function __wspbg {
 	local sec__= 600
 	[ $1 -lt 3600 ] && [ $1 -gt 60 ]\
 		&& sec__=$1
-	kd while true; do
+	__kd "while true ; do
 		__writesslproxy
 		sleep 600
 		return 1
 		break
-	done
+	done" &
 }
 
 alias gtf="__gtf"

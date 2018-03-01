@@ -100,8 +100,8 @@ alias pcregrep="pcre2grep --color=auto"
 function __cd {
 	local tmpdir__=$*
 	[ "x$tmpdir__" == "x" ]\
-		&& cd\
-		|| cd "${tmpdir__}"
+		&& \cd\
+		|| \cd "${tmpdir__}"
 	ls
 	local wordcount__=`ls -a|wc -w`
 	[ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."

@@ -1,2 +1,52 @@
-# $(HOME)/.screenrc: better screen
+# Use <c-a>+\ to close all sessions. <c-a>+k to close one session.
+
+# message off
+startup_message off
+
+# Disable bell notification in screen.
 vbell off
+bell_msg ""
+
+# Status line.
+# See https://www.gnu.org/software/screen/manual/html_node/String-Escapes.html for colors-list.
+#caption always "%{= dd}%{+b w}%h %=%{=b rw} %l %{= db} ${USER}@%H %{= dg}%c"
+hardstatus alwayslastline '%+0=%{= dd}%l %+9=%{= dd}%n%-19=%{= dd}%y %D %M.%d %0c'
+defscrollback 1000000
+
+# control-left and control-right switch windows
+bindkey ^[[1;5D prev
+bindkey ^[[1;5C next
+
+# navigating regions
+bind j focus down
+bind k focus up
+bind h focus left
+bind l focus right
+
+# Create new screens start at 0.
+bind c screen 0
+
+# Split.
+bind s split
+bind v split -v
+
+# resizing regions
+bind r resize 68
+bind + resize +5
+bind - resize -5
+bind = resize =
+
+# Default screens.
+screen -t Shell0  0
+stuff "__init;history -c;clear"
+screen -t Shell1  1
+stuff "__init;history -c;clear"
+screen -t Shell2  2
+stuff "__init;history -c;clear"
+screen -t Shell3  3
+stuff "__init;history -c;clear"
+screen -t Shell4  4
+stuff "__init;history -c;clear"
+
+# Start at window #0.
+select 0

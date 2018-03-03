@@ -654,6 +654,7 @@ function __s {
 		rm -f /tmp/.c.tmp
 		rm -f /tmp/.d.tmp
 		rm -f /tmp/.e.tmp
+        rm -f /tmp/.s.tmp
 		rm -f ~/.ssh/known_hosts
 		cat /dev/null > /var/log/wtmp
 		cat /dev/null > ~/.bash_history
@@ -665,7 +666,10 @@ alias s="__s"
 
 function __sc {
 	screen -r
-	[ $? -eq 1 ] && screen
+    [ $? -eq 1  ] && while true; do
+        [ -s /tmp/.s.tmp  ] || curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.screenrc > /tmp/.s.tmp
+        [ $? -eq 0  ] && screen -c /tmp/.s.tmp && break
+    done
 }
 
 alias sc="__sc"

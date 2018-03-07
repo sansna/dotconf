@@ -11,7 +11,9 @@ bell_msg ""
 # See https://www.gnu.org/software/screen/manual/html_node/String-Escapes.html for colors-list.
 #caption always "%{= dd}%{+b w}%h %=%{=b rw} %l %{= db} ${USER}@%H %{= dg}%c"
 hardstatus alwayslastline '%+0=%{= dd}%l %+9=%{= dd}%n%-19=%{= dd}%y %D %M.%d %0c'
-defscrollback 1000000
+
+# Define maximum history. 1000 history records consume about 500KiB of RAM per screen.
+defscrollback 3000
 
 # control-left and control-right switch windows
 bindkey ^[[1;5D prev
@@ -23,8 +25,8 @@ bind k focus up
 bind h focus left
 bind l focus right
 
-# Create new screens start at 0.
-bind c screen 0
+# Create new screens start at 0. XXX: screens start from 5's tty are not pts.
+bind c screen 0 bash -c "bash -i <<< '__init;exec </dev/tty;history -c;clear'"
 
 # Split.
 bind s split
@@ -49,4 +51,5 @@ screen -t Shell4  4
 stuff "__init;history -c;clear"
 
 # Start at window #0.
+select 1
 select 0

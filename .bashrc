@@ -675,6 +675,13 @@ function __sc {
 
 alias sc="__sc"
 
+function __tm {
+    tmux at
+    [ $? -eq 1 ] && tmux -f <(curl -s https://raw.githubusercontent.com/sansna/dotconf/master/tmux.conf)
+}
+
+alias tm="__tm"
+
 # Some templates of ssh/rdesktop.
 #alias sp="ssh -C user@host -pport"
 #alias scpp="__scpp"

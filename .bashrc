@@ -742,7 +742,7 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #	apt-get update
 #	apt-get install git -y
 #	apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake -y
-#	gt shadowsocks/shadowsocks-libev
+#	__gt shadowsocks/shadowsocks-libev
 #	cd ~/GitRepo
 #	cd shadowsocks/shadowsocks-libev
 #	git submodule update --init --recursive

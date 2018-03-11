@@ -51,7 +51,7 @@ export PYTHONSTARTUP=~/.pythonrc
     || while true; do
         [ -s /usr/share/bash-completion/bash_completion ]\
             && source /usr/share/bash-completion/bash_completion\
-            && export bashcomplete__=1
+            && bashcomplete__=1
         break
     done
 

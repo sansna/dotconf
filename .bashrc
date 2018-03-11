@@ -9,7 +9,7 @@
 #os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
 #ip_addr__=`echo $SSH_CONNECTION|cut -d ' ' -f 3`
 #[ "x$ip_addr__" == "x" ]\
-#	&& ip_addr__=`ip a|grep \`ip r|grep default|cut -d ' ' -f 5\`|grep inet|grep -v inet6|grep -v lo$|head -n 1|awk '{print $2}'`
+#   && ip_addr__=`ip a|grep \`ip r|grep default|cut -d ' ' -f 5\`|grep inet|grep -v inet6|grep -v lo$|head -n 1|awk '{print $2}'`
 #export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
 #unset os_str__
 #unset ip_addr__
@@ -45,22 +45,27 @@ export PYTHONSTARTUP=~/.pythonrc
 
 # In case bash-completion not load itself:
 #+ File exist check. [ -s file ]
+#+ And to note commands enclosed in bracket will be executed in
+#+ new-created-subshell.
 [ "x$bashcomplete__" == "x1" ]\
-    || ([ -s /usr/share/bash-completion/bash_completion ]\
-		&& source /usr/share/bash-completion/bash_completion\
-		&& export bashcomplete__=1)
+    || while true; do
+        [ -s /usr/share/bash-completion/bash_completion ]\
+            && source /usr/share/bash-completion/bash_completion\
+            && export bashcomplete__=1
+        break
+    done
 
 # Prepare vim plugin for vim: need internet
 #[ -s /tmp/.a.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/a.vim -O /tmp/.a.tmp --quiet
+#   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/a.vim -O /tmp/.a.tmp --quiet
 #[ -s /tmp/.b.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/auto-pairs.vim -O /tmp/.b.tmp --quiet
+#   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/auto-pairs.vim -O /tmp/.b.tmp --quiet
 #[ -s /tmp/.c.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/boolpat.vim -O /tmp/.c.tmp --quiet
+#   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/boolpat.vim -O /tmp/.c.tmp --quiet
 #[ -s /tmp/.d.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/pasta.vim -O /tmp/.d.tmp --quiet
+#   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/pasta.vim -O /tmp/.d.tmp --quiet
 #[ -s /tmp/.e.tmp ]\
-#	|| wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/taglist.vim -O /tmp/.e.tmp --quiet
+#   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/taglist.vim -O /tmp/.e.tmp --quiet
 
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
@@ -73,8 +78,8 @@ unalias -a
 
 # prompt opt in git folder
 [ -s ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh ]\
-	&& GIT_PROMPT_ONLY_IN_REPO=1\
-	&& source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
+    && GIT_PROMPT_ONLY_IN_REPO=1\
+    && source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
 
 # base-16 color scheme, see chriskempson/base16-shell
 BASE16_SHELL=$HOME/.config/base16-shell/
@@ -98,14 +103,14 @@ alias grep="grep --color=auto"
 alias pcregrep="pcre2grep --color=auto"
 
 function __cd {
-	local tmpdir__=$*
-	[ "x$tmpdir__" == "x" ]\
-		&& \cd\
-		|| \cd "${tmpdir__}"
-	ls
-	local wordcount__=`ls -a|wc -w`
-	[ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
-	return 0
+    local tmpdir__=$*
+    [ "x$tmpdir__" == "x" ]\
+        && \cd\
+        || \cd "${tmpdir__}"
+    ls
+    local wordcount__=`ls -a|wc -w`
+    [ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
+    return 0
 }
 # Functons to be called in bash -c or xargs should be exported in this way.
 export -f __cd
@@ -115,9 +120,9 @@ alias cd="__cd"
 #alias ssh="sshrc"
 # Bring basic vim shortcuts with sshrc, uncomment following in .sshrc file
 #function __vim {
-#	vim \
-#		-c "set nocompatible| filetype off| set path+=/usr/include| set tags=tags;| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on| set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac| nnoremap <c-s> :w<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :w !sudo tee % 2>&1 1>/dev/null<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp|:nohl | nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>b :BoolPat| normal zz"\
-#		$*
+#   vim \
+#       -c "set nocompatible| filetype off| set path+=/usr/include| set tags=tags;| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on| set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac| nnoremap <c-s> :w<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :w !sudo tee % 2>&1 1>/dev/null<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp|:nohl | nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>b :BoolPat| normal zz"\
+#       $*
 #}
 #alias vim="__vim"
 alias vd="vim -d"
@@ -149,19 +154,19 @@ function __i {
 # Open with longest match of file, together with line numbers.
 function __v {
     local cutfilename__=`echo $1|cut -d ';' -f 1|cut -d '(' -f 1|cut -d ')' -f 1`
-	local nf__=`echo $cutfilename__|awk -vFS=":" '{print NF}'`
-	[ 1 -ge $nf__ ] && vim -R -- "$cutfilename__" && return
-	for i in `seq $nf__ -1 1`;
-	do
-		local filename__=`echo $cutfilename__|awk -v count=$i -vFS=":" '{for(i=1;i<=count;i++)print $i}'|paste -sd:`;
-		local line__=`echo $cutfilename__|awk -v count=$i -vFS=":" '{print $(count+1)}'`
-		[ -f "$filename__" ]\
-			&& local totalline__=`wc -l "$filename__"|cut -d ' ' -f 1`\
-			&& ([ $line__ -le $totalline__ ] 2>/dev/null && line__=+$line__ || unset line__;\
-				vim -R $line__ -- "$filename__")\
-			&& return
-	done;
-	vim -R -- "$cutfilename__"
+    local nf__=`echo $cutfilename__|awk -vFS=":" '{print NF}'`
+    [ 1 -ge $nf__ ] && vim -R -- "$cutfilename__" && return
+    for i in `seq $nf__ -1 1`;
+    do
+        local filename__=`echo $cutfilename__|awk -v count=$i -vFS=":" '{for(i=1;i<=count;i++)print $i}'|paste -sd:`;
+        local line__=`echo $cutfilename__|awk -v count=$i -vFS=":" '{print $(count+1)}'`
+        [ -f "$filename__" ]\
+            && local totalline__=`wc -l "$filename__"|cut -d ' ' -f 1`\
+            && ([ $line__ -le $totalline__ ] 2>/dev/null && line__=+$line__ || unset line__;\
+                vim -R $line__ -- "$filename__")\
+            && return
+    done;
+    vim -R -- "$cutfilename__"
 }
 
 function __sgs {
@@ -262,11 +267,11 @@ function __rgdl {
 }
 
 function __swf {
-	[ -e $1 ] && [ -e $2 ] || return 1
-	local tmp=$(date +%s)
-	mv $1 $tmp
-	mv $2 $1
-	mv $tmp $2
+    [ -e $1 ] && [ -e $2 ] || return 1
+    local tmp=$(date +%s)
+    mv $1 $tmp
+    mv $2 $1
+    mv $tmp $2
 }
 
 function __gt {
@@ -303,16 +308,16 @@ function __cog {
 
 # Now kd support option -n: no prompt for time.
 function __kd {
-	[ "x$1" == "x-n" ]\
-		&& while true ; do
-				eval "${@:2}"
-				[ $? -eq 0 ] && break
-			done\
-		|| while true ; do
-				date
-				eval "$*"
-				[ $? -eq 0 ] && break
-			done
+    [ "x$1" == "x-n" ]\
+        && while true ; do
+                eval "${@:2}"
+                [ $? -eq 0 ] && break
+            done\
+        || while true ; do
+                date
+                eval "$*"
+                [ $? -eq 0 ] && break
+            done
 }
 
 # auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
@@ -375,7 +380,7 @@ function __gesf {
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rl $arg__"
     eval $command__
-	return 0
+    return 0
 }
 
 function __gefs {
@@ -384,7 +389,7 @@ function __gefs {
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rne $arg__"
     eval $command__
-	return 0
+    return 0
 }
 
 function __gbsf {
@@ -393,7 +398,7 @@ function __gbsf {
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rl $arg__"
     eval $command__
-	return 0
+    return 0
 }
 
 function __gbfs {
@@ -402,7 +407,7 @@ function __gbfs {
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="grep ${ext__} -rne $arg__"
     eval $command__
-	return 0
+    return 0
 }
 
 function __pesf {
@@ -411,7 +416,7 @@ function __pesf {
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rlM $arg__ ."
     eval $command__
-	return 0
+    return 0
 }
 
 function __pefs {
@@ -420,7 +425,7 @@ function __pefs {
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rnM $arg__ ."
     eval $command__
-	return 0
+    return 0
 }
 
 function __pbsf {
@@ -429,7 +434,7 @@ function __pbsf {
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rlM $arg__ ."
     eval $command__
-	return 0
+    return 0
 }
 
 function __pbfs {
@@ -438,7 +443,7 @@ function __pbfs {
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
     command__="pcregrep ${ext__} -rnM $arg__ ."
     eval $command__
-	return 0
+    return 0
 }
 
 alias gesf="__gesf"
@@ -468,57 +473,57 @@ function __gch {
 }
 
 function __validate_ip4 {
-	local stats=1
-	if [[ $* =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-		OIFS=$IFS
-		IFS="."
-		ip=($*)
-		IFS=$OIFS
-		[[ ${ip[0]} -le 255 && ${ip[1]} -le 255\
-			&& ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
-		stats=$?
-	fi
-	return $stats
+    local stats=1
+    if [[ $* =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        OIFS=$IFS
+        IFS="."
+        ip=($*)
+        IFS=$OIFS
+        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255\
+            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+        stats=$?
+    fi
+    return $stats
 }
 alias val_ip="__validate_ip4"
 export -f __validate_ip4
 
 function __getasn {
-	val_ip $*
-	[ $? -eq 0 ]\
-	&& whois -h whois.cymru.com -v "$*"\
-	|| whois -h whois.cymru.com " -v `dig +short "$*"|xargs -I{}\
-		bash -c "__validate_ip4 {} && echo {}"`"
+    val_ip $*
+    [ $? -eq 0 ]\
+    && whois -h whois.cymru.com -v "$*"\
+    || whois -h whois.cymru.com " -v `dig +short "$*"|xargs -I{}\
+        bash -c "__validate_ip4 {} && echo {}"`"
     # The following is an example of using xargs to pass complicated args.
     #dig +short $1|xargs -I{} -d "\n" whois -h whois.cymru.com -v {}
 }
 
 #function __getsslproxy {
-#	local tmp__=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"\
-#			   	-s https://sockslist.net/list/proxy-socks-5-list/|grep CDATA -A 1 -B 3  -m 2|grep 'DontGrubMe\|t_ip\|document'`
-#	eval `echo $tmp__|cut -d'<' -f 1|tr -d ' '|sed 's/=/=$((/g'|sed 's/;/));/g'`
-#	eval `echo $tmp__|cut -d '(' -f 2|cut -d ')' -f 1|sed 's/^/local port__=$((/g'|sed 's/$/))/g'`
-#	local ip__=`echo $tmp__|cut -d '>' -f 2|cut -d '<' -f 1`
-#	echo $ip__:$port__
+#   local tmp__=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"\
+#               -s https://sockslist.net/list/proxy-socks-5-list/|grep CDATA -A 1 -B 3  -m 2|grep 'DontGrubMe\|t_ip\|document'`
+#   eval `echo $tmp__|cut -d'<' -f 1|tr -d ' '|sed 's/=/=$((/g'|sed 's/;/));/g'`
+#   eval `echo $tmp__|cut -d '(' -f 2|cut -d ')' -f 1|sed 's/^/local port__=$((/g'|sed 's/$/))/g'`
+#   local ip__=`echo $tmp__|cut -d '>' -f 2|cut -d '<' -f 1`
+#   echo $ip__:$port__
 #}
 #export -f __getsslproxy
 
 #function __writesslproxy {
-#	[ -f /etc/proxychains.conf ] && sed -i '$ d' /etc/proxychains.conf\
-#		&& echo `__getsslproxy`|sed 's/^/socks5 /g'|sed 's/:/ /g' >> /etc/proxychains.conf
+#   [ -f /etc/proxychains.conf ] && sed -i '$ d' /etc/proxychains.conf\
+#       && echo `__getsslproxy`|sed 's/^/socks5 /g'|sed 's/:/ /g' >> /etc/proxychains.conf
 #}
 #export -f __writesslproxy
 
 #function __wspbg {
-#	local sec__=600
-#	[ "$1" -lt 3600 ] && [ "$1" -gt 60 ]\
-#		&& sec__=$1 2>/dev/null
-#	__kd "while true ; do
-#		__writesslproxy
-#		sleep $sec__
-#		return 1
-#		break
-#	done" &
+#   local sec__=600
+#   [ "$1" -lt 3600 ] && [ "$1" -gt 60 ]\
+#       && sec__=$1 2>/dev/null
+#   __kd "while true ; do
+#       __writesslproxy
+#       sleep $sec__
+#       return 1
+#       break
+#   done" &
 #}
 
 alias gtf="__gtf"
@@ -572,34 +577,34 @@ alias pdb3="python3 -m pdb"
 alias kd="__kd"
 
 function __cu {
-	local nf__=0
-	local value__=0
+    local nf__=0
+    local value__=0
 
-	[ "x$1" == "x" ] || [ $1 -ge 0 ] 2>/dev/null
-	[ $? -ne 0 ]\
-		&& echo "param should be nonnegative integer."\
-		&& return 0
+    [ "x$1" == "x" ] || [ $1 -ge 0 ] 2>/dev/null
+    [ $? -ne 0 ]\
+        && echo "param should be nonnegative integer."\
+        && return 0
 
-	[ "x$1" == "x" ]\
-		&& cd ..\
-		&& return\
-		|| nf__=$(nf__=`echo \`pwd\`|awk -vFS="/" '{print NF}'`;\
-			nf__=`echo "$nf__-$1"|bc`;\
-			[ $nf__ -gt 0 ]\
-				&& echo `echo \`pwd\`|awk -vFS="/" -vORS="/" -v count=$nf__ '{for(i=1;i<=count;i++)print $i}'`\
-				|| echo "??")
+    [ "x$1" == "x" ]\
+        && cd ..\
+        && return\
+        || nf__=$(nf__=`echo \`pwd\`|awk -vFS="/" '{print NF}'`;\
+            nf__=`echo "$nf__-$1"|bc`;\
+            [ $nf__ -gt 0 ]\
+                && echo `echo \`pwd\`|awk -vFS="/" -vORS="/" -v count=$nf__ '{for(i=1;i<=count;i++)print $i}'`\
+                || echo "??")
 
-	[ "??" == "$nf__" ]\
-		&& while true; 
-			do
-				[ "x$2" == "x-n" ]\
-					|| pwd;break 
-			done\
-		&& read -n 1 -s value__\
-		&& kd -n __cu $value__ -n\
-		|| cd $nf__
+    [ "??" == "$nf__" ]\
+        && while true; 
+            do
+                [ "x$2" == "x-n" ]\
+                    || pwd;break 
+            done\
+        && read -n 1 -s value__\
+        && kd -n __cu $value__ -n\
+        || cd $nf__
 
-	return 0
+    return 0
 }
 
 alias cu="__cu"
@@ -625,26 +630,26 @@ alias ggi="\
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
 #function __s {
-#	ssh $*
-#	\ssh $* 'while true; do\
-#		rm -f /tmp/.a.tmp
-#		rm -f /tmp/.b.tmp
-#		rm -f /tmp/.c.tmp
-#		rm -f /tmp/.d.tmp
-#		rm -f /tmp/.e.tmp
-#		rm -f /tmp/.s.tmp
-#		rm -f ~/.ssh/known_hosts
-#		cat /dev/null > /var/log/wtmp
-#		cat /dev/null > ~/.bash_history
-#		history -c
-#		break
-#	done' &
+#   ssh $*
+#   \ssh $* 'while true; do\
+#       rm -f /tmp/.a.tmp
+#       rm -f /tmp/.b.tmp
+#       rm -f /tmp/.c.tmp
+#       rm -f /tmp/.d.tmp
+#       rm -f /tmp/.e.tmp
+#       rm -f /tmp/.s.tmp
+#       rm -f ~/.ssh/known_hosts
+#       cat /dev/null > /var/log/wtmp
+#       cat /dev/null > ~/.bash_history
+#       history -c
+#       break
+#   done' &
 #}
 #alias s="__s"
 
 function __sc {
-	screen -r
-	[ $? -eq 1 ] && while true; do
+    screen -r
+    [ $? -eq 1 ] && while true; do
         [ -s /tmp/.s.tmp ] || curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.screenrc > /tmp/.s.tmp
         [ $? -eq 0 ] && screen -c /tmp/.s.tmp && break
     done
@@ -685,11 +690,11 @@ export -f __gu
 alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 #function __ncs {
-#	tar cf - "$1"|nc -l -p $2
+#   tar cf - "$1"|nc -l -p $2
 #}
 #
 #function __ncc {
-#	nc $*|tar xf -
+#   nc $*|tar xf -
 #}
 #
 ## Usage: server: ncs file port. client: ncc server port.
@@ -702,8 +707,8 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #}
 
 #function __reboot {
-#	sleep 1
-#	reboot
+#   sleep 1
+#   reboot
 #}
 
 #alias exit="__exit"
@@ -715,54 +720,54 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 # This function is used on debian machines to build ss-libev, however
 #+ in my tests, libev version seems not better but worse than pip version.
 #function __getss {
-#	vim /etc/apt/sources.list
-#	apt-get update
-#	apt-get install git -y
-#	apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake -y
-#	gt shadowsocks/shadowsocks-libev
-#	gr
-#	cd shadowsocks/shadowsocks-libev
-#	git submodule update --init --recursive
-#	{
-#		export LIBSODIUM_VER=1.0.13
-#		wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
-#		tar xfv libsodium-$LIBSODIUM_VER.tar.gz
-#		pushd libsodium-$LIBSODIUM_VER
-#		./configure --prefix=/usr && make
-#		make install
-#		popd
-#		ldconfig
-#	}
-#	{
-#		export MBEDTLS_VER=2.6.0
-#		wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
-#		tar xfv mbedtls-$MBEDTLS_VER-gpl.tgz
-#		pushd mbedtls-$MBEDTLS_VER
-#		make SHARED=1 CFLAGS=-fPIC
-#		make DESTDIR=/usr install
-#		popd
-#		ldconfig
-#	}
-#	./autogen.sh
-#	./configure; make; make install
-#	ss-server -s 0.0.0.0 -p port -k passwd -m method -t time &
+#   vim /etc/apt/sources.list
+#   apt-get update
+#   apt-get install git -y
+#   apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake -y
+#   gt shadowsocks/shadowsocks-libev
+#   gr
+#   cd shadowsocks/shadowsocks-libev
+#   git submodule update --init --recursive
+#   {
+#       export LIBSODIUM_VER=1.0.13
+#       wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
+#       tar xfv libsodium-$LIBSODIUM_VER.tar.gz
+#       pushd libsodium-$LIBSODIUM_VER
+#       ./configure --prefix=/usr && make
+#       make install
+#       popd
+#       ldconfig
+#   }
+#   {
+#       export MBEDTLS_VER=2.6.0
+#       wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
+#       tar xfv mbedtls-$MBEDTLS_VER-gpl.tgz
+#       pushd mbedtls-$MBEDTLS_VER
+#       make SHARED=1 CFLAGS=-fPIC
+#       make DESTDIR=/usr install
+#       popd
+#       ldconfig
+#   }
+#   ./autogen.sh
+#   ./configure; make; make install
+#   ss-server -s 0.0.0.0 -p port -k passwd -m method -t time &
 #}
 #alias getss="__getss"
 
 function __ssr {
-	local running__=`ps aux|grep ss-local|grep -v grep`
-	[ "x$running__" == "x" ]\
-		&& (ss-local -s serv-addr -p serv-port -k password -t time_out\
-			   -l local-port -m secret-method &)\
-		&& (polipo -c /etc/polipo/config &)\
-		&& alias pxy="http_proxy=http://localhost:8123"
+    local running__=`ps aux|grep ss-local|grep -v grep`
+    [ "x$running__" == "x" ]\
+        && (ss-local -s serv-addr -p serv-port -k password -t time_out\
+               -l local-port -m secret-method &)\
+        && (polipo -c /etc/polipo/config &)\
+        && alias pxy="http_proxy=http://localhost:8123"
 }
 alias ssr="__ssr"
 
 # automatically detect if sslocal started and alias.
 running__=`ps aux|grep ss-local|grep -v grep`
 [ "x$running__" != "x" ]\
-	&& alias pxy="http_proxy=http://localhost:8123"
+    && alias pxy="http_proxy=http://localhost:8123"
 unset running__
 
 # Disable ctrl+s functionality.

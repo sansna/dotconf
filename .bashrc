@@ -773,6 +773,9 @@ unset running__
 # Disable ctrl+s functionality.
 stty -ixon ixany
 
+# Disables power saver functionality.
+#xset s off -dpms
+
 #[ $TERM == "linux" ]||xrdb ~/.Xresources
 #
 #[ $TERM == "linux" ]||xmodmap -e "remove Lock = Caps_Lock"

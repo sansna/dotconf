@@ -13,3 +13,28 @@
 # LANG="locale.charset" wine a.exe params. where the locales should
 # be installed by locale-gen or if no locale-gen available, use apt
 # to install *language-pack-{locale}-base*.
+#
+# And below are steps and notes about how to install wine:
+# 1. wine 32bit version is stable, and 64bit version is *very* unstable
+#   that you should never try to install dotNet, vcrt, vbrt...
+# 2. install wine binary following the instructions from
+#   wiki.winehq.org/Download. In this way you most likely get a 32bit ver
+#   only of wine, you cannot run 64bit PE with this wine.
+# 3. you can install from source, but it is quite slow, a 4 core e3 cpu cost
+#   about 1 hour to build the binary; in this way, we can build a 64bit ver
+#   of wine which can run 32/64bit binary. And to note in this way you are
+#   not guaranteed (unlikely) to install dotNet, vcrun*, vbrt ... through
+#   winetricks. Installation steps follow instructions from: 
+#   wiki.winehq.org/Building_Wine#Shared_WoW64
+#   And there is *no need* to use lxc.
+# 4. get winetricks from github by wget following README of winetricks/winetricks.
+# 5. The most useful version of wine should be installed as below:
+#  a. install binary version of wine following TIP 2
+#  b. get winetricks following TIP 4
+#  c. remove current wineprefix by: rm -frd ~/.wine
+#  d. regenerate 32bit of wineprefix by: WINEARCH=win32 wineboot
+#  e1. installing dotNets: winetricks -q dotnet35
+#  e2. winestrick -q vb6run
+#  e3. winestrick -q dotnet40
+#  e4. winestrick oleaut32=native
+#  f. installing other dlls by: winetricks (including vcrun*, secur32..)

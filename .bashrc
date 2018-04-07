@@ -819,7 +819,9 @@ stty -ixon ixany
 #export GTK_IM_MODULE=ibus
 #export XMODIFIERS=ibus
 #export QT_IM_MODULE=ibus
-#ibus-daemon -d -x
+#ibus_exist__=`ps aux|grep ibus|grep daemon|wc -l`
+#[ 0 -eq $ibus_exist__ ] && ibus-daemon -d -x
+#unset ibus_exist__
 
 # Debian Ver of apt-history:
 #function apt-history(){

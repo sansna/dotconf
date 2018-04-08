@@ -544,6 +544,9 @@ alias grT="cd ~/GitRepo/Trii"
 #alias chromium="chromium --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version=12.0.0.77 -password-store=detect -user-data-dir"
 #alias c="chromium-browser"
 #alias chromium-browser="chromium-browser --ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=21.0.0.182-r1 -password-store=detect -user-data-dir"
+
+# Normally pcmanfm is default for xdg-open.
+#+ set by: xdg-mime default pcmanfm.desktop inode/directory
 #alias e="xdg-open ."
 #alias m="cd /usr/mf/"
 alias w="__w"

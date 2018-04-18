@@ -202,7 +202,8 @@ function __rndf {
         && echo "No such File Exist."\
         && return 1
     local rndfnum__=`shuf -i 1-${rndfcount__} -n 1`
-    lgf $rndfregexp__|nts|awk '{print $'$rndfnum__'}'
+    local retstr__='"'`lgf $rndfregexp__|head -n ${rndfnum__}|tail -n 1`'"'
+    echo "${retstr__}"
 }
 alias rndf="__rndf"
 
@@ -215,7 +216,8 @@ function __rndfl {
         && echo "No such File Exist."\
         && return 1
     local rndflnum__=`shuf -i 1-${rndflcount__} -n 1`
-    lgfl $rndflregexp__|nts|awk '{print $'$rndflnum__'}'
+    local retstr__='"'`lgfl $rndflregexp__|head -n ${rndflnum__}|tail -n 1`'"'
+    echo ${retstr__}
 }
 alias rndfl="__rndfl"
 

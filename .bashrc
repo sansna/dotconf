@@ -721,6 +721,7 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
 #alias lk="i3lock -i ~/GitRepo/wp/emerge!.png"
+#alias rndplay="find `pwd` -regex '.*\(mp3\|m4a\|ogg\|webm\)$'|mpv -shuffle -playlist /dev/fd/3 3<&0 0</dev/tty"
 
 # This function is used on debian machines to build ss-libev, however
 #+ in my tests, libev version seems not better but worse than pip version.

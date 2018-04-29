@@ -53,3 +53,7 @@ stuff "__init;history -c;clear"
 # Start at window #0.
 select 1
 select 0
+
+# Protect this rc file with password.
+#+ Edit by <C-A> :password, and <C-A>] to paste the string below.
+password HPrCkHgmbbASY

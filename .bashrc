@@ -71,6 +71,13 @@ export PYTHONSTARTUP=~/.pythonrc
 [ -s /tmp/.e.tmp ]\
     || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/taglist.vim -O /tmp/.e.tmp --quiet
 
+# Set up git config scripts.
+git config --global color.ui auto
+git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit" 
+git config --global alias.lgt "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit"
+git config --global alias.dt "diff-tree --name-only -r HEAD --no-commit-id"
+git config --global diff.tool vimdiff
+
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
 

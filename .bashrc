@@ -78,6 +78,11 @@ git config --global alias.lgt "log --graph --pretty=format:'%Cred%h%Creset -%C(y
 git config --global alias.dt "diff-tree --name-only -r HEAD --no-commit-id"
 git config --global diff.tool vimdiff
 
+# Get w3m keymap file.
+[ -s /usr/bin/w3m ] && [ -s ~/.w3m/keymap ]\
+	|| wget https://raw.githubusercontent.com/sansna/keymap.w3m/keymap\
+		-O ~/.w3m/keymap
+
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
 

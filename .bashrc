@@ -139,7 +139,8 @@ alias cd="__cd"
 
 # Use sshrc(from russell91/sshrc) other than ssh
 function __ssh {
-    sshrc "$*"
+    #sshrc "$*"
+	\ssh "$*" -t "bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc)"
 }
 alias ssh="__ssh"
 

@@ -51,6 +51,9 @@ $if mode=emacs
 "\e[5D": backward-word
 "\e\e[C": forward-word
 "\e\e[D": backward-word
+# Enable alt+ctrl+arrow to move cursor on a word base in bash.
+"\e[1;7C": forward-word
+"\e[1;7D": backward-word
 
 $if term=rxvt
 "\e[8~": end-of-line

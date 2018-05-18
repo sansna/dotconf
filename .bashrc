@@ -60,6 +60,7 @@ export PYTHONSTARTUP=~/.pythonrc
     done
 
 # Prepare vim plugin for vim: need internet
+echo "Preparing vim plugins..."
 [ -s /tmp/.a.tmp ]\
     || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/a.vim -O /tmp/.a.tmp --quiet
 [ -s /tmp/.b.tmp ]\
@@ -72,6 +73,7 @@ export PYTHONSTARTUP=~/.pythonrc
     || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/taglist.vim -O /tmp/.e.tmp --quiet
 
 # Set up git config scripts.
+echo "Setting Git aliases..."
 git config --global color.ui auto
 git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit" 
 git config --global alias.lgt "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -79,9 +81,13 @@ git config --global alias.dt "diff-tree --name-only -r HEAD --no-commit-id"
 git config --global diff.tool vimdiff
 
 # Get w3m keymap file.
+echo "Preparing w3m keymap file..."
 [ -s /usr/bin/w3m ] && [ -s ~/.w3m/keymap ]\
 	|| wget https://raw.githubusercontent.com/sansna/keymap.w3m/master/keymap.w3m\
 		-O ~/.w3m/keymap >/dev/null 2>&1
+
+echo "Loading inputrc..."
+bind -f <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/inputrc)
 
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
@@ -98,9 +104,9 @@ unalias -a
     && source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
 
 # base-16 color scheme, see chriskempson/base16-shell
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)" 1>/dev/null 2>&1
-[ $? == 0 ] && base16_tomorrow-night 1>/dev/null 2>&1
+#BASE16_SHELL=$HOME/.config/base16-shell/
+#[ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)" 1>/dev/null 2>&1
+#[ $? == 0 ] && base16_tomorrow-night 1>/dev/null 2>&1
 
 # You may uncomment the following lines if you want `ls' to be colorized:
 # export LS_OPTIONS='--color=auto'

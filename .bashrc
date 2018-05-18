@@ -82,7 +82,7 @@ git config --global diff.tool vimdiff
 
 # Get w3m keymap file.
 echo "Preparing w3m keymap file..."
-[ -s /usr/bin/w3m ] && [ -s ~/.w3m/keymap ]\
+[ -s /usr/bin/w3m ] && mkdir -p ~/.w3m && [ -s ~/.w3m/keymap ]\
 	|| wget https://raw.githubusercontent.com/sansna/keymap.w3m/master/keymap.w3m\
 		-O ~/.w3m/keymap >/dev/null 2>&1
 

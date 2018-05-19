@@ -41,8 +41,7 @@ export LC_COLLATE=C
 
 # The Golang paths
 [ "x$GOPATH" == "x" ] &&\
-    export GOPATH=~/GO\
-    export PATH=$PATH:$GOPATH/bin
+    export GOPATH=~/GO; export PATH=$PATH:$GOPATH/bin
 
 # The Python env
 export PYTHONSTARTUP=~/.pythonrc

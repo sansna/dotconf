@@ -598,7 +598,7 @@ alias gush="__gush"
 
 function __pkz {
     [[ $1 == *"/" ]]\
-        && tar cfz $(expr substr "$1" 1 `echo "$(expr length "$1")-1"|bc`).tgz "$1"\
+        && tar cfz $(expr substr "$1" 1 `echo "$[$(expr length "$1")-1]"`).tgz "$1"\
         || tar cfz "$1".tgz "$1"/
 }
 
@@ -622,11 +622,12 @@ function __cu {
         && echo "param should be nonnegative integer."\
         && return 0
 
+# Here shows how to do simple math.
     [ "x$1" == "x" ]\
         && __cd ..\
         && return\
         || nf__=$(nf__=`echo \`pwd\`|awk -vFS="/" '{print NF}'`;\
-            nf__=`echo "$nf__-$1"|bc`;\
+            nf__=`echo "$[$nf__-$1]"`;\
             [ $nf__ -gt 0 ]\
                 && echo `echo \`pwd\`|awk -vFS="/" -vORS="/" -v count=$nf__ '{for(i=1;i<=count;i++)print $i}'`\
                 || echo "??")

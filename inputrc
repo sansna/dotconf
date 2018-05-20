@@ -66,4 +66,7 @@ $endif
 # "\e[H": beginning-of-line
 # "\e[F": end-of-line
 
+# Quick open vim.
+"\e\C-v": "\C-av\C-a\ef \"\C-e\" 2>/dev/null^M"
+
 $endif

@@ -14,6 +14,8 @@
     dt = diff-tree --name-only -r HEAD --no-commit-id
 [diff]
     tool = vimdiff
+[difftool]
+	prompt = false
 [push]
     default = simple
 

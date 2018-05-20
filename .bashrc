@@ -187,6 +187,8 @@ alias lgll="find . -maxdepth 1 -type l|grep"
 alias lgbl="find . -maxdepth 1 |grep .bak$"
 alias i="__i"
 alias v="__v"
+# Tolerate typo.
+alias vv="__v"
 
 # Do much same as what xargs do? So change to nts.
 #alias nt0="awk -vORS='\0' '{print \$0}'"

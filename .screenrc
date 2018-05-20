@@ -39,6 +39,7 @@ bind - resize -5
 bind = resize =
 
 # Default screens.
+chdir ~/GitRepo
 screen -t Shell0  0
 stuff "__init;history -c;clear"
 screen -t Shell1  1

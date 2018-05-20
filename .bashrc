@@ -65,12 +65,9 @@ echo "Preparing vim plugins..."
 	; tar xfz /tmp/vimscripts.tgz -C /tmp; rm -f /tmp/vimscripts.tgz)
 
 # Set up git config scripts.
-echo "Setting Git aliases..."
-git config --global color.ui auto
-git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit" 
-git config --global alias.lgt "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit"
-git config --global alias.dt "diff-tree --name-only -r HEAD --no-commit-id"
-git config --global diff.tool vimdiff
+echo "Preparing gitconfig..."
+[ -s ~/.gitconfig ]\
+	|| wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/.gitconfig -O ~/.gitconfig --quiet
 
 # Get w3m keymap file.
 echo "Preparing w3m keymap file..."

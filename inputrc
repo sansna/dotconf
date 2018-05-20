@@ -70,6 +70,6 @@ $endif
 # "\e[F": end-of-line
 
 # Quick open vim.
-"\e\C-v": "\C-av\C-a\ef \"\C-e\" 2>/dev/null^M"
+"\e\C-v": "\C-av\C-a\ef \"\C-e\" 2>/dev/null"
 
 $endif

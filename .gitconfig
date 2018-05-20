@@ -1,11 +1,3 @@
-# ~/.gitconfig: git common config for myself
-# difftool usage: git difftool branch1..branch2 file
-# git difftree usage: git dt -r commit-reg
-
-# Common git
-[user]
-	name = sansna
-	email = 1185280650@qq.com
 [color]
 	ui = auto
 [alias]
@@ -18,14 +10,3 @@
 	prompt = false
 [push]
     default = simple
-
-# Following are gpg related
-[gpg]
-    program = gpg2
-[commit]
-    gpgsign = true
-#[user]
-#    signingkey = DED06923
-# Walkaround if SSL cert not installed:
-#[http]
-#    sslVerify = false

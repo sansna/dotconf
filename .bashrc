@@ -76,7 +76,9 @@ echo "Preparing w3m keymap file..."
 		-O ~/.w3m/keymap >/dev/null 2>&1
 
 echo "Loading inputrc..."
-bind -f <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/inputrc 2>/dev/null)
+[ -s /tmp/.inputrc ]\
+	|| wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/inputrc -O /tmp/.inputrc --quiet
+bind -f /tmp/.inputrc
 
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color

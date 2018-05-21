@@ -5,6 +5,22 @@
 set input-meta on
 set output-meta on
 
+# Single tab show all matchings if multiple match and do completion.
+set show-all-if-ambiguous on
+# Single tab to show all matchings if multiple match, but no completion.
+#set show-all-if-unmodified on
+
+# Color files by types
+set colored-stats On
+# Append char to indicate type
+set visible-stats off
+# Mark symlinked directories
+set mark-symlinked-directories off
+# Color the common prefix
+set colored-completion-prefix On
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix On
+
 # To allow the use of 8bit-characters like the german umlauts, uncomment
 # the line below. However this makes the meta key not work as a meta key,
 # which is annoying to those which don't need to type in 8-bit characters.
@@ -67,6 +83,59 @@ $endif
 # "\e[F": end-of-line
 
 # Quick open vim.
-"\e\C-v": "\C-av\C-a\ef \"\C-e\" 2>/dev/null^M"
+"\e\C-v": "\C-av\C-a\ef \"\C-e\" 2>/dev/null"
+
+# Copied from Archwiki/Readline.
+# Quick add sudo to command.
+"\es":"\C-asudo \C-e"
+# Run command in subshell.
+"\e\C-s\e\C-s":"\C-e > /dev/null 2>&1 &\C-m"
+# Use less to see results.
+"\e\C-l":"\C-e | less"
+
+# Frequently used patterns.
+"\eg": "\C-e | grep "
+"\ex\ev": "\C-e | xargs -I{} "
+"\exv": "\C-e | xargs -I{} "
+"\ex": "\C-e | xargs "
+"\ep": "ps aux"
+"\eav": "\C-e | awk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
+"\ea\ev": "\C-e | awk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
+"\ea": "\C-e | awk '{print $}' \C-b\C-b\C-b"
+# Backward delete till previous vertical bar.
+"\ed": "\C-r|\C-b\C-k"
+# Silent all outputs.
+"\eq": " >/dev/null 2>&1"
 
 $endif
+
+# Common used dir shortcuts.
+"\e\C-p": "cd -"
+"\e\C-d": "[ `pwd` != $HOME ] && cd"
+"\e\C-gr": "[ `pwd` != $HOME/GitRepo ] && gr"
+"\e\C-h": "[ `pwd` != $HOME/GitRepo/sansna ] && grcd sansna"
+"\e\C-e": "cd /etc/"
+"\e\C-if": "[ -d /etc/udev/rules.d ] && cd /etc/udev/rules.d/ || cd /etc/sysconfig/netowrk-scripts"
+"\e\C-ki": "cd /lib/modules/$(uname -r)/build/include"
+"\e\C-kk": "cd /lib/modules/$(uname -r)/kernel"
+"\e\C-k": "[ `pwd` != '\/lib\/modules\/'$(uname -r) ] && cd /lib/modules/$(uname -r)/"
+"\e\C-lb": "cd /usr/local/bin/"
+"\e\C-lsr": "cd /usr/local/src/"
+"\e\C-lsh": "cd /usr/local/share/"
+"\e\C-lsb": "cd /usr/local/sbin/"
+"\e\C-m": "cd /mnt/"
+"\e\C-bg": "cd /boot/grub2/"
+"\e\C-be": "cd /boot/efi/"
+"\e\C-b": "[ `pwd` != '/boot' ] && cd /boot/"
+"\e\C-ub": "cd /usr/bin/"
+"\e\C-ul6": "cd /usr/lib64/"
+"\e\C-ul": "cd /usr/lib/"
+"\e\C-usr": "cd /usr/src/"
+"\e\C-ush": "cd /usr/share/"
+"\e\C-usb": "cd /usr/sbin/"
+"\e\C-debug": "cd /sys/kernel/debug/"
+"\e\C-l6": "cd /lib64/"
+"\e\C-log": "cd /var/log/"
+"\e\C-li": "cd /lib/"
+"\e\C-journ": "cd /run/log/journal/"
+"\e\C-st": "cd /lib/systemd/system/"

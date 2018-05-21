@@ -51,6 +51,9 @@ export LC_COLLATE=C
 # instead, please.
 unalias -a
 
+# Enable alias after sudo.
+alias sudo="sudo "
+
 # base-16 color scheme, see chriskempson/base16-shell
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"

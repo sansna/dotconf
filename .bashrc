@@ -75,6 +75,9 @@ export PYTHONSTARTUP=~/.pythonrc
 # instead, please.
 unalias -a
 
+# Enable alias after sudo.
+alias sudo="sudo "
+
 # prompt opt in git folder
 [ -s ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh ]\
     && GIT_PROMPT_ONLY_IN_REPO=1\

@@ -106,6 +106,8 @@ $endif
 "\ed": "\C-r|\C-b\C-k"
 # Silent all outputs.
 "\eq": " >/dev/null 2>&1"
+# Clear screen and ls.
+"\C-l": "clearls"
 
 $endif
 

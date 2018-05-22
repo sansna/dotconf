@@ -105,8 +105,14 @@ $endif
 "\eav": "\C-e | awk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
 "\ea\ev": "\C-e | awk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
 "\ea": "\C-e | awk '{print $}' \C-b\C-b\C-b"
-# Backward delete till previous vertical bar.
+# Backward delete till previous ?.
 "\ed": "\C-r|\C-b\C-k"
+"\e\"": "\C-r\"\C-k"
+"\e'": "\C-r'\C-k"
+"\e:": "\C-r:\C-k"
+"\e;": "\C-r;\C-k"
+"\e,": "\C-r,\C-k"
+"\e.": "\C-r.\C-k"
 # Silent all outputs.
 "\eq": " >/dev/null 2>&1"
 # Clear screen and ls.
@@ -144,3 +150,4 @@ $endif
 "\e\C-li": "cd /lib/"
 "\e\C-journ": "cd /run/log/journal/"
 "\e\C-st": "cd /lib/systemd/system/"
+"\e\C-clock": "cd /sys/devices/system/clocksource/clocksource0/"

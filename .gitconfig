@@ -9,21 +9,23 @@
 [color]
 	ui = auto
 [alias]
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    lgt = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
-    dt = diff-tree --name-only -r HEAD --no-commit-id
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lgt = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+	dt = diff-tree --name-only -r HEAD --no-commit-id
 [diff]
-    tool = vimdiff
+	tool = vimdiff3
 [difftool]
 	prompt = false
+[difftool.vimdiff3]
+	cmd = vd $REMOTE $LOCAL
 [push]
-    default = simple
+	default = simple
 
 # Following are gpg related
 [gpg]
-    program = gpg2
+	program = gpg2
 [commit]
-    gpgsign = true
+	gpgsign = true
 #[user]
 #    signingkey = DED06923
 # Walkaround if SSL cert not installed:

@@ -67,6 +67,9 @@ $if mode=emacs
 "\e[5D": backward-word
 "\e\e[C": forward-word
 "\e\e[D": backward-word
+# Enable alt+ctrl+arrow to move cursor on a word base in bash.
+"\e[1;7C": forward-word
+"\e[1;7D": backward-word
 
 $if term=rxvt
 "\e[8~": end-of-line
@@ -81,6 +84,9 @@ $endif
 # for freebsd console
 # "\e[H": beginning-of-line
 # "\e[F": end-of-line
+
+# Running commands not recording in history.
+"\eh": "\C-ahistory -d $((HISTCMD-1)) && \C-e"
 
 # Quick open vim.
 "\e\C-v": "\C-av\C-a\ef \"\C-e\" 2>/dev/null"
@@ -99,6 +105,7 @@ $endif
 "\exv": "\C-e | xargs -I{} "
 "\ex": "\C-e | xargs "
 "\ep": "ps aux"
+"\ec": "git checkout "
 "\eav": "\C-e | awk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
 "\ea\ev": "\C-e | awk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
 "\ea": "\C-e | awk '{print $}' \C-b\C-b\C-b"
@@ -113,38 +120,38 @@ $endif
 # Silent all outputs.
 "\eq": " >/dev/null 2>&1"
 # Clear screen and ls.
-"\C-l": "clearls"
+"\C-l": "clear\ehls\eh"
 
 $endif
 
 # Common used dir shortcuts.
-"\e\C-p": "cd -"
-"\e\C-d": "[ `pwd` != $HOME ] && cd"
-"\e\C-gr": "[ `pwd` != $HOME/GitRepo ] && gr"
-"\e\C-h": "[ `pwd` != $HOME/GitRepo/sansna ] && grcd sansna"
-"\e\C-e": "cd /etc/"
-"\e\C-if": "[ -d /etc/udev/rules.d ] && cd /etc/udev/rules.d/ || cd /etc/sysconfig/netowrk-scripts"
-"\e\C-ki": "cd /lib/modules/$(uname -r)/build/include"
-"\e\C-kk": "cd /lib/modules/$(uname -r)/kernel"
-"\e\C-k": "[ `pwd` != '\/lib\/modules\/'$(uname -r) ] && cd /lib/modules/$(uname -r)/"
-"\e\C-lb": "cd /usr/local/bin/"
-"\e\C-lsr": "cd /usr/local/src/"
-"\e\C-lsh": "cd /usr/local/share/"
-"\e\C-lsb": "cd /usr/local/sbin/"
-"\e\C-m": "cd /mnt/"
-"\e\C-bg": "cd /boot/grub2/"
-"\e\C-be": "cd /boot/efi/"
-"\e\C-b": "[ `pwd` != '/boot' ] && cd /boot/"
-"\e\C-ub": "cd /usr/bin/"
-"\e\C-ul6": "cd /usr/lib64/"
-"\e\C-ul": "cd /usr/lib/"
-"\e\C-usr": "cd /usr/src/"
-"\e\C-ush": "cd /usr/share/"
-"\e\C-usb": "cd /usr/sbin/"
-"\e\C-debug": "cd /sys/kernel/debug/"
-"\e\C-l6": "cd /lib64/"
-"\e\C-log": "cd /var/log/"
-"\e\C-li": "cd /lib/"
-"\e\C-journ": "cd /run/log/journal/"
-"\e\C-st": "cd /lib/systemd/system/"
-"\e\C-clock": "cd /sys/devices/system/clocksource/clocksource0/"
+"\e\C-p": "cd -\eh"
+"\e\C-d": "[ `pwd` != $HOME ] && cd\eh"
+"\e\C-gr": "[ `pwd` != $HOME/GitRepo ] && gr\eh"
+"\e\C-h": "[ `pwd` != $HOME/GitRepo/sansna ] && gr\ehcd sansna\eh"
+"\e\C-e": "cd /etc/\eh"
+"\e\C-if": "[ -d /etc/udev/rules.d ] && cd /etc/udev/rules.d/ || cd /etc/sysconfig/netowrk-scripts\eh"
+"\e\C-ki": "cd /lib/modules/$(uname -r)/build/include\eh"
+"\e\C-kk": "cd /lib/modules/$(uname -r)/kernel\eh"
+"\e\C-k": "[ `pwd` != '\/lib\/modules\/'$(uname -r) ] && cd /lib/modules/$(uname -r)/\eh"
+"\e\C-lb": "cd /usr/local/bin/\eh"
+"\e\C-lsr": "cd /usr/local/src/\eh"
+"\e\C-lsh": "cd /usr/local/share/\eh"
+"\e\C-lsb": "cd /usr/local/sbin/\eh"
+"\e\C-m": "cd /mnt/\eh"
+"\e\C-bg": "cd /boot/grub2/\eh"
+"\e\C-be": "cd /boot/efi/\eh"
+"\e\C-b": "[ `pwd` != '/boot' ] && cd /boot/\eh"
+"\e\C-ub": "cd /usr/bin/\eh"
+"\e\C-ul6": "cd /usr/lib64/\eh"
+"\e\C-ul": "cd /usr/lib/\eh"
+"\e\C-usr": "cd /usr/src/\eh"
+"\e\C-ush": "cd /usr/share/\eh"
+"\e\C-usb": "cd /usr/sbin/\eh"
+"\e\C-debug": "cd /sys/kernel/debug/\eh"
+"\e\C-l6": "cd /lib64/\eh"
+"\e\C-log": "cd /var/log/\eh"
+"\e\C-li": "cd /lib/\eh"
+"\e\C-journ": "cd /run/log/journal/\eh"
+"\e\C-st": "cd /lib/systemd/system/\eh"
+"\e\C-clock": "cd /sys/devices/system/clocksource/clocksource0/\eh"

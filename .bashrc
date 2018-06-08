@@ -64,10 +64,16 @@ echo "Preparing vim plugins..."
 	|| (wget https://github.com/sansna/vimrc/releases/download/vimscript_0.1/vimscripts.tgz -O /tmp/vimscripts.tgz --quiet\
 	; tar xfz /tmp/vimscripts.tgz -C /tmp; rm -f /tmp/vimscripts.tgz)
 
+echo "Preparing vd..."
+[ -s /tmp/.vd ]\
+	|| wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/vd -O /tmp/.vd --quiet
+chmod +x /tmp/.vd
+
 # Set up git config scripts.
 echo "Preparing gitconfig..."
 [ -s ~/.gitconfig ]\
-	|| wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/.gitconfig -O ~/.gitconfig --quiet
+	&& mv ~/.gitconfig ~/.gitconfig.bak
+wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/.gitconfig -O ~/.gitconfig --quiet
 
 # Get w3m keymap file.
 echo "Preparing w3m keymap file..."
@@ -673,6 +679,12 @@ alias ggi="\
 function __s {
     __ssh $*
     \ssh $* 'while true; do\
+		rm -f /tmp/.vd
+		[ -s ~/.gitconfig.bak ]\
+			&& mv ~/.gitconfig.bak ~/.gitconfig\
+			|| rm -f ~/.gitconfig
+		rm -f /tmp/.inputrc
+		rm -frd ~/.w3m/
         rm -f /tmp/a.vim
         rm -f /tmp/auto-pairs.vim
         rm -f /tmp/boolpat.vim

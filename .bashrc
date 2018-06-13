@@ -71,9 +71,11 @@ chmod +x /tmp/.vd
 
 # Set up git config scripts.
 echo "Preparing gitconfig..."
+[ -s ~/.gitconfig ] && ([ -s ~/.gitconfig.bak ]\
+	|| mv ~/.gitconfig ~/.gitconfig.bak)
 [ -s ~/.gitconfig ]\
-	&& mv ~/.gitconfig ~/.gitconfig.bak
-wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/.gitconfig -O ~/.gitconfig --quiet
+   	|| wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/.gitconfig\
+		-O ~/.gitconfig --quiet
 
 # Get w3m keymap file.
 echo "Preparing w3m keymap file..."

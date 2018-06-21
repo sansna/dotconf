@@ -136,6 +136,7 @@ alias cd="__cd"
 function __ssh {
     sshrc "$*"
 }
+export -f __ssh
 alias ssh="__ssh"
 
 # Bring basic vim shortcuts with sshrc, uncomment following in .sshrc file
@@ -191,6 +192,7 @@ function __v {
     done;
     __vim -R -- "$cutfilename__"
 }
+export -f __v
 
 function __sgs {
     grep "$1" -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
@@ -230,6 +232,7 @@ function __rndf {
     local retstr__='"'`lgf $rndfregexp__|head -n ${rndfnum__}|tail -n 1`'"'
     echo "${retstr__}"
 }
+export -f __rndf
 alias rndf="__rndf"
 
 function __rndfl {
@@ -244,6 +247,7 @@ function __rndfl {
     local retstr__='"'`lgfl $rndflregexp__|head -n ${rndflnum__}|tail -n 1`'"'
     echo ${retstr__}
 }
+export -f __rndfl
 alias rndfl="__rndfl"
 
 # Remove current dir
@@ -264,6 +268,7 @@ function __rcd {
  Use 'rcd -f' instead.\n" $filecount__
     return 0
 }
+export -f __rcd
 
 function __rgf {
     lgf "$1"|xargs -d "\n" rm -f
@@ -300,6 +305,7 @@ function __swf {
     mv $2 $1
     mv $tmp $2
 }
+export -f __swf
 
 function __gt {
     mkdir -p ~/GitRepo
@@ -315,11 +321,13 @@ function __gts {
         && (git clone ssh://git@github.com/$1 ~/GitRepo/$1;return 0)\
         || (git clone ssh://git@github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
 }
+export -f __gts
 
 function __gush {
     local commitinfo__=${@:2}
     git add -A; git commit -S -m "$commitinfo__"; git push origin $1;
 }
+export -f __gush
 
 function __cget {
     curl -u just:123 -o "$1" ftp://10.0.2.33/"$1"
@@ -333,6 +341,7 @@ function __cput {
 function __cog {
     gcc -O0 -g "$1" -o $(expr substr "$1" 1 $(expr index "$1" .))out
 }
+export -f __cog
 
 # Now kd support option -n: no prompt for time.
 function __kd {
@@ -359,6 +368,7 @@ function __updatesystem {
     [ "Gentoo" == "$arc__" ]&&emerge --sync
     [ "Raspbian" == "$arc__" ]||[ "Ubuntu" == "$arc__" ]||[ "Debian" == "$arc__" ]&&sudo apt-get update && sudo apt-get -y upgrade
 }
+export -f __updatesystem
 
 #function __startsshd {
 #    sudo mkdir -p /var/run/sshd
@@ -411,6 +421,7 @@ function __gesf {
     eval $command__
     return 0
 }
+export -f __gesf
 
 function __gefs {
     local ext__="--include=\*."$1""
@@ -420,6 +431,7 @@ function __gefs {
     eval $command__
     return 0
 }
+export -f __gefs
 
 function __gbsf {
     local ext__="--include=^"$1"$"
@@ -429,6 +441,7 @@ function __gbsf {
     eval $command__
     return 0
 }
+export -f __gbsf
 
 function __gbfs {
     local ext__="--include=^"$1"$"
@@ -438,6 +451,7 @@ function __gbfs {
     eval $command__
     return 0
 }
+export -f __gbfs
 
 function __pesf {
     local ext__="--include=\.\*\\\\."$1""
@@ -447,6 +461,7 @@ function __pesf {
     eval $command__
     return 0
 }
+export -f __pesf
 
 function __pefs {
     local ext__="--include=\.\*\\\\."$1""
@@ -456,6 +471,7 @@ function __pefs {
     eval $command__
     return 0
 }
+export -f __pefs
 
 function __pbsf {
     local ext__="--include=^"$1"$"
@@ -465,6 +481,7 @@ function __pbsf {
     eval $command__
     return 0
 }
+export -f __pbsf
 
 function __pbfs {
     local ext__="--include=^"$1"$"
@@ -474,6 +491,7 @@ function __pbfs {
     eval $command__
     return 0
 }
+export -f __pbfs
 
 alias gesf="__gesf"
 alias gefs="__gefs"
@@ -488,6 +506,7 @@ alias pbfs="__pbfs"
 function __gtf {
     gsf ^struct\ "$1"\ \{
 }
+export -f __gtf
 
 function __gcT {
     mkdir -p ~/GitRepo/Trii
@@ -495,11 +514,13 @@ function __gcT {
                       ||( git init --bare ~/GitRepo/Trii/"$1"\
                           && chown -R git ~/GitRepo/Trii/"$1")
 }
+export -f __gcT
 
 function __gch {
     [ "x" == "x$1" ] && echo "Repo name required." && return 1\
         || curl -u 'sansna' https://api.github.com/user/repos -d "{\"name\":\"$1\"}"
 }
+export -f __gch
 
 function __validate_ip4 {
     local stats=1
@@ -526,6 +547,7 @@ function __getasn {
     # The following is an example of using xargs to pass complicated args.
     #dig +short $1|xargs -I{} -d "\n" whois -h whois.cymru.com -v {}
 }
+export -f __getasn
 
 #function __getsslproxy {
 #   local tmp__=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"\
@@ -554,6 +576,7 @@ function __getasn {
 #       break
 #   done" &
 #}
+#export -f __wspbg
 
 alias gtf="__gtf"
 alias rcd="__rcd"
@@ -593,6 +616,7 @@ function __pkz {
         && tar cfz $(expr substr "$1" 1 `echo "$[$(expr length "$1")-1]"`).tgz "$1"\
         || tar cfz "$1".tgz "$1"/
 }
+export -f __pkz
 
 alias pkz="__pkz"
 alias cget="__cget"
@@ -636,6 +660,7 @@ function __cu {
 
     return 0
 }
+export -f __cu
 
 alias cu="__cu"
 alias cs="cu 100"
@@ -660,21 +685,28 @@ alias ggi="\
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
 #function __s {
-#   __ssh $*
-#   \ssh $* 'while true; do\
-#       rm -f /tmp/.a.tmp
-#       rm -f /tmp/.b.tmp
-#       rm -f /tmp/.c.tmp
-#       rm -f /tmp/.d.tmp
-#       rm -f /tmp/.e.tmp
-#       rm -f /tmp/.s.tmp
-#       rm -f ~/.ssh/known_hosts
-#       cat /dev/null > /var/log/wtmp
-#       cat /dev/null > ~/.bash_history
-#       history -c
-#       break
-#   done' &
+#    __ssh $*
+#    \ssh $* 'while true; do\
+#		rm -f /tmp/.vd
+#		[ -s ~/.gitconfig.bak ]\
+#			&& mv ~/.gitconfig.bak ~/.gitconfig\
+#			|| rm -f ~/.gitconfig
+#		rm -f /tmp/.inputrc
+#		rm -frd ~/.w3m/
+#        rm -f /tmp/a.vim
+#        rm -f /tmp/auto-pairs.vim
+#        rm -f /tmp/boolpat.vim
+#        rm -f /tmp/pasta.vim
+#        rm -f /tmp/taglist.vim
+#        rm -f /tmp/.screenrc
+#        rm -f ~/.ssh/known_hosts
+#        cat /dev/null > /var/log/wtmp
+#        cat /dev/null > ~/.bash_history
+#        history -c
+#        break
+#    done' &
 #}
+#export -f __s
 #alias s="__s"
 
 function __sc {
@@ -684,14 +716,14 @@ function __sc {
         [ $? -eq 0 ] && screen -c /tmp/.s.tmp && break
     done
 }
-
+export -f __sc
 alias sc="__sc"
 
 function __tm {
     tmux at
     [ $? -eq 1 ] && tmux -f <(curl -s https://raw.githubusercontent.com/sansna/dotconf/master/tmux.conf)
 }
-
+export -f __tm
 alias tm="__tm"
 
 # Some templates of ssh/rdesktop.
@@ -735,12 +767,13 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #    exit
 #    echo "" > ~/.bash_history
 #}
+#export -f __exit
 
 #function __reboot {
 #   sleep 1
 #   reboot
 #}
-
+#export -f __reboot
 #alias exit="__exit"
 #alias reboot="__reboot"
 
@@ -752,9 +785,9 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #+ in my tests, libev version seems not better but worse than pip version.
 #function __getss {
 #   __vim /etc/apt/sources.list
-#   apt-get update
-#   apt-get install git -y
-#   apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake -y
+#   sudo apt-get update
+#   sudo apt-get install git -y
+#   sudo apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake -y
 #   __gt shadowsocks/shadowsocks-libev
 #   cd ~/GitRepo
 #   cd shadowsocks/shadowsocks-libev
@@ -765,9 +798,9 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #       tar xfv libsodium-$LIBSODIUM_VER.tar.gz
 #       pushd libsodium-$LIBSODIUM_VER
 #       ./configure --prefix=/usr && make
-#       make install
+#       sudo make install
 #       popd
-#       ldconfig
+#       sudo ldconfig
 #   }
 #   {
 #       export MBEDTLS_VER=2.6.0
@@ -775,24 +808,26 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #       tar xfv mbedtls-$MBEDTLS_VER-gpl.tgz
 #       pushd mbedtls-$MBEDTLS_VER
 #       make SHARED=1 CFLAGS=-fPIC
-#       make DESTDIR=/usr install
+#       sudo make DESTDIR=/usr install
 #       popd
-#       ldconfig
+#       sudo ldconfig
 #   }
 #   ./autogen.sh
-#   ./configure; make; make install
+#   ./configure; sudo make; sudo make install
 #   ss-server -s 0.0.0.0 -p port -k passwd -m method -t time &
 #}
+#export -f __getss
 #alias getss="__getss"
 
 function __ssr {
     local running__=`ps aux|grep ss-local|grep -v grep`
     [ "x$running__" == "x" ]\
-        && (ss-local -s serv-addr -p serv-port -k password -t time_out\
-               -l local-port -m secret-method &)\
+        && (ss-local -s serv-addr -p serv-port -k password -t time_out -u\
+               -l local-port -m secret-method --plugin name --plugin-opts opts &)\
         && (polipo -c /etc/polipo/config &)\
         && alias pxy="http_proxy=http://localhost:8123"
 }
+export -f __ssr
 alias ssr="__ssr"
 
 # automatically detect if sslocal started and alias.

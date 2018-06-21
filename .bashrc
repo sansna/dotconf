@@ -495,7 +495,7 @@ alias val_ip="__validate_ip4"
 export -f __validate_ip4
 
 function __getasn {
-    val_ip $*
+    __validate_ip4 $*
     [ $? -eq 0 ]\
     && whois -h whois.cymru.com -v "$*"\
     || whois -h whois.cymru.com " -v `dig +short "$*"|xargs -I{}\

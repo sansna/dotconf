@@ -20,11 +20,14 @@
 export GPG_TTY=$(tty)
 
 # After executing each bach command, the following content will be executed.
-#PROMPT_COMMAND="date"
+#export PROMPT_COMMAND="date"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
-#EDITOR='/usr/share/vim'
+#export EDITOR='/usr/share/vim'
+
+# Manpager specify tool used in man pages viewing.
+export MANPAGER="/usr/bin/less -isXm"
 
 # The following distinguishes filename globbing between lowercase and
 #+ uppercase letters in a character range between brackets.
@@ -84,7 +87,7 @@ alias sudo="sudo "
     && source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
 
 # base-16 color scheme, see chriskempson/base16-shell
-BASE16_SHELL=$HOME/.config/base16-shell/
+export BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)" 1>/dev/null 2>&1
 [ $? == 0 ] && base16_tomorrow-night 1>/dev/null 2>&1
 
@@ -101,6 +104,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 #alias mv='mv -i'
 
 alias ls="ls --color=auto"
+alias less="less -isXm"
 alias grep="grep --color=auto"
 alias pcregrep="pcre2grep --color=auto"
 

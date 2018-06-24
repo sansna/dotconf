@@ -157,6 +157,8 @@ function __i {
     pandoc "$1"|w3m -T text/html
 }
 
+alias wt="curl -s www.ip138.com|grep iframe |grep src|grep nofollow|cut -d '\"' -f 2 | xargs curl -s|iconv -f gb2312 -t utf-8|grep body | awk -vFS='[\\[\\]]' '{print \$2}' |xargs -I{} curl -s https://ipinfo.io/{}|grep city | cut -d '\"' -f 4 | xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
+
 # Open with longest match of file, together with line numbers.
 function __v {
     local cutfilename__=`echo $1|cut -d ';' -f 1|cut -d '(' -f 1|cut -d ')' -f 1`

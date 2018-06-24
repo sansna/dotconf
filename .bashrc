@@ -27,7 +27,7 @@ export GPG_TTY=$(tty)
 #export EDITOR='/usr/share/vim'
 
 # Manpager specify tool used in man pages viewing.
-export MANPAGER="/usr/bin/less -isXmQ"
+export MANPAGER="/usr/bin/less -isXmQr"
 
 # The following distinguishes filename globbing between lowercase and
 #+ uppercase letters in a character range between brackets.
@@ -104,7 +104,7 @@ export BASE16_SHELL=$HOME/.config/base16-shell/
 #alias mv='mv -i'
 
 alias ls="ls --color=auto"
-alias less="less -isXmQ"
+alias less="less -isXmQr"
 alias grep="grep --color=auto"
 alias pcregrep="pcre2grep --color=auto"
 

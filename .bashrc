@@ -2,13 +2,13 @@
 
 # Note: PS1 and umask are already set in /etc/profile. You should not
 # need this unless you want different defaults for root.
-#ttyid__=`tty|awk -vRS='/' '{print $1}'| grep -e '[0-9]'`
+#ttyid__=`tty|gawk -vRS='/' '{print $1}'| grep -e '[0-9]'`
 # Debian prompt:
 #export PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
 # CentOS prompt: between \033 are colored scripts
 #os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
-#default_if__=`ip r | grep default | awk '{print $5}'`
-#ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ | awk '{print $2}'`
+#default_if__=`ip r | grep default | gawk '{print $5}'`
+#ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ | gawk '{print $2}'`
 #export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
 #unset os_str__
 #unset ip_addr__
@@ -157,17 +157,17 @@ function __i {
     pandoc "$1"|w3m -T text/html
 }
 
-alias wt="curl -s www.ip138.com|grep iframe |grep src|grep nofollow|cut -d '\"' -f 2 | xargs curl -s|iconv -f gb2312 -t utf-8|grep body | awk -vFS='[\\[\\]]' '{print \$2}' |xargs -I{} curl -s https://ipinfo.io/{}|grep city | cut -d '\"' -f 4 | xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
+alias wt="curl -s www.ip138.com|grep iframe |grep src|grep nofollow|cut -d '\"' -f 2 | xargs curl -s|iconv -f gb2312 -t utf-8|grep body | gawk -vFS='[\\[\\]]' '{print \$2}' |xargs -I{} curl -s https://ipinfo.io/{}|grep city | cut -d '\"' -f 4 | xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
 
 # Open with longest match of file, together with line numbers.
 function __v {
     local cutfilename__=`echo $1|cut -d ';' -f 1|cut -d '(' -f 1|cut -d ')' -f 1`
-    local nf__=`echo $cutfilename__|awk -vFS=":" '{print NF}'`
+    local nf__=`echo $cutfilename__|gawk -vFS=":" '{print NF}'`
     [ 1 -ge $nf__ ] && vim -R -- "$cutfilename__" && return
     for i in `seq $nf__ -1 1`;
     do
-        local filename__=`echo $cutfilename__|awk -v count=$i -vFS=":" '{for(i=1;i<=count;i++)print $i}'|paste -sd:`;
-        local line__=`echo $cutfilename__|awk -v count=$i -vFS=":" '{print $(count+1)}'`
+        local filename__=`echo $cutfilename__|gawk -v count=$i -vFS=":" '{for(i=1;i<=count;i++)print $i}'|paste -sd:`;
+        local line__=`echo $cutfilename__|gawk -v count=$i -vFS=":" '{print $(count+1)}'`
         [ -f "$filename__" ]\
             && local totalline__=`wc -l "$filename__"|cut -d ' ' -f 1`\
             && ([ $line__ -le $totalline__ ] 2>/dev/null && line__=+$line__ || unset line__;\
@@ -200,8 +200,8 @@ alias v="__v"
 alias vv="__v"
 
 # Do much same as what xargs do? So change to nts.
-#alias nt0="awk -vORS='\0' '{print \$0}'"
-alias nts="awk -vORS='\ ' '{print \$0}'"
+#alias nt0="gawk -vORS='\0' '{print \$0}'"
+alias nts="gawk -vORS='\ ' '{print \$0}'"
 
 function __rndf {
     [ "x$*" == "x" ]\
@@ -335,7 +335,7 @@ function __kd {
 # auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
 #+ always update on comfirmation.. Although can also be automated by adding --no-comfirm..
 function __updatesystem {
-    arc__=`cat /etc/os-release |grep ^NAME|awk -vRS='\"' '{print $1}'|awk -vRS='=' '{print $1}'|grep -v NAME`
+    arc__=`cat /etc/os-release |grep ^NAME|gawk -vRS='\"' '{print $1}'|gawk -vRS='=' '{print $1}'|grep -v NAME`
     [ "x" == "x$arc__" ] && echo "No OS detected.\n"&& return 1
     [ "CentOS" == "$arc__" ]||[ "Red" == "$arc__" ]||[ "Fedora" == "$arc__" ]&&sudo yum update &&sudo yum upgrade -y
     [ "Arch" == "$arc__" ]&&sudo pacman -Syu
@@ -604,10 +604,10 @@ function __cu {
     [ "x$1" == "x" ]\
         && cd ..\
         && return\
-        || nf__=$(nf__=`echo \`pwd\`|awk -vFS="/" '{print NF}'`;\
+        || nf__=$(nf__=`echo \`pwd\`|gawk -vFS="/" '{print NF}'`;\
             nf__=`echo "$[$nf__-$1]"`;\
             [ $nf__ -gt 0 ]\
-                && echo `echo \`pwd\`|awk -vFS="/" -vORS="/" -v count=$nf__ '{for(i=1;i<=count;i++)print $i}'`\
+                && echo `echo \`pwd\`|gawk -vFS="/" -vORS="/" -v count=$nf__ '{for(i=1;i<=count;i++)print $i}'`\
                 || echo "??")
 
     [ "??" == "$nf__" ]\
@@ -830,7 +830,7 @@ stty -ixon ixany
 #            cat /var/log/dpkg.log | grep upgrade | \
 #                grep "$2" -A10000000 | \
 #                grep "$3" -B10000000 | \
-#                awk '{print $4"="$5}'
+#                gawk '{print $4"="$5}'
 #            ;;
 #        *)
 #            cat /var/log/dpkg.log

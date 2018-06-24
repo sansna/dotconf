@@ -107,9 +107,9 @@ $endif
 "\ep": "\C-ups aux"
 "\em": "\C-umake \t"
 "\ec": "\C-ugit checkout "
-"\eav": "\C-e | awk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
-"\ea\ev": "\C-e | awk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
-"\ea": "\C-e | awk '{print $}' \C-b\C-b\C-b"
+"\eav": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
+"\ea\ev": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
+"\ea": "\C-e | gawk '{print $}' \C-b\C-b\C-b"
 "\et": "-t \"bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc)\""
 # Backward delete till previous ?.
 "\ed": "\C-r|\C-b\C-k"

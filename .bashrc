@@ -157,7 +157,7 @@ function __i {
     pandoc "$1"|w3m -T text/html
 }
 
-alias wt="curl -s www.ip138.com|grep iframe |grep src|grep nofollow|cut -d '\"' -f 2 | xargs curl -s|iconv -f gb2312 -t utf-8|grep body | gawk -vFS='[\\[\\]]' '{print \$2}' |xargs -I{} curl -s https://ipinfo.io/{}|grep city | cut -d '\"' -f 4 | xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
+alias wt="curl -s www.ip138.com|grep iframe|grep src|grep nofollow|cut -d '\"' -f 2|xargs curl -s |tail -n 1|gawk -vFS='[\\\\[\\\\]]' '{print \$2}'|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 \(Windows NT 10.0; Win64; x64\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '\"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
 
 # Open with longest match of file, together with line numbers.
 function __v {

@@ -4,27 +4,47 @@
 function __init {
 # Start of function __init.
 
+# Before using alias, one thing should know is that:
+# aliases just replaces defined chars.. It has no idea of params..
+# So if need to pass params in bash.. Use alias to define functions,
+# instead, please.
+unalias -a
+
+alias wt="curl -s www.ip138.com|grep iframe|grep src|grep nofollow|cut -d '\"' -f 2|xargs curl -s |tail -n 1|gawk -vFS='[\\\\[\\\\]]' '{print \$2}'|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 \(Windows NT 10.0; Win64; x64\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '\"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
+
 # Note: PS1 and umask are already set in /etc/profile. You should not
 # need this unless you want different defaults for root.
-ttyid__=`tty|gawk -vRS='/' '{print $1}'| grep -e '[0-9]'`
-# Debian prompt:
-#export PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
-# CentOS prompt: between \033 are colored scripts
-os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
-default_if__=`ip r | grep default | gawk '{print $5}'`
-ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ | gawk '{print $2}'`
-export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
-unset os_str__
-unset ip_addr__
-unset default_if__
-unset ttyid__
+function __gen_ps1 {
+	local wt__=`wt|head -n 3|tail -n 2`
+	export wttype__=`echo $wt__|awk '{print $1}'`
+	export wttemp__=`echo $wt__|awk '{print $(NF-1)}'`
+	local ttyid__=`tty|gawk -vRS='/' '{print $1}'| grep -e '[0-9]'`
+	# Debian prompt:
+	#export PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
+	# CentOS prompt: between \033 are colored scripts
+	local os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
+	local default_if__=`ip r | grep default | gawk '{print $5}'`
+	local ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ | gawk '{print $2}'`
+	export PS1="\$wttype__/\$wttemp__°C [\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
+}
+export -f __gen_ps1
+alias gp1="__gen_ps1"
+__gen_ps1
+
+export last_update_ps1_time__=`date +%s`
+function __update_ps1 {
+	local diff_time_ps1__=$(((`date +%s`-$last_update_ps1_time__)/60)) #Minutes
+	[ $diff_time_ps1__ -ge 30 ] && __gen_ps1 && export last_update_ps1_time__=`date +%s`
+}
+export -f __update_ps1
+
 # The following is used when -x is set in debugging the bash scripts.
 #export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 #umask 022
 export GPG_TTY=$(tty)
 
 # After executing each bach command, the following content will be executed.
-#export PROMPT_COMMAND="date"
+export PROMPT_COMMAND="__update_ps1"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
@@ -93,12 +113,6 @@ bind -f /tmp/.inputrc
 
 # The following specifies TERM for cur-bash window.
 #export TERM=rxvt-unicode-256color
-
-# Before using alias, one thing should know is that:
-# aliases just replaces defined chars.. It has no idea of params..
-# So if need to pass params in bash.. Use alias to define functions,
-# instead, please.
-unalias -a
 
 # Enable alias after sudo.
 alias sudo="sudo "
@@ -197,8 +211,6 @@ function __wk {
 function __i {
     pandoc "$1"|w3m -T text/html
 }
-
-alias wt="curl -s www.ip138.com|grep iframe|grep src|grep nofollow|cut -d '\"' -f 2|xargs curl -s |tail -n 1|gawk -vFS='[\\\\[\\\\]]' '{print \$2}'|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 \(Windows NT 10.0; Win64; x64\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '\"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
 
 # Open with longest match of file, together with line numbers.
 function __v {

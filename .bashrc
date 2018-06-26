@@ -4,47 +4,63 @@
 function __init {
 # Start of function __init.
 
+# Note: PS1 and umask are already set in /etc/profile. You should not
+# need this unless you want different defaults for root.
+local ttyid__=`tty|gawk -vRS='/' '{print $1}'| grep -e '[0-9]'`
+# Debian prompt:
+#export PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
+# CentOS prompt: between \033 are colored scripts
+local os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
+local default_if__=`ip r | grep default | gawk '{print $5}'`
+local ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ | gawk '{print $2}'`
+export PS1="\$wtdisp__[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
+
+# The following is used when -x is set in debugging the bash scripts.
+#export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+
 # Before using alias, one thing should know is that:
 # aliases just replaces defined chars.. It has no idea of params..
 # So if need to pass params in bash.. Use alias to define functions,
 # instead, please.
 unalias -a
 
-alias wt="curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 \(Windows NT 10.0; Win64; x64\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '\"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
-
-# Note: PS1 and umask are already set in /etc/profile. You should not
-# need this unless you want different defaults for root.
-function __gen_ps1 {
-	local wt__=`wt|head -n 3|tail -n 2`
-	export wttype__=`echo $wt__|awk '{print $1}'`
-	export wttemp__=`echo $wt__|awk '{print $(NF-1)}'`
-	local ttyid__=`tty|gawk -vRS='/' '{print $1}'| grep -e '[0-9]'`
-	# Debian prompt:
-	#export PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
-	# CentOS prompt: between \033 are colored scripts
-	local os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
-	local default_if__=`ip r | grep default | gawk '{print $5}'`
-	local ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ | gawk '{print $2}'`
-	export PS1="\$wttype__/\$wttemp__°C [\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
+function __wt {
+	curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-
 }
-export -f __gen_ps1
-alias gp1="__gen_ps1"
-__gen_ps1
+export -f __wt
+alias wt="__wt"
 
-export last_update_ps1_time__=`date +%s`
-function __update_ps1 {
-	local diff_time_ps1__=$(((`date +%s`-$last_update_ps1_time__)/60)) #Minutes
-	[ $diff_time_ps1__ -ge 30 ] && __gen_ps1 && export last_update_ps1_time__=`date +%s`
+export LOCKWT__=/tmp/.lock.wt
+function __do_update_wt {
+	local wt__=`__wt|head -n 3|tail -n 2|tr '\\n' '#'`
+	local wtnocolor__=`echo $wt__|sed 's/\\x1b\\[[0-9;]*m//g'` # Removing color
+	local wttype__=`echo $wtnocolor__|grep -o '[^/\\-_\(\)]*#'|head -n 1|gawk -vFS='#' '{print \$1}'|sed 's/^ *//g'`
+	local wttemp__=`echo $wt__|cut -d '#' -f 2|gawk '{print $(NF-1)$(NF)}'`
+	local wtdisp__=$wttype__\&$wttemp__
+	echo `date +%s` > $LOCKWT__
+	echo "$wtdisp__" >> $LOCKWT__
 }
-export -f __update_ps1
+export -f __do_update_wt
 
-# The following is used when -x is set in debugging the bash scripts.
-#export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+function __update_wt {
+	[ -s $LOCKWT__  ]\
+		&& local lock_file_wt_time__=`cat $LOCKWT__|head -n 1`\
+		&& export wtdisp__=`cat $LOCKWT__|tail -n 1`\
+		|| local_file_wt_time__=0
+
+	cur_date__=`date +%s`
+	[ $cur_date__ -gt $[ $lock_file_wt_time__ + 30*60 ] ]\
+		&& (flock -n $LOCKWT__ bash -c "__do_update_wt")
+}
+export -f __update_wt
+alias update_wt="__update_wt"
+__update_wt
+
 #umask 022
 export GPG_TTY=$(tty)
 
 # After executing each bach command, the following content will be executed.
-export PROMPT_COMMAND="__update_ps1"
+export PROMPT_COMMAND="__update_wt"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
@@ -924,6 +940,9 @@ stty -ixon ixany
 #    esac
 #}
 find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
+
+# Display current bashrc version.
+alias ver="echo 'Version 0.1'"
 
 # End of function __init.
 }

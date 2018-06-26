@@ -13,7 +13,7 @@ local ttyid__=`tty|gawk -vRS='/' '{print $1}'| grep -e '[0-9]'`
 local os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
 local default_if__=`ip r | grep default | gawk '{print $5}'`
 local ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ | gawk '{print $2}'`
-export PS1="\$wtdisp__[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
+export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
 
 # The following is used when -x is set in debugging the bash scripts.
 #export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
@@ -45,12 +45,11 @@ export -f __do_update_wt
 function __update_wt {
 	[ -s $LOCKWT__  ]\
 		&& local lock_file_wt_time__=`cat $LOCKWT__|head -n 1`\
-		&& export wtdisp__=`cat $LOCKWT__|tail -n 1`\
-		|| local_file_wt_time__=0
+		|| local lock_file_wt_time__=0
 
 	cur_date__=`date +%s`
 	[ $cur_date__ -gt $[ $lock_file_wt_time__ + 30*60 ] ]\
-		&& (flock -n $LOCKWT__ bash -c "__do_update_wt")
+		&& (flock -n $LOCKWT__ bash -c "__do_update_wt" &)
 }
 export -f __update_wt
 alias update_wt="__update_wt"

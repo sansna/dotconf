@@ -36,9 +36,9 @@ function __do_update_wt {
 	local wtnocolor__=`echo $wt__|sed 's/\\x1b\\[[0-9;]*m//g'` # Removing color
 	local wttype__=`echo $wtnocolor__|grep -o '[^/\\-_\(\)]*#'|head -n 1|gawk -vFS='#' '{print \$1}'|sed 's/^ *//g'`
 	local wttemp__=`echo $wt__|cut -d '#' -f 2|gawk '{print $(NF-1)$(NF)}'`
-	local wtdisp__=$wttype__\&$wttemp__
+	local wtdisp_local__=$wttype__\&$wttemp__
 	echo `date +%s` > $LOCKWT__
-	echo "$wtdisp__" >> $LOCKWT__
+	echo "$wtdisp_local__ " >> $LOCKWT__
 }
 export -f __do_update_wt
 

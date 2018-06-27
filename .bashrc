@@ -25,7 +25,7 @@ export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__
 unalias -a
 
 function __wt {
-	curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-
+	curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' https://iplocation.com|cut -d ':' -f 3|cut -d '"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-
 }
 export -f __wt
 alias wt="__wt"

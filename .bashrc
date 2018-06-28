@@ -941,9 +941,10 @@ stty -ixon ixany
 find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
 
 # Display current bashrc version.
-alias ver="echo 'Version 0.1'"
+alias ver="echo $RCVER__"
 
 # End of function __init.
 }
 export -f __init
-__init
+export RCVER__="Version 0.2"
+[ "x`ver 2>/dev/null`" == "x$RCVER__" ] || __init

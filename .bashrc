@@ -77,6 +77,9 @@ export LC_COLLATE=C
 #+ Note: if this is set, vim/rxvt cannot display utf8 glyphs correctly.
 #export LC_ALL=C
 
+# This is needed in gnu-screen for utf-8 char to display correctly.
+export LANG=en_US.UTF-8
+
 # The Golang paths
 [ "x$GOPATH" == "x" ] &&\
     export GOPATH=~/GO; export PATH=$PATH:$GOPATH/bin
@@ -136,11 +139,6 @@ alias sudo="sudo "
 [ -s ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh ]\
     && GIT_PROMPT_ONLY_IN_REPO=1\
     && source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
-
-# base-16 color scheme, see chriskempson/base16-shell
-#export BASE16_SHELL=$HOME/.config/base16-shell/
-#[ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)" 1>/dev/null 2>&1
-#[ $? == 0 ] && base16_tomorrow-night 1>/dev/null 2>&1
 
 # You may uncomment the following lines if you want `ls' to be colorized:
 # export LS_OPTIONS='--color=auto'
@@ -941,9 +939,15 @@ stty -ixon ixany
 find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
 
 # Display current bashrc version.
-alias ver="echo 'Version 0.1'"
+alias ver="echo $RCVER__"
 
 # End of function __init.
 }
+# base-16 color scheme, see chriskempson/base16-shell
+#export BASE16_SHELL=$HOME/.config/base16-shell/
+#[ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)" 1>/dev/null 2>&1
+#[ $? == 0 ] && base16_tomorrow-night 2>/dev/null
+
 export -f __init
-__init
+export RCVER__="Version 0.2"
+[ "x`ver 2>/dev/null`" == "x$RCVER__" ] || __init

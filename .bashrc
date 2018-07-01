@@ -42,6 +42,9 @@ export LC_COLLATE=C
 #+ Note: if this is set, vim/rxvt cannot display utf8 glyphs correctly.
 #export LC_ALL=C
 
+# This is needed in gnu-screen for utf-8 char to display correctly.
+export LANG=en_US.UTF-8
+
 # The Golang paths
 [ "x$GOPATH" == "x" ] &&\
     export GOPATH=~/GO; export PATH=$PATH:$GOPATH/bin

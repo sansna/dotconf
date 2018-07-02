@@ -5,8 +5,8 @@ export RCARC__=`cat /etc/os-release | grep ^NAME|cut -d '"' -f 2|cut -d ' ' -f 1
 
 [ "CentOS" == "$RCARC__" ]||[ "Red" == "$RCARC__" ]||[ "Fedora" == "$RCARC__" ]\
 	&& [ `rpm -qa|grep nawk|wc -l` -eq 0 ]\
+	&& export PATH=$PATH:/sbin/\
 	&&(
-export PATH=$PATH:/sbin/;
 sudo yum makecache;
 sudo yum install epel-release centos-release-scl -y;
 sudo yum makecache;
@@ -18,7 +18,7 @@ sudo yum install bind-utils whois wget screen bash-completion -y;
 	&& [ `dpkg -l|grep gawk|wc -l` -eq 0 ]\
 	&&(
 sudo apt-get update;
-sudo apt-get install gawk less screen build-essential git apt-file bash-completion -y;
+sudo apt-get install gawk less screen build-essential git apt-file bash-completion dnsutils whois -y;
 )
 
 # This function is used to load the bashrc script without the .bashrc.
@@ -150,8 +150,8 @@ echo "Loading inputrc..."
 	|| wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/inputrc -O /tmp/.inputrc --quiet
 bind -f /tmp/.inputrc
 
-# The following specifies TERM for cur-bash window.
-#export TERM=rxvt-unicode-256color
+# Here we specify a most general terminal type.
+export TERM=linux
 
 # Enable alias after sudo.
 alias sudo="sudo "

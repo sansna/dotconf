@@ -4,9 +4,9 @@
 export RCARC__=`cat /etc/os-release | grep ^NAME|cut -d '"' -f 2|cut -d ' ' -f 1`
 
 [ "CentOS" == "$RCARC__" ]||[ "Red" == "$RCARC__" ]||[ "Fedora" == "$RCARC__" ]\
-	&& [ `rpm -qa|grep nawk|wc -l` -eq 0 ]\
-	&& export PATH=$PATH:/sbin/\
-	&&(
+    && [ `rpm -qa|grep nawk|wc -l` -eq 0 ]\
+    && export PATH=$PATH:/sbin/\
+    &&(
 sudo yum makecache;
 sudo yum install epel-release centos-release-scl -y;
 sudo yum makecache;
@@ -15,8 +15,8 @@ sudo yum install bind-utils whois wget screen bash-completion -y;
 )
 
 [ "Raspbian" == "$RCARC__" ]||[ "Ubuntu" == "$RCARC__" ]||[ "Debian" == "$RCARC__" ]\
-	&& [ `dpkg -l|grep gawk|wc -l` -eq 0 ]\
-	&&(
+    && [ `dpkg -l|grep gawk|wc -l` -eq 0 ]\
+    &&(
 sudo apt-get update;
 sudo apt-get install gawk less screen build-essential git apt-file bash-completion dnsutils whois -y;
 )
@@ -46,31 +46,31 @@ export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__
 unalias -a
 
 function __wt {
-	curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' https://iplocation.com|cut -d ':' -f 3|cut -d '"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-
+    curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' https://iplocation.com|cut -d ':' -f 3|cut -d '"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-
 }
 export -f __wt
 alias wt="__wt"
 
 export LOCKWT__=/tmp/.lock.wt
 function __do_update_wt {
-	local wt__=`__wt|head -n 3|tail -n 2|tr '\\n' '#'`
-	local wtnocolor__=`echo $wt__|sed 's/\\x1b\\[[0-9;]*m//g'` # Removing color
-	local wttype__=`echo $wtnocolor__|grep -o '[^/\\-_\(\)\.\"\`]*#'|head -n 1|gawk -vFS='#' '{print \$1}'|sed 's/^ *//g'`
-	local wttemp__=`echo $wt__|cut -d '#' -f 2|gawk '{print $(NF-1)$(NF)}'`
-	local wtdisp_local__=$wttype__\&$wttemp__
-	echo `date +%s` > $LOCKWT__
-	echo "$wtdisp_local__ " >> $LOCKWT__
+    local wt__=`__wt|head -n 3|tail -n 2|tr '\\n' '#'`
+    local wtnocolor__=`echo $wt__|sed 's/\\x1b\\[[0-9;]*m//g'` # Removing color
+    local wttype__=`echo $wtnocolor__|grep -o '[^/\\-_\(\)\.\"\`]*#'|head -n 1|gawk -vFS='#' '{print \$1}'|sed 's/^ *//g'`
+    local wttemp__=`echo $wt__|cut -d '#' -f 2|gawk '{print $(NF-1)$(NF)}'`
+    local wtdisp_local__=$wttype__\&$wttemp__
+    echo `date +%s` > $LOCKWT__
+    echo "$wtdisp_local__ " >> $LOCKWT__
 }
 export -f __do_update_wt
 
 function __update_wt {
-	[ -s $LOCKWT__  ]\
-		&& local lock_file_wt_time__=`cat $LOCKWT__|head -n 1`\
-		|| local lock_file_wt_time__=0
+    [ -s $LOCKWT__  ]\
+        && local lock_file_wt_time__=`cat $LOCKWT__|head -n 1`\
+        || local lock_file_wt_time__=0
 
-	cur_date__=`date +%s`
-	[ $cur_date__ -gt $[ $lock_file_wt_time__ + 30*60 ] ]\
-		&& (flock -n $LOCKWT__ bash -c "__do_update_wt" &)
+    cur_date__=`date +%s`
+    [ $cur_date__ -gt $[ $lock_file_wt_time__ + 30*60 ] ]\
+        && (flock -n $LOCKWT__ bash -c "__do_update_wt" &)
 }
 export -f __update_wt
 alias update_wt="__update_wt"
@@ -123,31 +123,31 @@ export PYTHONSTARTUP=~/.pythonrc
 # Prepare vim plugin for vim: need internet
 echo "Preparing vim plugins..."
 [ -s /tmp/a.vim ]\
-	|| (wget https://github.com/sansna/vimrc/releases/download/vimscript_0.1/vimscripts.tgz -O /tmp/vimscripts.tgz --quiet\
-	; tar xfz /tmp/vimscripts.tgz -C /tmp; rm -f /tmp/vimscripts.tgz)
+    || (wget https://github.com/sansna/vimrc/releases/download/vimscript_0.1/vimscripts.tgz -O /tmp/vimscripts.tgz --quiet\
+    ; tar xfz /tmp/vimscripts.tgz -C /tmp; rm -f /tmp/vimscripts.tgz)
 
 echo "Preparing vd..."
 [ -s /tmp/.vd ]\
-	|| wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/vd -O /tmp/.vd --quiet
+    || wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/vd -O /tmp/.vd --quiet
 chmod +x /tmp/.vd
 
 # Set up git config scripts.
 echo "Preparing gitconfig..."
 [ -s ~/.gitconfig ] && ([ -s ~/.gitconfig.bak ]\
-	|| mv ~/.gitconfig ~/.gitconfig.bak)
+    || mv ~/.gitconfig ~/.gitconfig.bak)
 [ -s ~/.gitconfig ]\
-   	|| wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/.gitconfig\
-		-O ~/.gitconfig --quiet
+    || wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/.gitconfig\
+        -O ~/.gitconfig --quiet
 
 # Get w3m keymap file.
 echo "Preparing w3m keymap file..."
 [ -s /usr/bin/w3m ] && mkdir -p ~/.w3m && [ -s ~/.w3m/keymap ]\
-	|| wget https://raw.githubusercontent.com/sansna/keymap.w3m/master/keymap.w3m\
-		-O ~/.w3m/keymap >/dev/null 2>&1
+    || wget https://raw.githubusercontent.com/sansna/keymap.w3m/master/keymap.w3m\
+        -O ~/.w3m/keymap >/dev/null 2>&1
 
 echo "Loading inputrc..."
 [ -s /tmp/.inputrc ]\
-	|| wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/inputrc -O /tmp/.inputrc --quiet
+    || wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/inputrc -O /tmp/.inputrc --quiet
 bind -f /tmp/.inputrc
 
 # Here we specify a most general terminal type.
@@ -205,7 +205,7 @@ alias cd="__cd"
 # Use sshrc(from russell91/sshrc) other than ssh
 function __ssh {
     #sshrc "$*"
-	\ssh "$*" -t "bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc)"
+    \ssh "$*" -t "bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc)"
 }
 export -f __ssh
 alias ssh="__ssh"
@@ -380,9 +380,11 @@ export -f __swf
 
 function __gt {
     mkdir -p ~/GitRepo
-    [[ $1 == *"/"* ]]\
-        && (git clone https://github.com/$1 ~/GitRepo/$1;return 0)\
-        || (git clone https://github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
+	[[ $1 == *"/"* ]]\
+		&& local fullname__=$1\
+		|| local fullname__=$1/$1
+	[ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
+		|| git clone https://github.com/$fullname__
 }
 export -f __gt
 
@@ -757,12 +759,12 @@ alias ggi="\
 function __s {
     __ssh $*
     \ssh $* 'while true; do\
-		rm -f /tmp/.vd
-		[ -s ~/.gitconfig.bak ]\
-			&& mv ~/.gitconfig.bak ~/.gitconfig\
-			|| rm -f ~/.gitconfig
-		rm -f /tmp/.inputrc
-		rm -frd ~/.w3m/
+        rm -f /tmp/.vd
+        [ -s ~/.gitconfig.bak ]\
+            && mv ~/.gitconfig.bak ~/.gitconfig\
+            || rm -f ~/.gitconfig
+        rm -f /tmp/.inputrc
+        rm -frd ~/.w3m/
         rm -f /tmp/a.vim
         rm -f /tmp/auto-pairs.vim
         rm -f /tmp/boolpat.vim
@@ -969,5 +971,5 @@ alias ver="echo $RCVER__"
 #[ $? == 0 ] && base16_tomorrow-night 2>/dev/null
 
 export -f __init
-export RCVER__="Version 0.2"
+export RCVER__="Version 0.2.0001"
 [ "x`ver 2>/dev/null`" == "x$RCVER__" ] || __init

@@ -11,7 +11,7 @@ sudo yum makecache;
 sudo yum install epel-release centos-release-scl -y;
 sudo yum makecache;
 sudo yum groups install "Development Tools" -y;
-sudo yum install bind-utils whois wget screen bash-completion -y;
+sudo yum install bind-utils whois wget screen bash-completion nawk -y;
 )
 
 [ "Raspbian" == "$RCARC__" ]||[ "Ubuntu" == "$RCARC__" ]||[ "Debian" == "$RCARC__" ]\

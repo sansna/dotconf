@@ -4,7 +4,7 @@
 export RCARC__=`cat /etc/os-release |grep ^NAME|gawk -vRS='\"' '{print $1}'|gawk -vRS='=' '{print $1}'|grep -v NAME`
 
 [ "CentOS" == "$RCARC__" ]||[ "Red" == "$RCARC__" ]||[ "Fedora" == "$RCARC__" ]\
-	&& [ `rpm -qa|grep screen|wc -l` -ge 1 ]\
+	&& [ `rpm -qa|grep screen|wc -l` -eq 0 ]\
 	&&(
 sudo chmod a+x /sbin/ip;
 sudo yum makecache;
@@ -15,10 +15,10 @@ sudo yum install bind-utils whois wget screen bash-completion -y;
 )
 
 [ "Raspbian" == "$RCARC__" ]||[ "Ubuntu" == "$RCARC__" ]||[ "Debian" == "$RCARC__" ]\
-	&& [ `dpkg -l|grep screen|wc -l` -ge 1 ]\
+	&& [ `dpkg -l|grep screen|wc -l` -eq 0 ]\
 	&&(
 sudo apt-get update;
-sudo apt-get install gawk screen build-essential git apt-file bash-completion -y;
+sudo apt-get install gawk less screen build-essential git apt-file bash-completion -y;
 )
 
 # This function is used to load the bashrc script without the .bashrc.

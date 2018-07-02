@@ -1,5 +1,26 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
+# Gather minimal set of utils to make use of this rc file.
+export RCARC__=`cat /etc/os-release |grep ^NAME|gawk -vRS='\"' '{print $1}'|gawk -vRS='=' '{print $1}'|grep -v NAME`
+
+[ "CentOS" == "$RCARC__" ]||[ "Red" == "$RCARC__" ]||[ "Fedora" == "$RCARC__" ]\
+	&& [ `rpm -qa|grep screen|wc -l` -ge 1 ]\
+	&&(
+sudo chmod a+x /sbin/ip;
+sudo yum makecache;
+sudo yum instasll epel-release centos-release-scl -y;
+sudo yum makecache;
+sudo yum groups install "Development Tools" -y;
+sudo yum install bind-utils whois wget screen bash-completion -y;
+)
+
+[ "Raspbian" == "$RCARC__" ]||[ "Ubuntu" == "$RCARC__" ]||[ "Debian" == "$RCARC__" ]\
+	&& [ `dpkg -l|grep screen|wc -l` -ge 1 ]\
+	&&(
+sudo apt-get update;
+sudo apt-get install gawk screen build-essential git apt-file bash-completion -y;
+)
+
 # This function is used to load the bashrc script without the .bashrc.
 function __init {
 # Start of function __init.
@@ -411,12 +432,11 @@ export -f __kd
 # auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
 #+ always update on comfirmation.. Although can also be automated by adding --no-comfirm..
 function __updatesystem {
-    arc__=`cat /etc/os-release |grep ^NAME|gawk -vRS='\"' '{print $1}'|gawk -vRS='=' '{print $1}'|grep -v NAME`
-    [ "x" == "x$arc__" ] && echo "No OS detected.\n"&& return 1
-    [ "CentOS" == "$arc__" ]||[ "Red" == "$arc__" ]||[ "Fedora" == "$arc__" ]&&sudo yum update &&sudo yum upgrade -y
-    [ "Arch" == "$arc__" ]&&sudo pacman -Syu
-    [ "Gentoo" == "$arc__" ]&&emerge --sync
-    [ "Raspbian" == "$arc__" ]||[ "Ubuntu" == "$arc__" ]||[ "Debian" == "$arc__" ]&&sudo apt-get update && sudo apt-get -y upgrade
+    [ "x" == "x$RCARC__" ] && echo "No OS detected.\n"&& return 1
+    [ "CentOS" == "$RCARC__" ]||[ "Red" == "$RCARC__" ]||[ "Fedora" == "$RCARC__" ]&&sudo yum update &&sudo yum upgrade -y
+    [ "Arch" == "$RCARC__" ]&&sudo pacman -Syu
+    [ "Gentoo" == "$RCARC__" ]&&emerge --sync
+    [ "Raspbian" == "$RCARC__" ]||[ "Ubuntu" == "$RCARC__" ]||[ "Debian" == "$RCARC__" ]&&sudo apt-get update && sudo apt-get -y upgrade
 }
 export -f __updatesystem
 

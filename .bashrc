@@ -1,12 +1,12 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
 # Gather minimal set of utils to make use of this rc file.
-export RCARC__=`cat /etc/os-release |grep ^NAME|gawk -vRS='\"' '{print $1}'|gawk -vRS='=' '{print $1}'|grep -v NAME`
+export RCARC__=`cat /etc/os-release | grep ^NAME|cut -d '"' -f 2|cut -d ' ' -f 1`
 
 [ "CentOS" == "$RCARC__" ]||[ "Red" == "$RCARC__" ]||[ "Fedora" == "$RCARC__" ]\
 	&& [ `rpm -qa|grep nawk|wc -l` -eq 0 ]\
 	&&(
-sudo chmod a+x /sbin/ip;
+export PATH=$PATH:/sbin/;
 sudo yum makecache;
 sudo yum install epel-release centos-release-scl -y;
 sudo yum makecache;

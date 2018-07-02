@@ -384,7 +384,7 @@ function __gt {
 		&& local fullname__=$1\
 		|| local fullname__=$1/$1
 	[ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
-		|| git clone https://github.com/$fullname__
+		|| git clone https://github.com/$fullname__ ~/GitRepo/$fullname__
 }
 export -f __gt
 

@@ -390,9 +390,11 @@ export -f __gt
 
 function __gts {
     mkdir -p ~/GitRepo
-    [[ $1 == *"/"* ]]\
-        && (git clone ssh://git@github.com/$1 ~/GitRepo/$1;return 0)\
-        || (git clone ssh://git@github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
+	[[ $1 == *"/"* ]]\
+		&& local fullname__=$1\
+		|| local fullname__=$1/$1
+	[ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
+		|| git clone ssh://git@github.com/$fullname__ ~/GitRepo/$fullname__
 }
 export -f __gts
 
@@ -782,11 +784,13 @@ export -f __s
 alias s="__s"
 
 function __sc {
+	export TERM=screen-256color
     screen -r
     [ $? -eq 1 ] && while true; do
         [ -s /tmp/.screenrc  ] || curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.screenrc > /tmp/.screenrc
         [ $? -eq 0  ] && screen -c /tmp/.screenrc && break
     done
+	export TERM=linux
 }
 export -f __sc
 alias sc="__sc"

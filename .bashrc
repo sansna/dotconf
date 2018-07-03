@@ -318,17 +318,21 @@ export -f __swf
 
 function __gt {
     mkdir -p ~/GitRepo
-    [[ $1 == *"/"* ]]\
-        && (git clone https://github.com/$1 ~/GitRepo/$1;return 0)\
-        || (git clone https://github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
+	[[ $1 == *"/"* ]]\
+		&& local fullname__=$1\
+		|| local fullname__=$1/$1
+	[ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
+		|| git clone https://github.com/$fullname__ ~/GitRepo/$fullname__
 }
 export -f __gt
 
 function __gts {
     mkdir -p ~/GitRepo
-    [[ $1 == *"/"* ]]\
-        && (git clone ssh://git@github.com/$1 ~/GitRepo/$1;return 0)\
-        || (git clone ssh://git@github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
+	[[ $1 == *"/"* ]]\
+		&& local fullname__=$1\
+		|| local fullname__=$1/$1
+	[ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
+		|| git clone ssh://git@github.com/$fullname__ ~/GitRepo/$fullname__
 }
 export -f __gts
 
@@ -719,11 +723,13 @@ alias ggi="\
 #alias s="__s"
 
 function __sc {
+	export TERM=screen-256color
     screen -r
     [ $? -eq 1 ] && while true; do
         [ -s /tmp/.s.tmp ] || curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.screenrc > /tmp/.s.tmp
         [ $? -eq 0 ] && screen -c /tmp/.s.tmp && break
     done
+	export TERM=linux
 }
 export -f __sc
 alias sc="__sc"

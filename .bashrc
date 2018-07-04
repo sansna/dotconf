@@ -759,7 +759,7 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #       wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
 #       tar xfv libsodium-$LIBSODIUM_VER.tar.gz
 #       pushd libsodium-$LIBSODIUM_VER
-#       ./configure --prefix=/usr && make
+#       ./configure --prefix=/usr && make -j`nrpoc`
 #       make install
 #       popd
 #       ldconfig
@@ -769,13 +769,13 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #       wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 #       tar xfv mbedtls-$MBEDTLS_VER-gpl.tgz
 #       pushd mbedtls-$MBEDTLS_VER
-#       make SHARED=1 CFLAGS=-fPIC
+#       make SHARED=1 CFLAGS=-fPIC -j`nproc`
 #       make DESTDIR=/usr install
 #       popd
 #       ldconfig
 #   }
 #   ./autogen.sh
-#   ./configure; make; make install
+#   ./configure; make -j`nproc`; make install
 #   ss-server -s 0.0.0.0 -p port -k passwd -m method -t time &
 #}
 #alias getss="__getss"

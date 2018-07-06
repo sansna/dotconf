@@ -773,6 +773,7 @@ function __s {
             rm -f /tmp/pasta.vim
             rm -f /tmp/taglist.vim
             rm -f /tmp/.screenrc
+            rm -f /tmp/.lock.wt
             rm -f ~/.ssh/known_hosts
             cat /dev/null > /var/log/wtmp
             cat /dev/null > ~/.bash_history

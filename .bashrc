@@ -318,21 +318,21 @@ export -f __swf
 
 function __gt {
     mkdir -p ~/GitRepo
-	[[ $1 == *"/"* ]]\
-		&& local fullname__=$1\
-		|| local fullname__=$1/$1
-	[ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
-		|| git clone https://github.com/$fullname__ ~/GitRepo/$fullname__
+    [[ $1 == *"/"* ]]\
+        && local fullname__=$1\
+        || local fullname__=$1/$1
+    [ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
+        || git clone https://github.com/$fullname__ ~/GitRepo/$fullname__
 }
 export -f __gt
 
 function __gts {
     mkdir -p ~/GitRepo
-	[[ $1 == *"/"* ]]\
-		&& local fullname__=$1\
-		|| local fullname__=$1/$1
-	[ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
-		|| git clone ssh://git@github.com/$fullname__ ~/GitRepo/$fullname__
+    [[ $1 == *"/"* ]]\
+        && local fullname__=$1\
+        || local fullname__=$1/$1
+    [ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
+        || git clone ssh://git@github.com/$fullname__ ~/GitRepo/$fullname__
 }
 export -f __gts
 
@@ -698,38 +698,39 @@ alias ggi="\
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
 #function __s {
-#    __ssh $*
-#    \ssh $* 'while true; do\
-#		rm -f /tmp/.vd
-#		[ -s ~/.gitconfig.bak ]\
-#			&& mv ~/.gitconfig.bak ~/.gitconfig\
-#			|| rm -f ~/.gitconfig
-#		rm -f /tmp/.inputrc
-#		rm -frd ~/.w3m/
-#        rm -f /tmp/a.vim
-#        rm -f /tmp/auto-pairs.vim
-#        rm -f /tmp/boolpat.vim
-#        rm -f /tmp/pasta.vim
-#        rm -f /tmp/taglist.vim
-#        rm -f /tmp/.screenrc
-#        rm -f ~/.ssh/known_hosts
-#        cat /dev/null > /var/log/wtmp
-#        cat /dev/null > ~/.bash_history
-#        history -c
-#        break
-#    done' &
+#   \ssh $* -t "bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc);\
+#       while true; do\
+#           rm -f /tmp/.vd
+#           [ -s ~/.gitconfig.bak ]\
+#               && mv ~/.gitconfig.bak ~/.gitconfig\
+#               || rm -f ~/.gitconfig
+#           rm -f /tmp/.inputrc
+#           rm -frd ~/.w3m/
+#           rm -f /tmp/a.vim
+#           rm -f /tmp/auto-pairs.vim
+#           rm -f /tmp/boolpat.vim
+#           rm -f /tmp/pasta.vim
+#           rm -f /tmp/taglist.vim
+#           rm -f /tmp/.screenrc
+#           rm -f /tmp/.lock.wt
+#           rm -f ~/.ssh/known_hosts
+#           cat /dev/null > /var/log/wtmp
+#           cat /dev/null > ~/.bash_history
+#           history -c
+#           break
+#       done"
 #}
 #export -f __s
 #alias s="__s"
 
 function __sc {
-	export TERM=screen-256color
+    export TERM=screen-256color
     screen -r
     [ $? -eq 1 ] && while true; do
         [ -s /tmp/.s.tmp ] || curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.screenrc > /tmp/.s.tmp
         [ $? -eq 0 ] && screen -c /tmp/.s.tmp && break
     done
-	export TERM=linux
+    export TERM=linux
 }
 export -f __sc
 alias sc="__sc"

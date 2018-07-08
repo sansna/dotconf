@@ -5,21 +5,51 @@
 set input-meta on
 set output-meta on
 
-# Single tab show all matchings if multiple match and do completion.
+# Single tab show all matchings if multiple matches the same prefix.
 set show-all-if-ambiguous on
-# Single tab to show all matchings if multiple match, but no completion.
-#set show-all-if-unmodified on
+# Single tab to show all matchings if multiple matches the prefix without any partial completion.
+set show-all-if-unmodified on
 
 # Color files by types
 set colored-stats On
 # Append char to indicate type
 set visible-stats off
 # Mark symlinked directories
-set mark-symlinked-directories off
+set mark-symlinked-directories on
 # Color the common prefix
 set colored-completion-prefix On
 # Color the common prefix in menu-complete
 set menu-complete-display-prefix On
+# Color the file stats
+set colored-stats On
+
+# Other defined options
+set completion-display-width -1
+set completion-ignore-case on
+set completion-map-case on
+set completion-prefix-display-length 7
+set completion-query-items 36
+set convert-meta on
+set disable-completion off
+set editing-mode emacs
+set enable-bracketed-paste off
+set enable-meta-key on
+set expand-tilde on
+set history-preserve-point off
+set horizontal-scroll-mode off
+set input-meta off
+set keymap emacs
+set keyseq-timeout 500
+set mark-directories on
+set mark-modified-lines on
+set match-hidden-files on
+set menu-complete-display-prefix on
+set page-completions on
+set print-completions-horizontally on
+set revert-all-at-newline on
+set show-mode-in-prompt off
+set skip-completed-text on
+set visible-stats on
 
 # To allow the use of 8bit-characters like the german umlauts, uncomment
 # the line below. However this makes the meta key not work as a meta key,
@@ -34,7 +64,7 @@ set menu-complete-display-prefix On
 # see /usr/share/doc/bash/inputrc.arrows for other codes of arrow keys
 
 # do not bell on tab-completion
-# set bell-style none
+set bell-style none
 # set bell-style visible
 
 # some defaults / modifications for the emacs mode

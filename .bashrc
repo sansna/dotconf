@@ -130,9 +130,23 @@ function __cd {
     [ "x$tmpdir__" == "x" ]\
         && \cd\
         || \cd "${tmpdir__}"
-    __ls
-    local wordcount__=`ls -a|wc -w`
-    [ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
+
+    local total__=`\ls -a|wc -l`
+    [ $total__ -eq 2 ]\
+        && echo "No Entries in this Folder."\
+        && return 0
+
+    local visible__=`\ls |wc -l`
+    if [ $visible__ -eq 0 ]; then
+        [ $total__ -le 36 ]\
+            && __ls -a\
+            || echo "Too many .items in this Folder."
+    else
+        [ $visible__ -gt 36 ]\
+            && echo "Too many items in this Folder."\
+            || __ls
+    fi
+
     return 0
 }
 # Functons to be called in bash -c or xargs should be exported in this way.

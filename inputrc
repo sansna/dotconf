@@ -151,8 +151,8 @@ $endif
 "\e.": "\C-r.\C-k"
 # Silent all outputs.
 "\eq": " >/dev/null 2>&1"
-# Clear screen and ls.
-"\C-l": "\C-uclear\ehls\eh"
+# Clear screen and show current folder info.
+"\C-l": "\C-uclear\ehcd .\eh"
 
 $endif
 

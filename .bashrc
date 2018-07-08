@@ -188,6 +188,7 @@ alias less="less -isXmQr"
 alias grep="__grep"
 alias pcregrep="pcre2grep --color=auto"
 
+export RCAUTOMAXDISP__=36
 function __cd {
     local tmpdir__=$*
     [ "x$tmpdir__" == "x" ]\
@@ -201,11 +202,11 @@ function __cd {
 
     local visible__=`\ls |wc -l`
     if [ $visible__ -eq 0 ]; then
-        [ $total__ -le 36 ]\
+        [ $total__ -le $RCAUTOMAXDISP__ ]\
             && __ls -a\
             || echo "Too many .items in this Folder."
     else
-        [ $visible__ -gt 36 ]\
+        [ $visible__ -gt $RCAUTOMAXDISP__ ]\
             && echo "Too many items in this Folder."\
             || __ls
     fi

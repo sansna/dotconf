@@ -33,7 +33,7 @@ local ttyid__=`tty|gawk -vRS='/' '{print $1}'| grep -e '[0-9]'`
 # CentOS prompt: between \033 are colored scripts
 local os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
 local default_if__=`ip r | grep default | gawk '{print $5}'`
-local ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ | gawk '{print $2}'`
+local ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ 2>/dev/null| gawk '{print $2}'`
 export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
 
 # The following is used when -x is set in debugging the bash scripts.

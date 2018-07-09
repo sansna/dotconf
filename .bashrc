@@ -55,7 +55,7 @@ export LOCKWT__=/tmp/.lock.wt
 function __do_update_wt {
     local wt__=`__wt|head -n 3|tail -n 2|tr '\\n' '#'`
     local wtnocolor__=`echo $wt__|sed 's/\\x1b\\[[0-9;]*m//g'` # Removing color
-    local wttype__=`echo $wtnocolor__|grep -o '[^/\\-_\(\)\.\"\`]*#'|head -n 1|gawk -vFS='#' '{print \$1}'|sed 's/^ *//g'`
+    local wttype__=`echo $wtnocolor__|grep -o '[^/\\-_\(\)\.\"\`]*#' 2>/dev/null|head -n 1|gawk -vFS='#' '{print \$1}'|sed 's/^ *//g'`
     local wttemp__=`echo $wt__|cut -d '#' -f 2|gawk '{print $(NF-1)$(NF)}' 2>/dev/null`
     local wtdisp_local__=$wttype__\&$wttemp__
     echo `date +%s` > $LOCKWT__

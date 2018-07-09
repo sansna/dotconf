@@ -27,7 +27,7 @@ set colored-stats On
 set completion-display-width -1
 set completion-ignore-case on
 set completion-map-case on
-set completion-prefix-display-length 7
+set completion-prefix-display-length 0
 set completion-query-items 36
 set convert-meta on
 set disable-completion off

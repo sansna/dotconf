@@ -111,7 +111,7 @@ alias less="less -isXmQr"
 alias grep="grep --color=auto"
 alias pcregrep="pcre2grep --color=auto"
 
-export RCAUTOMAXDISP__=36
+export RCAUTOMAXDISP__=100
 function __cd {
     local tmpdir__=$*
     [ "x$tmpdir__" == "x" ]\

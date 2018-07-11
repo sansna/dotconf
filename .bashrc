@@ -757,7 +757,7 @@ alias cs="cu 100"
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
 alias ts="\cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;\cd -;"
 alias us="__updatesystem"
-alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
+alias ctg="ctags -R --extra=+f --exclude={.git,.svn} . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 alias lse="find . -type f |grep -v \.git\/|perl -ne 'print \$1 if m/\.([^.\/]+)$/' | sort -u"
 alias lsn="find . -type f ! -name '*.*'|grep -v \.git\/|xargs -n1 basename|sort -u"
 alias ggi="\

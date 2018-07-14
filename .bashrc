@@ -77,7 +77,7 @@ export PYTHONSTARTUP=~/.pythonrc
 #   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/taglist.vim -O /tmp/.e.tmp --quiet
 
 # The following specifies TERM for cur-bash window.
-#export TERM=rxvt-unicode-256color
+#[ $TERM != "screen-256color" ] || export TERM=rxvt-unicode-256color
 
 # Before using alias, one thing should know is that:
 # aliases just replaces defined chars.. It has no idea of params..

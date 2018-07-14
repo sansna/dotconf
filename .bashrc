@@ -151,7 +151,7 @@ echo "Loading inputrc..."
 bind -f /tmp/.inputrc
 
 # Here we specify a most general terminal type.
-export TERM=linux
+[ $TERM != "screen-256color" ] || export TERM=linux
 
 # Enable alias after sudo.
 alias sudo="sudo "

@@ -1,19 +1,21 @@
 Rxvt.background:black
 Rxvt.foreground:white
 Rxvt.scrollBar:no
-#Rxvt.backgroundPixmap:/root/Desktop/hinata1.jpg
-#Rxvt.blurRadius:1x41
-# This means Droid is the default font, when some char
-#+ (unicode miscellaneous char) not found in Droid, it
-#+ will go to Dejavu(it is complete set).
+!Rxvt.backgroundPixmap:/root/Desktop/hinata1.jpg
+!Rxvt.blurRadius:1x41
+! This means Droid is the default font, when some char
+!+ (unicode miscellaneous char) not found in Droid, it
+!+ will go to Dejavu(it is complete set).
 URxvt.font:xft:Droid Sans Mono:style=Regular:pixelsize=15,xft:Dejavu Sans Mono:stype=Regular:pixelsize=15,xft:Symbola:style=Regular:pixelsize=15
-# In case some char need 1 more space, default is 0 in
-#+ Droid Sans Mono.
+! In case some char need 1 more space, default is 0 in
+!+ Droid Sans Mono.
 URxvt.letterSpace:0
 URxvt.iso14755:false
 URxvt.iso14755_52:false
-# Key combination which maps control-arrow to move cursor in a word base.
+! Key combination which maps control-arrow to move cursor in a word base.
 URxvt.keysym.Control-Up:\033[1;5A
 URxvt.keysym.Control-Down:\033[1;5B
 URxvt.keysym.Control-Left:\033[1;5D
 URxvt.keysym.Control-Right:\033[1;5C
+! M-C-mouse click to open options for current clipboard
+URxvt.url-select.launcher: firefox

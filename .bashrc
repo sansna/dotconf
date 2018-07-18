@@ -55,7 +55,7 @@ export LOCKWT__=/tmp/.lock.wt
 function __do_update_wt {
     local wt__=`__wt|head -n 3|tail -n 2|tr '\\n' '#'`
     local wtnocolor__=`echo $wt__|sed 's/\\x1b\\[[0-9;]*m//g'` # Removing color
-    local wttype__=`echo $wtnocolor__|grep -o '[^/\\-_\(\)\.\"\`]*#'|head -n 1|gawk -vFS='#' '{print \$1}'|sed 's/^ *//g'`
+    local wttype__=`echo $wtnocolor__|grep -o '[^/\\-_\(\)\.\"\`]*#' 2>/dev/null|head -n 1|gawk -vFS='#' '{print \$1}'|sed 's/^ *//g'`
     local wttemp__=`echo $wt__|cut -d '#' -f 2|gawk '{print $(NF-1)$(NF)}' 2>/dev/null`
     local wtdisp_local__=$wttype__\&$wttemp__
     echo `date +%s` > $LOCKWT__
@@ -151,7 +151,7 @@ echo "Loading inputrc..."
 bind -f /tmp/.inputrc
 
 # Here we specify a most general terminal type.
-export TERM=linux
+[ $TERM != "screen-256color" ] || export TERM=linux
 
 # Enable alias after sudo.
 alias sudo="sudo "
@@ -188,14 +188,29 @@ alias less="less -isXmQr"
 alias grep="__grep"
 alias pcregrep="pcre2grep --color=auto"
 
+export RCAUTOMAXDISP__=100
 function __cd {
     local tmpdir__=$*
     [ "x$tmpdir__" == "x" ]\
         && \cd\
         || \cd "${tmpdir__}"
-    __ls
-    local wordcount__=`ls -a|wc -w`
-    [ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
+
+    local total__=`\ls -a|wc -l`
+    [ $total__ -eq 2 ]\
+        && echo "No Entries in this Folder."\
+        && return 0
+
+    local visible__=`\ls |wc -l`
+    if [ $visible__ -eq 0 ]; then
+        [ $total__ -le $RCAUTOMAXDISP__ ]\
+            && __ls -a\
+            || echo "Too many .items in this Folder."
+    else
+        [ $visible__ -gt $RCAUTOMAXDISP__ ]\
+            && echo "Too many items in this Folder."\
+            || __ls
+    fi
+
     return 0
 }
 # Functons to be called in bash -c or xargs should be exported in this way.
@@ -742,7 +757,7 @@ alias cs="cu 100"
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
 alias ts="\cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;\cd -;"
 alias us="__updatesystem"
-alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
+alias ctg="ctags -R --extra=+f --exclude={.git,.svn} . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 alias lse="find . -type f |grep -v \.git\/|perl -ne 'print \$1 if m/\.([^.\/]+)$/' | sort -u"
 alias lsn="find . -type f ! -name '*.*'|grep -v \.git\/|xargs -n1 basename|sort -u"
 alias ggi="\

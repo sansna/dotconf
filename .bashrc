@@ -77,7 +77,7 @@ export PYTHONSTARTUP=~/.pythonrc
 #   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/taglist.vim -O /tmp/.e.tmp --quiet
 
 # The following specifies TERM for cur-bash window.
-#export TERM=rxvt-unicode-256color
+#[ $TERM != "screen-256color" ] || export TERM=rxvt-unicode-256color
 
 # Before using alias, one thing should know is that:
 # aliases just replaces defined chars.. It has no idea of params..
@@ -125,14 +125,29 @@ alias less="less -isXmQr"
 alias grep="__grep"
 alias pcregrep="pcre2grep --color=auto"
 
+export RCAUTOMAXDISP__=100
 function __cd {
     local tmpdir__=$*
     [ "x$tmpdir__" == "x" ]\
         && \cd\
         || \cd "${tmpdir__}"
-    __ls
-    local wordcount__=`ls -a|wc -w`
-    [ $wordcount__ -eq 2 ] && echo "No Entries in this Folder."
+
+    local total__=`\ls -a|wc -l`
+    [ $total__ -eq 2 ]\
+        && echo "No Entries in this Folder."\
+        && return 0
+
+    local visible__=`\ls |wc -l`
+    if [ $visible__ -eq 0 ]; then
+        [ $total__ -le $RCAUTOMAXDISP__ ]\
+            && __ls -a\
+            || echo "Too many .items in this Folder."
+    else
+        [ $visible__ -gt $RCAUTOMAXDISP__ ]\
+            && echo "Too many items in this Folder."\
+            || __ls
+    fi
+
     return 0
 }
 # Functons to be called in bash -c or xargs should be exported in this way.
@@ -149,7 +164,7 @@ alias ssh="__ssh"
 # Bring basic vim shortcuts with sshrc, uncomment following in .sshrc file
 #function __vim {
 #   vim \
-#       -c "set nocompatible| set foldcolumn=0|set diffopt=foldcolumn:2| filetype off| set path+=/usr/include| set tags=tags;| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on|set t_ti= t_te= |set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac|highlight! link DiffText MatchParen| nnoremap <c-s> :w<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :w !sudo tee % 2>&1 1>/dev/null<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp |:nohl| nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>b :BoolPat| normal zz"\
+#       -c "set nocompatible| set foldcolumn=0|set diffopt=foldcolumn:2| filetype off| set path+=/usr/include| set tags=tags;| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on|set t_ti= t_te= |set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac|highlight! link DiffText MatchParen| nnoremap <c-s> :w<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :w !sudo tee % 2>&1 1>/dev/null<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp |:nohl| nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>bp :BoolPat| normal zz"\
 #       $*
 #}
 function __vim {
@@ -319,16 +334,20 @@ export -f __swf
 function __gt {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
-        && (git clone https://github.com/$1 ~/GitRepo/$1;return 0)\
-        || (git clone https://github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
+        && local fullname__=$1\
+        || local fullname__=$1/$1
+    [ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
+        || git clone https://github.com/$fullname__ ~/GitRepo/$fullname__
 }
 export -f __gt
 
 function __gts {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
-        && (git clone ssh://git@github.com/$1 ~/GitRepo/$1;return 0)\
-        || (git clone ssh://git@github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
+        && local fullname__=$1\
+        || local fullname__=$1/$1
+    [ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
+        || git clone ssh://git@github.com/$fullname__ ~/GitRepo/$fullname__
 }
 export -f __gts
 
@@ -677,7 +696,7 @@ alias cs="cu 100"
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
 alias ts="\cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;\cd -;"
 alias us="__updatesystem"
-alias ctg="ctags -R --extra=+f . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
+alias ctg="ctags -R --extra=+f --exclude={.git,.svn} . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 alias lse="find . -type f |grep -v \.git\/|perl -ne 'print \$1 if m/\.([^.\/]+)$/' | sort -u"
 alias lsn="find . -type f ! -name '*.*'|grep -v \.git\/|xargs -n1 basename|sort -u"
 alias ggi="\
@@ -694,36 +713,39 @@ alias ggi="\
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
 #function __s {
-#    __ssh $*
-#    \ssh $* 'while true; do\
-#		rm -f /tmp/.vd
-#		[ -s ~/.gitconfig.bak ]\
-#			&& mv ~/.gitconfig.bak ~/.gitconfig\
-#			|| rm -f ~/.gitconfig
-#		rm -f /tmp/.inputrc
-#		rm -frd ~/.w3m/
-#        rm -f /tmp/a.vim
-#        rm -f /tmp/auto-pairs.vim
-#        rm -f /tmp/boolpat.vim
-#        rm -f /tmp/pasta.vim
-#        rm -f /tmp/taglist.vim
-#        rm -f /tmp/.screenrc
-#        rm -f ~/.ssh/known_hosts
-#        cat /dev/null > /var/log/wtmp
-#        cat /dev/null > ~/.bash_history
-#        history -c
-#        break
-#    done' &
+#   \ssh $* -t "bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc);\
+#       while true; do\
+#           rm -f /tmp/.vd
+#           [ -s ~/.gitconfig.bak ]\
+#               && mv ~/.gitconfig.bak ~/.gitconfig\
+#               || rm -f ~/.gitconfig
+#           rm -f /tmp/.inputrc
+#           rm -frd ~/.w3m/
+#           rm -f /tmp/a.vim
+#           rm -f /tmp/auto-pairs.vim
+#           rm -f /tmp/boolpat.vim
+#           rm -f /tmp/pasta.vim
+#           rm -f /tmp/taglist.vim
+#           rm -f /tmp/.screenrc
+#           rm -f /tmp/.lock.wt
+#           rm -f ~/.ssh/known_hosts
+#           cat /dev/null > /var/log/wtmp
+#           cat /dev/null > ~/.bash_history
+#           history -c
+#           break
+#       done"
 #}
 #export -f __s
 #alias s="__s"
 
 function __sc {
+    export TERM=screen-256color
     screen -r
     [ $? -eq 1 ] && while true; do
         [ -s /tmp/.s.tmp ] || curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.screenrc > /tmp/.s.tmp
         [ $? -eq 0 ] && screen -c /tmp/.s.tmp && break
     done
+    export TERM=linux
 }
 export -f __sc
 alias sc="__sc"
@@ -806,7 +828,7 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #       wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
 #       tar xfv libsodium-$LIBSODIUM_VER.tar.gz
 #       pushd libsodium-$LIBSODIUM_VER
-#       ./configure --prefix=/usr && make
+#       ./configure --prefix=/usr && make -j`nproc`
 #       sudo make install
 #       popd
 #       sudo ldconfig
@@ -816,13 +838,13 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #       wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 #       tar xfv mbedtls-$MBEDTLS_VER-gpl.tgz
 #       pushd mbedtls-$MBEDTLS_VER
-#       make SHARED=1 CFLAGS=-fPIC
+#       make SHARED=1 CFLAGS=-fPIC -j`nproc`
 #       sudo make DESTDIR=/usr install
 #       popd
 #       sudo ldconfig
 #   }
 #   ./autogen.sh
-#   ./configure; sudo make; sudo make install
+#   ./configure; sudo make -j`nproc`; sudo make install
 #   ss-server -s 0.0.0.0 -p port -k passwd -m method -t time &
 #}
 #export -f __getss

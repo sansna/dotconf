@@ -84,7 +84,7 @@ export PROMPT_COMMAND="__update_wt"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
-export EDITOR='/usr/share/vim'
+export EDITOR='/usr/bin/vim'
 
 # Manpager specify tool used in man pages viewing.
 export MANPAGER="/usr/bin/less -isXmQr"

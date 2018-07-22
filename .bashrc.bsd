@@ -24,7 +24,7 @@ export GPG_TTY=$(tty)
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
-#EDITOR='/usr/share/vim'
+#EDITOR='/usr/bin/vim'
 
 # The following distinguishes filename globbing between lowercase and
 #+ uppercase letters in a character range between brackets.

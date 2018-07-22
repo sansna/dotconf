@@ -11,9 +11,12 @@
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
+#font pango:monospace 12
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango:DejaVu Sans Mono 8
+
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -39,7 +42,7 @@ bindsym Mod1+Return exec rxvt
 bindsym Mod1+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym Mod1+d exec dmenu_run
+#bindsym Mod1+m exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -70,17 +73,18 @@ bindsym Mod1+Shift+Up move up
 bindsym Mod1+Shift+Right move right
 
 # split in horizontal orientation
-bindsym Mod1+p split h
+bindsym Mod1+i split h
 
 # split in vertical orientation
 bindsym Mod1+v split v
 
 # enter fullscreen mode for the focused container
-bindsym Mod1+f fullscreen
+bindsym Mod1+Shift+f fullscreen
+#bindsym Mod1+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod1+s layout stacking
-bindsym Mod1+w layout tabbed
+bindsym Mod1+Control+s layout stacking
+bindsym Mod1+Control+w layout tabbed
 bindsym Mod1+e layout toggle split
 
 # toggle tiling / floating
@@ -90,10 +94,10 @@ bindsym Mod1+Shift+space floating toggle
 bindsym Mod1+space focus mode_toggle
 
 # focus the parent container
-bindsym Mod1+a focus parent
+bindsym Mod1+u focus parent
 
 # focus the child container
-#bindsym Mod1+d focus child
+bindsym Mod1+n focus child
 
 # move the currently focused window to the scratchpad
 bindsym Mod1+Shift+minus move scratchpad
@@ -180,11 +184,12 @@ mode "resize" {
 bindsym Mod1+r mode "resize"
 
 mode "app-open" {
-	bindsym b exec urxvt
+    bindsym b exec urxvt
+    bindsym f exec firefox
 
-	# back to normal: Enter or Escape
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym Mod1+o mode "app-open"
@@ -194,8 +199,9 @@ bindsym Mod1+o mode "app-open"
 bar {
         status_command i3status
 }
-exec --no-startup-id feh --bg-scale /usr/mf/hinata2.jpg
-exec --no-startup-id compton --config ~/.config/compton.conf -b
+
+#exec --no-startup-id feh --bg-scale /usr/mf/hinata2.jpg
+#exec --no-startup-id compton --config ~/.config/compton.conf -b
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
 # keysym-based config which used his favorite modifier (alt or windows)

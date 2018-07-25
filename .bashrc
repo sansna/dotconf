@@ -6,25 +6,39 @@ function __init {
 
 # Note: PS1 and umask are already set in /etc/profile. You should not
 # need this unless you want different defaults for root.
-#ttyid__=`tty|gawk -vRS='/' '{print $1}'| grep -e '[0-9]'`
+#local ttyid__=`tty|gawk -vRS='/' '{print $1}'| grep -e '[0-9]'`
 # Debian prompt:
 #export PS1='${debian_chroot:+($debian_chroot)}\u@\h#$ttyid__:\W\\$ '
 # CentOS prompt: between \033 are colored scripts
-#os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
-#default_if__=`ip r | grep default | gawk '{print $5}'`
-#ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ | gawk '{print $2}'`
-#export PS1="[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
-#unset os_str__
-#unset ip_addr__
-#unset default_if__
-#unset ttyid__
+#local os_str__=`cat /etc/os-release|grep PRETTY|cut -d '=' -f 2|xargs -I{} expr substr {} 1 1`
+#local default_if__=`ip r | grep default | gawk '{print $5}'`
+#local ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ 2>/dev/null| gawk '{print $2}'`
+#export PS1="\$RC_LAST_CMD_STAT[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
+
+function __update_cmd_stat {
+    local stat=$?
+    [ $stat -eq 0 ]\
+        && export RC_LAST_CMD_STAT="T "\
+        && return $stat
+    [ $stat -gt 128 ]\
+        && export RC_LAST_CMD_STAT="F-`kill -l $(($stat - 128))` "\
+        || export RC_LAST_CMD_STAT="F-$stat "
+    return $stat
+}
+export -f __update_cmd_stat
+
 # The following is used when -x is set in debugging the bash scripts.
 #export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 #umask 022
 export GPG_TTY=$(tty)
 
+# prompt opt in git folder
+[ -s ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh ]\
+    && GIT_PROMPT_ONLY_IN_REPO=1\
+    && source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
+
 # After executing each bach command, the following content will be executed.
-#export PROMPT_COMMAND="date"
+export PROMPT_COMMAND="__update_cmd_stat;"$PROMPT_COMMAND";"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
@@ -87,11 +101,6 @@ unalias -a
 
 # Enable alias after sudo.
 alias sudo="sudo "
-
-# prompt opt in git folder
-[ -s ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh ]\
-    && GIT_PROMPT_ONLY_IN_REPO=1\
-    && source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
 
 # base-16 color scheme, see chriskempson/base16-shell
 export BASE16_SHELL=$HOME/.config/base16-shell/

@@ -32,13 +32,17 @@ export -f __update_cmd_stat
 #umask 022
 export GPG_TTY=$(tty)
 
+# First clears $PROMPT_COMMAND
+export PROMPT_COMMAND=
 # prompt opt in git folder
 [ -s ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh ]\
     && GIT_PROMPT_ONLY_IN_REPO=1\
     && source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
 
 # After executing each bach command, the following content will be executed.
-export PROMPT_COMMAND="__update_cmd_stat;"$PROMPT_COMMAND";"
+[ -n "$PROMPT_COMMAND" ]\
+    && export PROMPT_COMMAND="__update_cmd_stat;"$PROMPT_COMMAND";"\
+    || export PROMPT_COMMAND="__update_cmd_stat;"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.

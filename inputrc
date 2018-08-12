@@ -124,6 +124,7 @@ $endif
 # Copied from Archwiki/Readline.
 # Quick add sudo to command.
 "\es":"\C-asudo \C-e"
+"\eS":"\C-asudo bash -c '\C-e'"
 # Run command in subshell.
 "\e\C-s\e\C-s":"\C-e > /dev/null 2>&1 &\C-m"
 # Use less to see results.

@@ -200,7 +200,7 @@ function __grep {
 export -f __grep
 
 alias ls="__ls"
-alias less="less -isXmQrS"
+alias less="less -isXmQS"
 alias grep="__grep"
 alias pcregrep="pcre2grep --color=auto"
 

@@ -120,7 +120,7 @@ export BASE16_SHELL=$HOME/.config/base16-shell/
 #alias mv='mv -i'
 
 alias ls="ls --color=auto"
-alias less="less -isXmQr"
+alias less="less -isXmQrS"
 alias grep="grep --color=auto"
 alias pcregrep="pcre2grep --color=auto"
 

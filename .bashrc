@@ -119,9 +119,22 @@ export BASE16_SHELL=$HOME/.config/base16-shell/
 #alias cp='cp -i'
 #alias mv='mv -i'
 
-alias ls="ls --color=auto"
+function __ls {
+    # Note the following $* is intentionally not parenthesized.
+    #+ Otherwise options cannot be append to this command.
+    #+ If need to append files/folders with spaces to this cmd, quote them.
+    \ls --color=auto $*
+}
+export -f __ls
+
+function __grep {
+    \grep --color=auto $*
+}
+export -f __grep
+
+alias ls="__ls"
 alias less="less -isXmQS"
-alias grep="grep --color=auto"
+alias grep="__grep"
 alias pcregrep="pcre2grep --color=auto"
 
 export RCAUTOMAXDISP__=100

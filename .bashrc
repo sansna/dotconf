@@ -124,12 +124,18 @@ export BASE16_SHELL=$HOME/.config/base16-shell/
 #alias mv='mv -i'
 
 function __ls {
-    \ls --color=auto $*
+    local parm=
+    [ "x" = "x$*" ]\
+        || parm="$*"
+    \ls --color=auto ${parm}
 }
 export -f __ls
 
 function __grep {
-    \grep --color=auto $*
+    local parm=
+    [ "x" = "x$*" ]\
+        || parm="$*"
+    \grep --color=auto ${parm}
 }
 export -f __grep
 

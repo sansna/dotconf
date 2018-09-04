@@ -124,18 +124,15 @@ export BASE16_SHELL=$HOME/.config/base16-shell/
 #alias mv='mv -i'
 
 function __ls {
-    local parm=
-    [ "x" = "x$*" ]\
-        || parm="$*"
-    \ls --color=auto ${parm}
+    # Note the following $* is intentionally not parenthesized.
+    #+ Otherwise options cannot be append to this command.
+    #+ If need to append files/folders with spaces to this cmd, quote them.
+    \ls --color=auto $*
 }
 export -f __ls
 
 function __grep {
-    local parm=
-    [ "x" = "x$*" ]\
-        || parm="$*"
-    \grep --color=auto ${parm}
+    \grep --color=auto $*
 }
 export -f __grep
 

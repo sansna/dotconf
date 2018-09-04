@@ -190,6 +190,9 @@ alias sudo="sudo "
 #alias mv='mv -i'
 
 function __ls {
+    # Note the following $* is intentionally not parenthesized.
+    #+ Otherwise options cannot be append to this command.
+    #+ If need to append files/folders with spaces to this cmd, quote them.
     \ls --color=auto $*
 }
 export -f __ls

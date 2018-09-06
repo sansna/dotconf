@@ -21,6 +21,13 @@ sudo apt-get update;
 sudo apt-get install gawk less screen build-essential git apt-file bash-completion dnsutils whois -y;
 )
 
+[ "Arch" == "$RCARC__"  ]\
+   && [ `pacman -Q nawk|wc -l` -eq 0  ]\
+   &&(
+sudo pacman -Syy base-devel nawk bash-completion screen git dnsutils whois --noconfirm;
+
+)
+
 # This function is used to load the bashrc script without the .bashrc.
 function __init {
 # Start of function __init.

@@ -4,8 +4,8 @@
 export RCARC__=`cat /etc/os-release | grep ^NAME|cut -d '"' -f 2|cut -d ' ' -f 1`
 
 [ "CentOS" == "$RCARC__" ]||[ "Red" == "$RCARC__" ]||[ "Fedora" == "$RCARC__" ]\
-    && [ `rpm -qa|grep nawk|wc -l` -eq 0 ]\
     && export PATH=$PATH:/sbin/\
+    && [ `rpm -qa|grep nawk|wc -l` -eq 0 ]\
     &&(
 sudo yum makecache;
 sudo yum install epel-release centos-release-scl -y;

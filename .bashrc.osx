@@ -1,4 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
+# MacOS version of .bashrc
+# In iterm2->preferences->profile->keys, change left command key to ESC+. Swap left command with left option key.
+# Also in global env, the keyboard should swap caps with left control.
 
 # Gather minimal set of utils to make use of this rc file.
 export RCARC__=`cat /etc/os-release | grep ^NAME|cut -d '"' -f 2|cut -d ' ' -f 1`
@@ -82,18 +85,18 @@ function __do_update_wt {
 }
 export -f __do_update_wt
 
-function __update_wt {
-    [ -s $LOCKWT__  ]\
-        && local lock_file_wt_time__=`cat $LOCKWT__|head -n 1`\
-        || local lock_file_wt_time__=0
-
-    cur_date__=`date +%s`
-    [ $cur_date__ -gt $[ $lock_file_wt_time__ + 30*60 ] ]\
-        && (flock -n $LOCKWT__ bash -c "__do_update_wt" &)
-}
-export -f __update_wt
-alias update_wt="__update_wt"
-__update_wt
+#function __update_wt {
+#    [ -s $LOCKWT__  ]\
+#        && local lock_file_wt_time__=`cat $LOCKWT__|head -n 1`\
+#        || local lock_file_wt_time__=0
+#
+#    cur_date__=`date +%s`
+#    [ $cur_date__ -gt $[ $lock_file_wt_time__ + 30*60 ] ]\
+#        && (flock -n $LOCKWT__ bash -c "__do_update_wt" &)
+#}
+#export -f __update_wt
+#alias update_wt="__update_wt"
+#__update_wt
 
 #umask 022
 export GPG_TTY=$(tty)
@@ -106,9 +109,9 @@ export PROMPT_COMMAND=
     && source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
 
 # After executing each bach command, the following content will be executed.
-[ -n "$PROMPT_COMMAND" ]\
-    && export PROMPT_COMMAND="__update_cmd_stat;"$PROMPT_COMMAND";__update_wt;"\
-    || export PROMPT_COMMAND="__update_cmd_stat;__update_wt;"
+#[ -n "$PROMPT_COMMAND" ]\
+#    && export PROMPT_COMMAND="__update_cmd_stat;"$PROMPT_COMMAND";__update_wt;"\
+#    || export PROMPT_COMMAND="__update_cmd_stat;__update_wt;"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.

@@ -41,7 +41,7 @@ set input-meta off
 set keymap emacs
 set keyseq-timeout 500
 set mark-directories on
-set mark-modified-lines on
+set mark-modified-lines off
 set match-hidden-files on
 set menu-complete-display-prefix on
 set page-completions on

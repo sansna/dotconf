@@ -1,7 +1,4 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# MacOS version of .bashrc
-# In iterm2->preferences->profile->keys, change left command key to ESC+. Swap left command with left option key.
-# Also in global env, the keyboard should swap caps with left control.
 
 # Gather minimal set of utils to make use of this rc file.
 export RCARC__=`cat /etc/os-release | grep ^NAME|cut -d '"' -f 2|cut -d ' ' -f 1`
@@ -45,6 +42,7 @@ local os_str__='M'
 local default_if__=`ip r | grep default | gawk '{print $5}'`
 local ip_addr__=`ip a | grep $default_if__|tail -n 1 2>/dev/null| gawk '{print $2}'`
 export PS1="\$RC_LAST_CMD_STAT[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#${ttyid__}§\$SHLVL \W]\\$ "
+#export PS1="\$RC_LAST_CMD_STAT[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#${ttyid__}S\$SHLVL \W]\\$ "
 
 function __update_cmd_stat {
     local stat=$?
@@ -85,18 +83,18 @@ function __do_update_wt {
 }
 export -f __do_update_wt
 
-#function __update_wt {
-#    [ -s $LOCKWT__  ]\
-#        && local lock_file_wt_time__=`cat $LOCKWT__|head -n 1`\
-#        || local lock_file_wt_time__=0
-#
-#    cur_date__=`date +%s`
-#    [ $cur_date__ -gt $[ $lock_file_wt_time__ + 30*60 ] ]\
-#        && (flock -n $LOCKWT__ bash -c "__do_update_wt" &)
-#}
-#export -f __update_wt
-#alias update_wt="__update_wt"
-#__update_wt
+function __update_wt {
+    [ -s $LOCKWT__  ]\
+        && local lock_file_wt_time__=`cat $LOCKWT__|head -n 1`\
+        || local lock_file_wt_time__=0
+
+    cur_date__=`date +%s`
+    [ $cur_date__ -gt $[ $lock_file_wt_time__ + 30*60 ] ]\
+        && (flock -n $LOCKWT__ bash -c "__do_update_wt" &)
+}
+export -f __update_wt
+alias update_wt="__update_wt"
+__update_wt
 
 #umask 022
 export GPG_TTY=$(tty)
@@ -109,9 +107,9 @@ export PROMPT_COMMAND=
     && source ~/GitRepo/magicmonty/bash-git-prompt/gitprompt.sh\
 
 # After executing each bach command, the following content will be executed.
-#[ -n "$PROMPT_COMMAND" ]\
-#    && export PROMPT_COMMAND="__update_cmd_stat;"$PROMPT_COMMAND";__update_wt;"\
-#    || export PROMPT_COMMAND="__update_cmd_stat;__update_wt;"
+[ -n "$PROMPT_COMMAND" ]\
+    && export PROMPT_COMMAND="__update_cmd_stat;"$PROMPT_COMMAND";__update_wt;"\
+    || export PROMPT_COMMAND="__update_cmd_stat;__update_wt;"
 
 # The following is used in Gentoo to specify default editor. Otherwise
 #+ would be nano.
@@ -132,9 +130,20 @@ export LC_COLLATE=C
 # This is needed in gnu-screen for utf-8 char to display correctly.
 export LANG=en_US.UTF-8
 
-# The Golang paths
-[ "x$GOPATH" == "x" ] &&\
-    export GOPATH=~/GO; export PATH=$PATH:$GOPATH/bin
+# The Golang paths: $GOROOT/bin should be the place the go binary resides;
+# $GOPATH should be the place where all the golibs resides, split by colon.
+# $GOLINT is used to specify golint path, $PROTOCBIN is used to specify
+# protobuf.
+[ "x$GOPATH" == "x" ]\
+    && export GOROOT=/usr/local/Cellar/go/1.11.1/libexec\
+    && export GOBINPATH=$GOROOT/bin;export BASEGOPATH=~/GO\
+    && export GOLINT=$BASEGOPATH/src/github.com/golang/lint/golint\
+    && export GOXCLIB=~/GitRepo/xclib;export GOPATH=$BASEGOPATH:$GOXCLIB\
+    && export GOPATHBIN=$BASEGOPATH/bin\
+    && export PATH=$GOBINPATH:$GOPATHBIN:$GOROOT:$GOLINT:$PATH\
+    && export GOROOT_BOOTSTRAP=$GOROOT\
+    && export PROTOCBIN=/usr/local/opt/protobuf/bin\
+    && export PATH=$PROTOCBIN:$PATH
 
 # The Python env
 export PYTHONSTARTUP=~/.pythonrc
@@ -310,11 +319,11 @@ function __v {
 export -f __v
 
 function __sgs {
-    grep "$1" -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
+    grep "$1" -rl . | xargs sed -i".bak" "s/$1/$2/g"
 }
 
 function __sgsl {
-    find . -maxdepth 1 -type f|xargs -d '\n' grep "$1" -l |xargs -d '\n' sed -i".bak" "s/$1/$2/g"
+    find . -maxdepth 1 -type f|xargs grep "$1" -l |xargs sed -i".bak" "s/$1/$2/g"
 }
 
 #alias ct="cp -t ~/test/"
@@ -386,31 +395,31 @@ function __rcd {
 export -f __rcd
 
 function __rgf {
-    lgf "$1"|xargs -d "\n" rm -f
+    lgf "$1"|xargs rm -f
 }
 
 function __rgd {
-    lgd "$1"|xargs -d "\n" rm -frd
+    lgd "$1"|xargs rm -frd
 }
 
 function __rgl {
-    lgl "$1"|xargs -d "\n" rm -frd
+    lgl "$1"|xargs rm -frd
 }
 
 function __rgb {
-    lgb|xargs -d "\n" rm -frd
+    lgb|xargs rm -frd
 }
 
 function __rgbl {
-    lgbl|xargs -d "\n" rm -frd
+    lgbl|xargs rm -frd
 }
 
 function __rgfl {
-    lgfl "$1"|xargs -d "\n" rm -f
+    lgfl "$1"|xargs rm -f
 }
 
 function __rgdl {
-    lgdl "$1"|xargs -d "\n" rm -frd
+    lgdl "$1"|xargs rm -frd
 }
 
 function __swf {
@@ -512,19 +521,19 @@ alias llhd="llh -d"
 alias l.="\ls -Gd .*"
 alias lr="__ls -Ra"
 alias lg="ls -Ra|__grep"
-alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep n-color=auto -n"
-alias lgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
-alias lgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' grep --color=auto -n"
-alias lglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' grep --color=auto"
+alias lgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs grep --color=auto -n"
+alias lgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs grep --color=auto"
+alias lgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs grep --color=auto -n"
+alias lglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs grep --color=auto"
 # Using pcre2-tools other than grep
-alias pgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -sn"
+alias pgs="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs pcre2grep --color -sn"
 # Search with perl-5 regexp support
-alias pgms="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -snM"
-alias pgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -sn"
-alias pgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' pcre2grep --color -sn"
+alias pgms="find . -type f |grep -v tags$|grep -v types_c.taghl|xargs pcre2grep --color -snM"
+alias pgls="find . -type l |grep -v tags$|grep -v types_c.taghl|xargs pcre2grep --color -sn"
+alias pgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs pcre2grep --color -sn"
 # Search with perl-5 regexp support
-alias pgmsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' pcre2grep --color -snM"
-alias pglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -sn"
+alias pgmsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs pcre2grep --color -snM"
+alias pglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs pcre2grep --color -sn"
 alias sgs="__sgs"
 alias sgsl="__sgsl"
 alias gfs="__grep . -rnwe"

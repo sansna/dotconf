@@ -138,7 +138,9 @@ export LANG=en_US.UTF-8
     && export GOROOT=/usr/local/Cellar/go/1.11.1/libexec\
     && export GOBINPATH=$GOROOT/bin;export BASEGOPATH=~/GO\
     && export GOLINT=$BASEGOPATH/src/github.com/golang/lint/golint\
-    && export GOXCLIB=~/GitRepo/xclib;export GOPATH=$BASEGOPATH:$GOXCLIB\
+    && export GOXCLIB=~/GO/src/git.ixiaochuan.cn/xclib\
+    && export GOGWLIB=~/GO/src/git.ixiaochuan.cn/gateway\
+    && export GOPATH=$BASEGOPATH:$GOXCLIB:$GOGWLIB\
     && export GOPATHBIN=$BASEGOPATH/bin\
     && export PATH=$GOBINPATH:$GOPATHBIN:$GOROOT:$GOLINT:$PATH\
     && export GOROOT_BOOTSTRAP=$GOROOT\
@@ -544,7 +546,7 @@ function __gesf {
     local ext__="--include=\*."$1""
     local arg__=${@:2}
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="__grep ${ext__} -rl $arg__"
+    command__="__grep ${ext__} -rl $arg__ ."
     eval $command__
     return 0
 }
@@ -554,7 +556,7 @@ function __gefs {
     local ext__="--include=\*."$1""
     local arg__=${@:2}
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="__grep ${ext__} -rne $arg__"
+    command__="__grep ${ext__} -rne $arg__ ."
     eval $command__
     return 0
 }
@@ -564,7 +566,7 @@ function __gbsf {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="__grep ${ext__} -rl $arg__"
+    command__="__grep ${ext__} -rl $arg__ ."
     eval $command__
     return 0
 }
@@ -574,7 +576,7 @@ function __gbfs {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
     local arg__=`echo $arg__|sed 's/(/\\\(/g'`
-    command__="__grep ${ext__} -rne $arg__"
+    command__="__grep ${ext__} -rne $arg__ ."
     eval $command__
     return 0
 }

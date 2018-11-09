@@ -159,6 +159,7 @@ export PYTHONSTARTUP=~/.pythonrc
     || while true; do
         [ -s /usr/local/Cellar/bash-completion/1.3_3/etc/bash_completion ]\
             && source /usr/local/Cellar/bash-completion/1.3_3/etc/bash_completion\
+            && source /usr/local/Cellar/bash-completion/1.3_3/etc/bash_completion.d/git-completion.bash\
             && bashcomplete__=1
         break
     done
@@ -309,10 +310,10 @@ function __v {
     [ 1 -ge $nf__ ] && __vim -R -- "$cutfilename__" && return
     for i in `seq $nf__ -1 1`;
     do
-        local filename__=`echo $cutfilename__|gawk -v count=$i -vFS=":" '{for(i=1;i<=count;i++)print $i}'|paste -sd:`;
+        local filename__=`echo $cutfilename__|gawk -v count=$i -vFS=":" '{for(i=1;i<=count;i++)print $i}'|paste -sd: -`;
         local line__=`echo $cutfilename__|gawk -v count=$i -vFS=":" '{print $(count+1)}'`
         [ -f "$filename__" ]\
-            && local totalline__=`wc -l "$filename__"|cut -d ' ' -f 1`\
+            && local totalline__=`wc -l "$filename__"|gawk '{print $1}'`\
             && ([ $line__ -le $totalline__ ] 2>/dev/null && line__=+$line__ || unset line__;\
                 __vim -R $line__ -- "$filename__")\
             && return
@@ -855,6 +856,7 @@ alias sc="__sc"
 #function __tm {
 #    tmux at
 #    [ $? -eq 1 ] && tmux -f <(curl -s https://raw.githubusercontent.com/sansna/dotconf/master/tmux.conf)
+#    [ $? -eq 1 ] && tmux -f /tmp/.tmux.conf
 #}
 #export -f __tm
 #alias tm="__tm"

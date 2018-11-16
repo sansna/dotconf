@@ -135,16 +135,20 @@ export LANG=en_US.UTF-8
 # $GOLINT is used to specify golint path, $PROTOCBIN is used to specify
 # protobuf.
 [ "x$GOPATH" == "x" ]\
-    && export GOROOT=/usr/local/Cellar/go/1.11.1/libexec\
-    && export GO3RDPARTY=/Users/zuiyou/GO/src/git.ixiaochuan.cn/xclib/third_party\
-    && export GOBINPATH=$GOROOT/bin;export BASEGOPATH=~/GO\
-    && export GOLINT=$BASEGOPATH/src/github.com/golang/lint/golint\
-    && export GOPATH=$GOXCLIB$GO3RDPARTY:$GOGWLIB$BASEGOPATH\
-    && export GOPATHBIN=$BASEGOPATH/bin\
-    && export PATH=$GOBINPATH:$GOPATHBIN:$GOROOT:$GOLINT:$PATH\
-    && export GOROOT_BOOTSTRAP=$GOROOT\
-    && export PROTOCBIN=/usr/local/opt/protobuf/bin\
-    && export PATH=$PROTOCBIN:$PATH
+    && export BASEGOPATH=~/GO\
+    && export GOXCLIB=~/GO/src/git.ixiaochuan.cn/xclib\
+    && export GOPATH=$BASEGOPATH:$GOXCLIB\
+    && export PATH=$PATH:/opt/soft/protoc/bin:$BASEGOPATH/bin
+#    && export GOROOT=/usr/local/Cellar/go/1.11.1/libexec\
+#    && export GO3RDPARTY=/Users/zuiyou/GO/src/git.ixiaochuan.cn/xclib/third_party\
+#    && export GOBINPATH=$GOROOT/bin;export BASEGOPATH=~/GO\
+#    && export GOLINT=$BASEGOPATH/src/github.com/golang/lint/golint\
+#    && export GOPATH=$GOXCLIB$GO3RDPARTY:$GOGWLIB$BASEGOPATH\
+#    && export GOPATHBIN=$BASEGOPATH/bin\
+#    && export PATH=$GOBINPATH:$GOPATHBIN:$GOROOT:$GOLINT:$PATH\
+#    && export GOROOT_BOOTSTRAP=$GOROOT\
+#    && export PROTOCBIN=/usr/local/opt/protobuf/bin\
+#    && export PATH=$PROTOCBIN:$PATH
 
 #&& export GOXCLIB=~/GO/src/git.ixiaochuan.cn/xclib\
 #&& export GOGWLIB=~/GO/src/git.ixiaochuan.cn/gateway\

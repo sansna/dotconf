@@ -11,7 +11,7 @@ bell_msg ""
 # See https://www.gnu.org/software/screen/manual/html_node/String-Escapes.html for colors-list.
 #caption always "%{= dd}%{+b w}%h %=%{=b rw} %l %{= db} ${USER}@%H %{= dg}%c"
 backtick 1 5 5 sed 's/\x1b\[[0-9;]*m//g;s/&/ /g' /tmp/.lock.wt
-hardstatus alwayslastline '%+0=%{= dd}%l %+12=%{= dd}%n%-59=%1`%-19=%{= dd}%y %D %M.%d %0c'
+hardstatus alwayslastline '%+0=%{= dd}%l %+12=%{= dd}%n %t%-59=%1`%-19=%{= dd}%y %D %M.%d %0c'
 
 # Define maximum history. 1000 history records consume about 500KiB of RAM per screen.
 defscrollback 3000

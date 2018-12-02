@@ -136,7 +136,7 @@ $endif
 "\exv": "\C-e | xargs -I{} "
 "\ex": "\C-e | xargs "
 "\ep": "\C-ups aux"
-"\em": "\C-umake \t"
+"\em": "\C-ugit commit -m \"\"\C-b"
 "\ec": "\C-ugit checkout "
 "\eav": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
 "\ea\ev": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"

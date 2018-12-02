@@ -32,7 +32,7 @@ bind c screen 0 bash -c "bash -i <<< '__init;exec </dev/tty;history -c;clear'"
 # Source $HOME/.bashrc for all screens
 bind  at "#" stuff ". ~/.bashrc"
 # Source some snippet for all screens
-bind  at "#" stuff ". ~/snippet"
+bind  at "#" stuff ". /tmp/.snippet"
 
 # Split.
 bind s split

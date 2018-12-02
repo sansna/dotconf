@@ -34,6 +34,10 @@ bind  at "#" stuff ". ~/.bashrc"
 # Source some snippet for all screens
 bind  at "#" stuff ". /tmp/.snippet"
 
+# Some shortcut for all screens.
+bind  at "#" stuff "clear"
+bind  at "#" stuff "cdclear"
+
 # Split.
 bind s split
 bind v split -v

@@ -29,6 +29,9 @@ bind l focus right
 # Create new screens start at 0. XXX: screens start from 5's tty are not pts.
 bind c screen 0 bash -c "bash -i <<< '__init;exec </dev/tty;history -c;clear'"
 
+# Source $HOME/.bashrc for all screens
+bind  at "#" stuff ". ~/.bashrc"
+
 # Split.
 bind s split
 bind v split -v
@@ -63,10 +66,11 @@ password HPrCkHgmbbASY
 # Default key bindings that might not be usable in other distro.
 bind \ quit
 bind : colon
-bind  copy
+#bind  copy
 bind [ copy
 bind  paste
-bind ] paste
+# The paste command is not related to copy.
+#bind ] paste
 bind ? help
 bind K kill
 bind X remove

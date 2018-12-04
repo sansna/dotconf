@@ -66,7 +66,8 @@ select 1
 select 0
 
 # Life-saving registers
-register s "history -d $((HISTCMD-1)) && source <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc)"
+register s "history -d $((HISTCMD-1)) && source <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc-noupdate)"
+register S "history -d $((HISTCMD-1)) && source <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc)"
 
 # Protect this rc file with password.
 #+ Edit by <C-A> :password, and <C-A>] to paste the string below.

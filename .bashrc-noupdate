@@ -151,7 +151,7 @@ export PYTHONSTARTUP=~/.pythonrc
 # Prepare vim plugin for vim: need internet
 echo "Preparing vim plugins..."
 [ -s /tmp/a.vim ]\
-    || (wget https://files.cnblogs.com/files/sansna/vimscripts.tar.gz -O /tmp/vimscripts.tgz --quiet\
+    || (wget http://47.92.6.214:38672/vimscripts.tar.gz -O /tmp/vimscripts.tgz --quiet\
     ; tar xfz /tmp/vimscripts.tgz -C /tmp; rm -f /tmp/vimscripts.tgz)
 
 echo "Preparing vd..."

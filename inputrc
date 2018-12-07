@@ -160,6 +160,7 @@ $endif
 # Common used dir shortcuts.
 "\e\C-m": "\C-umake\eh"
 "\e\C-p": "\C-ucd -\eh"
+"\e\C-c": "\C-u\ec -\eh"
 "\e\C-u": "\C-ucd ..\eh"
 "\e\C-d": "\C-u[ `pwd` != $HOME ] && cd\eh"
 "\e\C-gr": "\C-u[ `pwd` != $HOME/GitRepo ] && gr\eh"

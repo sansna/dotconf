@@ -14,19 +14,20 @@
 	dt = diff-tree --name-only -r HEAD --no-commit-id
 	st = status
 	ap = add -p
-	branch-name = "!git rev-parse --abbrev-ref HEAD"
-	publish = "!git push -u origin $(git branch-name)"
-	pm = "!git pull --rebase master"
-	#npm = "!f() {git checkout -b dev_devsrv02-$(git branch-name) && git pm;}; f"
-	#qapublish = "!git push -u origin HEAD:QAOK-$(git branch-name)"
-	unpublish = "!git push origin :$(git branch-name)"
+	# print branch name
+	bn = "!git rev-parse --abbrev-ref HEAD"
+	publish = "!git push -u origin $(git bn)"
+	pm = "!git pull --rebase origin master"
+	#npm = "!f() { git checkout -b dev_devsrv02-$(git bn) && git pm;}; f"
+	#qapublish = "!git push -u origin HEAD:QAOK-$(git bn)"
+	unpublish = "!git push origin :$(git bn)"
 	recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -d \"$@\" && git checkout -b \"$@\" && git publish; }; f"
 	code-review = difftool origin/master...
 	merge-span = "!f() { echo $(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f1)$1$(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f2); }; f"
 	merge-log = "!git log `git merge-span .. $1`"
 	merge-diff = "!git diff `git merge-span ... $1`"
 	merge-difftool = "!git difftool `git merge-span ... $1`"
-	rebase-branch = "!git rebase -i `git merge-base master HEAD`"
+	rb = "!git rebase -i `git merge-base master HEAD`"
 	unstage = reset HEAD
 	rewind = reset --hard HEAD
 	diffc = diff --cached

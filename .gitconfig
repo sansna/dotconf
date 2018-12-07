@@ -51,7 +51,7 @@
 [commit]
 	gpgsign = true
 #[user]
-#    signingkey = DED06923
+#    signingkey = ED3893A4
 # Walkaround if SSL cert not installed:
 #[http]
 #    sslVerify = false

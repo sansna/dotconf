@@ -725,6 +725,8 @@ alias we="__we"
 alias gt="__gt"
 alias gts="__gts"
 alias gush="__gush"
+alias gs="git status"
+alias gb="git branch"
 
 function __pkz {
     [[ $1 == *"/" ]]\

@@ -37,6 +37,7 @@ bind  at "#" stuff ". /tmp/.snippet"
 # Some shortcut for all screens.
 bind  at "#" stuff "clear"
 bind  at "#" stuff "cdclear"
+bind  at "#" stuff ""
 
 # Split.
 bind s split

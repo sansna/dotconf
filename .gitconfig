@@ -4,10 +4,12 @@
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lgt = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
 	dt = diff-tree --name-only -r HEAD --no-commit-id
-	st = status
+	st = status --short
 	ap = add -p
 	# print branch name
 	bn = "!git rev-parse --abbrev-ref HEAD"
+	br = "!git for-each-ref --sort=-authordate refs/heads/ --format='%(HEAD) %(color:reset)%(authordate:iso8601)%(color:reset) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)%(authorname)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'"
+	cm = "!f() { git commit -m \"[$(git bn)]: $@\"; }; f"
 	publish = "!git push -u origin $(git bn)"
 	pm = "!git pull --rebase origin master"
 	#npm = "!f() { git checkout -b dev_devsrv02-$(git bn) && git pm;}; f"
@@ -28,7 +30,7 @@
 	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
 	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
 	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-	delete-merged-branches = "!git co master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+	delete-merged-branches = "!git checkout master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 [diff]
 	tool = vimdiff3
 [difftool]

@@ -160,12 +160,15 @@ echo "Preparing vd..."
 chmod +x /tmp/.vd
 
 # Set up git config scripts.
-echo "Preparing gitconfig..."
-[ -s ~/.gitconfig ] && ([ -s ~/.gitconfig.bak ]\
-    || mv ~/.gitconfig ~/.gitconfig.bak)
-[ -s ~/.gitconfig ]\
-    || wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/.gitconfig\
-        -O ~/.gitconfig --quiet
+[ "x$SKIP_GITCONFIG" != "x1" ]\
+    && (\
+        echo "Preparing gitconfig..."
+        [ -s ~/.gitconfig ] && ([ -s ~/.gitconfig.bak ]\
+            || mv ~/.gitconfig ~/.gitconfig.bak)
+        [ -s ~/.gitconfig ]\
+            || wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/.gitconfig\
+                -O ~/.gitconfig --quiet\
+    )
 
 # Get w3m keymap file.
 echo "Preparing w3m keymap file..."

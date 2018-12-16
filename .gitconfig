@@ -9,7 +9,7 @@
 	dn = "!f() { [ "x$2" == "x"  ] && git diff HEAD~$1..HEAD~$(($1-1)) || git diff HEAD~$1..HEAD~$2; }; f"
 	# print branch name
 	bn = "!git rev-parse --abbrev-ref HEAD"
-	br = "!git for-each-ref --sort=-authordate refs/heads/ --format='%(HEAD) %(color:reset)%(authordate:iso8601)%(color:reset) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)%(authorname)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'"
+	b = "!git for-each-ref --sort=-authordate refs/heads/ --format='%(HEAD) %(color:reset)%(authordate:iso8601)%(color:reset) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)%(authorname)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'"
 	cm = "!f() { git commit -m \"[$(git bn)]: $@\"; }; f"
 	publish = "!git push -u origin $(git bn)"
 	pm = "!git pull --rebase origin master"

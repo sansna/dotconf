@@ -5,7 +5,7 @@
 	lgt = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
 	dt = diff-tree --name-only -r HEAD --no-commit-id
 	st = status --short
-	ap = add -p
+	a = add -p
 	dn = "!f() { [ "x$2" == "x"  ] && git diff HEAD~$1..HEAD~$(($1-1)) || git diff HEAD~$1..HEAD~$2; }; f"
 	# print branch name
 	bn = "!git rev-parse --abbrev-ref HEAD"

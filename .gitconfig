@@ -40,7 +40,7 @@
 	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
 	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
 	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-	delete-merged-branches = "!git checkout master && git pull origin master && git branch --merged | grep -v '\\*' | xargs -I{} -n 1 git branch -d {};"
+	delete-merged-branches = "!git checkout master && git pull origin master && git branch --merged | grep -v '\\*'|grep -vw test | xargs -I{} git push origin :{} && git branch --merged | grep -v '\\*' | xargs -I{} git branch -d {};"
 	lines = "!f() { git log --author=$@ --pretty=tformat: --numstat | gawk '{ add += $1; subs += $2; loc += $1 - $2  } END { printf \"added lines: %s removed lines: %s total lines: %s\\n\", add, subs, loc  }' -; }; f"
 [diff]
 	tool = vimdiff3

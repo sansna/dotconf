@@ -6,15 +6,16 @@
 	dt = diff-tree --name-only -r HEAD --no-commit-id
 	st = status --short
 	a = add -p
-	dn = "!f() { [ "x$2" == "x"  ] && git diff HEAD~$1..HEAD~$(($1-1)) || git diff HEAD~$1..HEAD~$2; }; f"
+	dn = "!f() { [ "x$2" == "x" ] && git diff HEAD~$1..HEAD~$(($1-1)) || git diff HEAD~$1..HEAD~$2; }; f"
 	# print branch name
 	bn = "!git rev-parse --abbrev-ref HEAD"
 	b = "!git for-each-ref --sort=-authordate refs/heads/ --format='%(HEAD) %(color:reset)%(authordate:iso8601)%(color:reset) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)%(authorname)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'"
-	cm = "!f() { git commit -m \"[$(git bn)]: $@\"; }; f"
+	cm = "!f() { git commit -m \"@sansna[$(git bn)]: $@\"; }; f"
 	publish = "!git push -u origin $(git bn)"
 	pm = "!git pull --rebase origin master"
 	#npm = "!f() { git checkout -b dev_devsrv02-$(git bn) && git pm;}; f"
 	#qapublish = "!git push -u origin HEAD:QAOK-$(git bn)"
+	#qaunpublish = "!git push origin :QAOK-$(git bn)"
 	unpublish = "!git push origin :$(git bn)"
 	recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -d \"$@\" && git checkout -b \"$@\" && git publish; }; f"
 	code-review = difftool origin/master...
@@ -24,7 +25,7 @@
 	merge-difftool = "!git difftool `git merge-span ... $1`"
 	rb = "!git rebase -i `git merge-base master HEAD`"
 	unstage = reset HEAD
-	rewind = "!f() { [ "x$1" == "x"  ] && git reset --hard HEAD || git reset --hard HEAD~$1; }; f"
+	rewind = "!f() { [ "x$1" == "x" ] && git reset --hard HEAD || git reset --hard HEAD~$1; }; f"
 	diffc = diff --cached
 	assume = update-index --assume-unchanged
 	unassume = update-index --no-assume-unchanged
@@ -32,6 +33,7 @@
 	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
 	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
 	delete-merged-branches = "!git checkout master && git pull origin master && git branch --merged | grep -v '\\*' | xargs -I{} -n 1 git branch -d {};"
+	lines = "!f() { git log --author=$@ --pretty=tformat: --numstat | gawk '{ add += $1; subs += $2; loc += $1 - $2  } END { printf \"added lines: %s removed lines: %s total lines: %s\\n\", add, subs, loc  }' -; }; f"
 [diff]
 	tool = vimdiff3
 [difftool]

@@ -11,6 +11,7 @@
 #local ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ 2>/dev/null| gawk '{print $2}'`
 #export PS1="\$RC_LAST_CMD_STAT[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
 
+unset __update_cmd_stat
 function __update_cmd_stat {
     local stat=$?
     [ $stat -eq 0 ]\
@@ -119,6 +120,7 @@ export BASE16_SHELL=$HOME/.config/base16-shell/
 #alias cp='cp -i'
 #alias mv='mv -i'
 
+unset __ls
 function __ls {
     # Note the following $* is intentionally not parenthesized.
     #+ Otherwise options cannot be append to this command.
@@ -127,6 +129,7 @@ function __ls {
 }
 export -f __ls
 
+unset __grep
 function __grep {
     \grep --color=auto $*
 }
@@ -138,6 +141,7 @@ alias grep="__grep"
 alias pcregrep="pcre2grep --color=auto"
 
 export RCAUTOMAXDISP__=100
+unset __cd
 function __cd {
     local tmpdir__=$*
     [ "x$tmpdir__" == "x" ]\
@@ -178,6 +182,7 @@ alias cd="__cd"
 alias vd="vim -d"
 
 # Using function for alias because needs parameter.
+unset __w
 function __w {
     [ "x$*" == "x" ] \
         && (w3m https://www.google.com/ncr; return 0 )\
@@ -185,18 +190,22 @@ function __w {
             && w3m https://www.google.com/search?ie=ISO-8859-1\&hl=en\&source=hp\&biw=\&bih=\&q=${website__}\&btnG=Google+Search\&gbv=1)
 }
 
+unset __rfc
 function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
 }
 
+unset __we
 function __we {
     w3m https://en.wikipedia.org/wiki/$*
 }
 
+unset __wk
 function __wk {
     w3m http://www.kernel.org/doc
 }
 
+unset __i
 function __i {
     pandoc "$1"|w3m -T text/html
 }
@@ -204,6 +213,7 @@ function __i {
 alias wt="curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 \(Windows NT 10.0; Win64; x64\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '\"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
 
 # Open with longest match of file, together with line numbers.
+unset __v
 function __v {
     local cutfilename__=`echo $1|cut -d ';' -f 1|cut -d '(' -f 1|cut -d ')' -f 1`
     local nf__=`echo $cutfilename__|gawk -vFS=":" '{print NF}'`
@@ -221,10 +231,12 @@ function __v {
     vim -R -- "$cutfilename__"
 }
 
+unset __sgs
 function __sgs {
     grep "$1" -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
 
+unset __sgsl
 function __sgsl {
     find . -maxdepth 1 -type f|xargs -d '\n' grep "$1" -l |xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
@@ -247,6 +259,7 @@ alias vv="__v"
 #alias nt0="gawk -vORS='\0' '{print \$0}'"
 alias nts="gawk -vORS='\ ' '{print \$0}'"
 
+unset __rndf
 function __rndf {
     [ "x$*" == "x" ]\
         && local rndfregexp__="."\
@@ -261,6 +274,7 @@ function __rndf {
 }
 alias rndf="__rndf"
 
+unset __rndfl
 function __rndfl {
     [ "x$*" == "x" ]\
         && local rndflregexp__="."\
@@ -276,6 +290,7 @@ function __rndfl {
 alias rndfl="__rndfl"
 
 # Remove current dir
+unset __rcd
 function __rcd {
     local filecount__=`ls -a|wc -w`;
     filecount__=$((filecount__-2))
@@ -294,34 +309,42 @@ function __rcd {
     return 0
 }
 
+unset __rgf
 function __rgf {
     lgf "$1"|xargs -d "\n" rm -f
 }
 
+unset __rgd
 function __rgd {
     lgd "$1"|xargs -d "\n" rm -frd
 }
 
+unset __rgl
 function __rgl {
     lgl "$1"|xargs -d "\n" rm -frd
 }
 
+unset __rgb
 function __rgb {
     lgb|xargs -d "\n" rm -frd
 }
 
+unset __rgbl
 function __rgbl {
     lgbl|xargs -d "\n" rm -frd
 }
 
+unset __rgfl
 function __rgfl {
     lgfl "$1"|xargs -d "\n" rm -f
 }
 
+unset __rgdl
 function __rgdl {
     lgdl "$1"|xargs -d "\n" rm -frd
 }
 
+unset __swf
 function __swf {
     [ -e $1 ] && [ -e $2 ] || return 1
     local tmp=$(date +%s)
@@ -330,6 +353,7 @@ function __swf {
     mv $tmp $2
 }
 
+unset __gt
 function __gt {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
@@ -339,6 +363,7 @@ function __gt {
         || git clone https://github.com/$fullname__ ~/GitRepo/$fullname__
 }
 
+unset __gts
 function __gts {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
@@ -348,25 +373,30 @@ function __gts {
         || git clone ssh://git@github.com/$fullname__ ~/GitRepo/$fullname__
 }
 
+unset __gush
 function __gush {
     local commitinfo__=${@:2}
     git add -A; git commit -S -m "$commitinfo__"; git push origin $1;
 }
 
+unset __cget
 function __cget {
     curl -u just:123 -o "$1" ftp://10.0.2.33/"$1"
 }
 
+unset __cput
 function __cput {
     curl -u just:123 -T "$1" ftp://10.0.2.33/"$1"
 }
 
 # Expr string modifier
+unset __cog
 function __cog {
     gcc -O0 -g "$1" -o $(expr substr "$1" 1 $(expr index "$1" .))out
 }
 
 # Now kd support option -n: no prompt for time.
+unset __kd
 function __kd {
     [ "x$1" == "x-n" ]\
         && while true ; do
@@ -382,6 +412,7 @@ function __kd {
 
 # auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
 #+ always update on comfirmation.. Although can also be automated by adding --no-comfirm..
+unset __updatesystem
 function __updatesystem {
     arc__=`cat /etc/os-release |grep ^NAME|gawk -vRS='\"' '{print $1}'|gawk -vRS='=' '{print $1}'|grep -v NAME`
     [ "x" == "x$arc__" ] && echo "No OS detected.\n"&& return 1
@@ -434,6 +465,7 @@ alias gfs="grep . -rnwe"
 alias gsf="grep . -rlnwe"
 
 # Grep certain extension: Command concat, from 2nd arg to last.
+unset __gesf
 function __gesf {
     local ext__="--include=\*."$1""
     local arg__=${@:2}
@@ -443,6 +475,7 @@ function __gesf {
     return 0
 }
 
+unset __gefs
 function __gefs {
     local ext__="--include=\*."$1""
     local arg__=${@:2}
@@ -452,6 +485,7 @@ function __gefs {
     return 0
 }
 
+unset __gbsf
 function __gbsf {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
@@ -461,6 +495,7 @@ function __gbsf {
     return 0
 }
 
+unset __gbfs
 function __gbfs {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
@@ -470,6 +505,7 @@ function __gbfs {
     return 0
 }
 
+unset __pesf
 function __pesf {
     local ext__="--include=\.\*\\\\."$1""
     local arg__=${@:2}
@@ -479,6 +515,7 @@ function __pesf {
     return 0
 }
 
+unset __pefs
 function __pefs {
     local ext__="--include=\.\*\\\\."$1""
     local arg__=${@:2}
@@ -488,6 +525,7 @@ function __pefs {
     return 0
 }
 
+unset __pbsf
 function __pbsf {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
@@ -497,6 +535,7 @@ function __pbsf {
     return 0
 }
 
+unset __pbfs
 function __pbfs {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
@@ -516,10 +555,12 @@ alias pefs="__pefs"
 alias pbsf="__pbsf"
 alias pbfs="__pbfs"
 
+unset __gtf
 function __gtf {
     gsf ^struct\ "$1"\ \{
 }
 
+unset __gcT
 function __gcT {
     mkdir -p ~/GitRepo/Trii
     [ -d "/Trii/"$1"" ] && echo "Repo exists." && return 1\
@@ -527,11 +568,13 @@ function __gcT {
                           && chown -R git ~/GitRepo/Trii/"$1")
 }
 
+unset __gch
 function __gch {
     [ "x" == "x$1" ] && echo "Repo name required." && return 1\
         || curl -u 'sansna' https://api.github.com/user/repos -d "{\"name\":\"$1\"}"
 }
 
+unset __validate_ip4
 function __validate_ip4 {
     local stats=1
     if [[ $* =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
@@ -548,6 +591,7 @@ function __validate_ip4 {
 alias val_ip="__validate_ip4"
 export -f __validate_ip4
 
+unset __getasn
 function __getasn {
     __validate_ip4 $*
     [ $? -eq 0 ]\
@@ -624,6 +668,7 @@ alias gush="__gush"
 alias gs="git status"
 alias gb="git branch"
 
+unset __pkz
 function __pkz {
     [[ $1 == *"/" ]]\
         && tar cfz $(expr substr "$1" 1 `echo "$[$(expr length "$1")-1]"`).tgz "$1"\
@@ -641,6 +686,7 @@ alias pdb2="python2 -m pdb"
 alias pdb3="python3 -m pdb"
 alias kd="__kd"
 
+unset __cu
 function __cu {
     local nf__=0
     local value__=0
@@ -720,6 +766,7 @@ alias ggi="\
 #}
 #alias s="__s"
 
+unset __sc
 function __sc {
     export TERM=screen-256color
     screen -r
@@ -732,6 +779,7 @@ function __sc {
 
 alias sc="__sc"
 
+unset __tm
 function __tm {
     tmux at
     [ $? -eq 1 ] && tmux -f <(curl -s https://raw.githubusercontent.com/sansna/dotconf/master/tmux.conf)
@@ -754,6 +802,7 @@ alias getasn="__getasn"
 alias gcT="__gcT"
 alias gch="__gch"
 
+unset __gu
 function __gu {
     cd "$1"
     # Folder exist check. [ -d folder ]
@@ -830,6 +879,7 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #}
 #alias getss="__getss"
 
+unset __ssr
 function __ssr {
     local running__=`ps aux|grep ss-local|grep -v grep`
     [ "x$running__" == "x" ]\

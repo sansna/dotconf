@@ -78,6 +78,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 alias ls="colorls -G"
 alias grep="grep --color=auto"
 
+unset __cd
 function __cd {
     tmpdir__=$*
     [ "x$tmpdir__" == "x" ]\
@@ -89,6 +90,7 @@ function __cd {
     unset tmpdir__
 }
 
+unset __cu
 function __cu {
     [ "x$HOME" == "x" ]\
         && printf "Please set \$HOME first.\n"\
@@ -109,6 +111,7 @@ alias cd="__cd"
 alias cu="__cu"
 
 # Using function for alias because needs parameter.
+unset __w
 function __w {
     [ "x$*" == "x" ] \
         && (w3m https://www.google.com/ncr; return 0 )\
@@ -117,54 +120,67 @@ function __w {
     unset website__
 }
 
+unset __rfc
 function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
 }
 
+unset __we
 function __we {
     w3m https://en.wikipedia.org/wiki/$*
 }
 
+unset __wk
 function __wk {
     w3m http://www.kernel.org/doc
 }
 
+unset __i
 function __i {
     pandoc "$1"|w3m -T text/html
 }
 
+unset __sgs
 function __sgs {
     grep $1 -rl . | xargs sed -i".bak" "s/$1/$2/g"
 }
 
+unset __sgsl
 function __sgsl {
     find . -maxdepth 1 -type f|xargs grep $1 -l |xargs sed -i".bak" "s/$1/$2/g"
 }
 
+unset __lgf
 function __lgf {
     find . -type f|grep -E "$*"
 }
 
+unset __lgd
 function __lgd {
     find . -type d|grep -E "$*"
 }
 
+unset __lgl
 function __lgl {
     find . -type l|grep -E "$*"
 }
 
+unset __lgfl
 function __lgfl {
     find . -maxdepth 1 -type f|grep -E "$*"
 }
 
+unset __lgdl
 function __lgdl {
     find . -maxdepth 1 -type d|grep -E "$*"
 }
 
+unset __lgll
 function __lgll {
     find . -maxdepth 1 -type l|grep -E "$*"
 }
 
+unset __c
 function __c {
     cd /usr/pkgsrc/$*
 }
@@ -185,6 +201,7 @@ alias lgbl="find . -maxdepth 1 |grep -E '*\\.bak$'"
 alias nts="gawk -vORS='\ ' '{print \$0}'"
 
 #Remove current dir
+unset __rcd
 function __rcd {
     filecount__=`ls -a|wc -w`;
     filecount__=$((filecount__-2))
@@ -207,34 +224,42 @@ function __rcd {
     return 0
 }
 
+unset __rgf
 function __rgf {
     lgf $1|xargs -d "\n" rm -f
 }
 
+unset __rgd
 function __rgd {
     lgd $1|xargs -d "\n" rm -frd
 }
 
+unset __rgl
 function __rgl {
     lgl $1|xargs -d "\n" rm -frd
 }
 
+unset __rgb
 function __rgb {
     lgb|xargs -d "\n" rm -frd
 }
 
+unset __rgbl
 function __rgbl {
     lgbl|xargs -d "\n" rm -frd
 }
 
+unset __rgfl
 function __rgfl {
     lgfl $1|xargs -d "\n" rm -f
 }
 
+unset __rgdl
 function __rgdl {
     lgdl $1|xargs -d "\n" rm -frd
 }
 
+unset __gt
 function __gt {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
@@ -242,6 +267,7 @@ function __gt {
         || (git clone https://github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
 }
 
+unset __gts
 function __gts {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
@@ -249,25 +275,30 @@ function __gts {
         || (git clone ssh://git@github.com/$1/$1 ~/GitRepo/$1/$1;return 0)
 }
 
+unset __gush
 function __gush {
     commitinfo__=${@:2}
     git add -A; git commit -S -m "$commitinfo__"; git push origin $1;
     unset commitinfo__
 }
 
+unset __cget
 function __cget {
     curl -u just:123 -o $1 ftp://10.0.2.51/$1
 }
 
+unset __cput
 function __cput {
     curl -u just:123 -T $1 ftp://10.0.2.51/$1
 }
 
 #expr string modifier
+unset __cog
 function __cog {
     gcc -O0 -g $1 -o $(expr substr $1 1 $(expr index $1 .))out
 }
 
+unset __kd
 function __kd {
     while true ; do
         date
@@ -278,6 +309,7 @@ function __kd {
 
 # auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
 #+ always update on comfirmation.. Although can also be automated by adding --no-comfirm..
+unset __updatesystem
 function __updatesystem {
     arc__=`cat /etc/os-release |grep ^NAME|gawk -vRS='\"' '{print $1}'|gawk -vRS='=' '{print $1}'|grep -v NAME`
     [ "x" == "x$arc__" ] && echo "No OS detected.\n"&& return 1
@@ -313,6 +345,7 @@ alias gfs="grep . -rnwe"
 alias gsf="grep . -rlnwe"
 
 #grep certain extension: Command concat, from 2nd arg to last.
+unset __gesf
 function __gesf {
     ext__="--include=\*.$1"
     arg__=${@:2}
@@ -324,6 +357,7 @@ function __gesf {
     unset ext__
 }
 
+unset __gefs
 function __gefs {
     ext__="--include=\*.$1"
     arg__=${@:2}
@@ -338,10 +372,12 @@ function __gefs {
 alias gesf="__gesf"
 alias gefs="__gefs"
 
+unset __gtf
 function __gtf {
     gsf ^struct\ "$1"\ \{
 }
 
+unset __git_createserver
 function __git_createserver {
     mkdir -p ~/GitRepo/Trii
     [ -d "/Trii/$1" ] && echo "Repo exists." && return 1\
@@ -349,6 +385,7 @@ function __git_createserver {
                           && chown -R git ~/GitRepo/Trii/$1)
 }
 
+unset __getasn
 function __getasn {
     whois -h whois.cymru.com -v $1
     whois -h whois.cymru.com " -v `dig +short $1`"

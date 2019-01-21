@@ -142,6 +142,7 @@ $endif
 "\eav": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
 "\ea\ev": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
 "\ea": "\C-e | gawk '{print $}' \C-b\C-b\C-b"
+"\el": "\C-e | while read -r linE; do printf \"$(echo $linE|wc -c) $linE\\n\"; done"
 "\et": "-t \"bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc)\""
 # Backward delete till previous ?.
 "\ed": "\C-r|\C-b\C-k"

@@ -190,7 +190,7 @@ alias ssh="__ssh"
 # Bring basic vim shortcuts with sshrc, uncomment following in .sshrc file
 #function __vim {
 #   vim \
-#       -c "set nocompatible| set foldcolumn=0|set diffopt=foldcolumn:2| filetype off| set path+=/usr/include| set tags=tags;| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on|set t_ti= t_te= |set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac|highlight! link DiffText MatchParen| nnoremap <c-s> :w<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :let __line=line('.')<CR>:let __col=col('.')<CR>:w !sudo tee % 2>&1 1>/dev/null<CR>:edit!<CR><CR>:cal cursor(__line, __col)<CR>:unlet __line<CR>:unlet __col<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp|source /tmp/.f1.tmp| source /tmp/.f2.tmp |:nohl| nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>bp :BoolPat| normal zz"\
+#       -c "set nocompatible| set foldcolumn=0|set diffopt=foldcolumn:2| filetype off| set path+=/usr/include| set tags=tags;|set viminfo='100,<1000,s100,h| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on|set t_ti= t_te= |set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac|highlight! link DiffText MatchParen| nnoremap <c-s> :w<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :let __line=line('.')<CR>:let __col=col('.')<CR>:w !sudo tee % 2>&1 1>/dev/null<CR>:edit!<CR><CR>:cal cursor(__line, __col)<CR>:unlet __line<CR>:unlet __col<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp|source /tmp/.f1.tmp| source /tmp/.f2.tmp |:nohl| nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>bp :BoolPat| normal zz"\
 #       $*
 #}
 unset __vim
@@ -262,14 +262,62 @@ function __sgsl {
 }
 
 #alias ct="cp -t ~/test/"
-alias lgf="find . -type f|__grep"
-alias lgd="find . -type d|__grep"
-alias lgl="find . -type l|__grep"
-alias lgb="find . |__grep .bak$"
-alias lgfl="find . -maxdepth 1 -type f|__grep"
-alias lgdl="find . -maxdepth 1 -type d|__grep"
-alias lgll="find . -maxdepth 1 -type l|__grep"
-alias lgbl="find . -maxdepth 1 |__grep .bak$"
+unset __lgf
+function __lgf {
+    find . -type f|__grep "$*"
+}
+export -f __lgf
+alias lgf="__lgf"
+
+unset __lgd
+function __lgd {
+    find . -type d|__grep "$*"
+}
+export -f __lgd
+alias lgd="__lgd"
+
+unset __lgl
+function __lgl {
+    find . -type l|__grep "$*"
+}
+export -f __lgl
+alias lgl="__lgl"
+
+unset __lgb
+function __lgb {
+    find . |__grep .bak$
+}
+export -f __lgb
+alias lgb="__lgb"
+
+unset __lgfl
+function __lgfl {
+    find . -maxdepth 1 -type f|__grep "$*"
+}
+export -f __lgfl
+alias lgfl="__lgfl"
+
+unset __lgdl
+function __lgdl {
+    find . -maxdepth 1 -type d|__grep "$*"
+}
+export -f __lgdl
+alias lgdl="__lgdl"
+
+unset __lgll
+function __lgll {
+    find . -maxdepth 1 -type l|__grep "$*"
+}
+export -f __lgll
+alias lgll="__lgll"
+
+unset __lgbl
+function __lgbl {
+    find . -maxdepth 1 |__grep .bak$
+}
+export -f __lgbl
+alias lgbl="__lgbl"
+
 alias i="__i"
 alias v="__v"
 # Tolerate typo.
@@ -284,12 +332,12 @@ function __rndf {
     [ "x$*" == "x" ]\
         && local rndfregexp__="."\
         || local rndfregexp__="$*"
-    local rndfcount__=`lgf $rndfregexp__|wc -l`
+    local rndfcount__=`__lgf $rndfregexp__|wc -l`
     [ $rndfcount__ -eq 0 ]\
         && echo "No such File Exist."\
         && return 1
     local rndfnum__=`shuf -i 1-${rndfcount__} -n 1`
-    local retstr__='"'`lgf $rndfregexp__|head -n ${rndfnum__}|tail -n 1`'"'
+    local retstr__='"'`__lgf $rndfregexp__|head -n ${rndfnum__}|tail -n 1`'"'
     echo "${retstr__}"
 }
 export -f __rndf
@@ -300,12 +348,12 @@ function __rndfl {
     [ "x$*" == "x" ]\
         && local rndflregexp__="."\
         || local rndflregexp__="$*"
-    local rndflcount__=`lgfl $rndflregexp__|wc -l`
+    local rndflcount__=`__lgfl $rndflregexp__|wc -l`
     [ $rndflcount__ -eq 0 ]\
         && echo "No such File Exist."\
         && return 1
     local rndflnum__=`shuf -i 1-${rndflcount__} -n 1`
-    local retstr__='"'`lgfl $rndflregexp__|head -n ${rndflnum__}|tail -n 1`'"'
+    local retstr__='"'`__lgfl $rndflregexp__|head -n ${rndflnum__}|tail -n 1`'"'
     echo ${retstr__}
 }
 export -f __rndfl
@@ -334,37 +382,37 @@ export -f __rcd
 
 unset __rgf
 function __rgf {
-    lgf "$1"|xargs -d "\n" rm -f
+    __lgf "$1"|xargs -d "\n" rm -f
 }
 
 unset __rgd
 function __rgd {
-    lgd "$1"|xargs -d "\n" rm -frd
+    __lgd "$1"|xargs -d "\n" rm -frd
 }
 
 unset __rgl
 function __rgl {
-    lgl "$1"|xargs -d "\n" rm -frd
+    __lgl "$1"|xargs -d "\n" rm -frd
 }
 
 unset __rgb
 function __rgb {
-    lgb|xargs -d "\n" rm -frd
+    __lgb|xargs -d "\n" rm -frd
 }
 
 unset __rgbl
 function __rgbl {
-    lgbl|xargs -d "\n" rm -frd
+    __lgbl|xargs -d "\n" rm -frd
 }
 
 unset __rgfl
 function __rgfl {
-    lgfl "$1"|xargs -d "\n" rm -f
+    __lgfl "$1"|xargs -d "\n" rm -f
 }
 
 unset __rgdl
 function __rgdl {
-    lgdl "$1"|xargs -d "\n" rm -frd
+    __lgdl "$1"|xargs -d "\n" rm -frd
 }
 
 unset __swf

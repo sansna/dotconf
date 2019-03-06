@@ -417,14 +417,32 @@ function __rgdl {
 
 unset __mb
 function __mb {
-    __lgb | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\""
+    __lgb
+    local count__=`__lgb|wc -l`
+    while [ $count__ -ne 0  ]; do
+        read -p "Is it okay?(y/n) " yn
+        case $yn in
+            [Yy]* ) __lgb | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\"";break;;
+            [Nn]* ) break;;
+            * ) echo "Answer y/n.";;
+        esac
+    done
 }
 export -f __mb
 alias mb="__mb"
 
 unset __mbl
 function __mbl {
-    __lgbl | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\""
+    __lgbl
+    local count__=`__lgbl|wc -l`
+    while [ $count__ -ne 0  ]; do
+        read -p "Is it okay?(y/n) " yn
+        case $yn in
+            [Yy]* ) __lgbl | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\"";break;;
+            [Nn]* ) break;;
+            * ) echo "Answer y/n.";;
+        esac
+    done
 }
 export -f __mbl
 alias mbl="__mbl"

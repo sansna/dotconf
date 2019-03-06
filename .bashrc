@@ -98,7 +98,7 @@ export PYTHONSTARTUP=~/.pythonrc
 #[ -s /tmp/.f1.tmp ]\
 #   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/tabular.vim -O /tmp/.f1.tmp --quiet
 #[ -s /tmp/.f2.tmp ]\
-#   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/Tabular.vim -O /tmp/.f2.tmp --quiet
+#   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/tabular2.vim -O /tmp/.f2.tmp --quiet
 
 # The following specifies TERM for cur-bash window.
 #[ $TERM != "screen-256color" ] || export TERM=rxvt-unicode-256color
@@ -846,7 +846,7 @@ alias ggi="\
 #           rm -f /tmp/pasta.vim
 #           rm -f /tmp/taglist.vim
 #           rm -f /tmp/tabular.vim
-#           rm -f /tmp/Tabular.vim
+#           rm -f /tmp/tabular2.vim
 #           rm -f /tmp/.screenrc
 #           rm -f /tmp/.lock.wt
 #           rm -f ~/.ssh/known_hosts

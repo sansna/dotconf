@@ -511,7 +511,7 @@ function __mb {
     __lgb
     local count__=`__lgb|wc -l`
     while [ $count__ -ne 0  ]; do
-        read -p "Is it okay?(y/n) " yn
+        read -n 1 -p "Is it okay?(y/n) " yn
         case $yn in
             [Yy]* ) __lgb | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\"";break;;
             [Nn]* ) break;;
@@ -527,7 +527,7 @@ function __mbl {
     __lgbl
     local count__=`__lgbl|wc -l`
     while [ $count__ -ne 0  ]; do
-        read -p "Is it okay?(y/n) " yn
+        read -n 1 -p "Is it okay?(y/n) " yn
         case $yn in
             [Yy]* ) __lgbl | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\"";break;;
             [Nn]* ) break;;

@@ -396,6 +396,20 @@ function __rgdl {
     __lgdl "$1"|xargs -d "\n" rm -frd
 }
 
+unset __mb
+function __mb {
+    __lgb | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\""
+}
+export -f __mb
+alias mb="__mb"
+
+unset __mbl
+function __mbl {
+    __lgbl | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\""
+}
+export -f __mbl
+alias mbl="__mbl"
+
 unset __swf
 function __swf {
     [ -e $1 ] && [ -e $2 ] || return 1

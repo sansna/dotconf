@@ -246,14 +246,62 @@ function __sgsl {
 }
 
 #alias ct="cp -t ~/test/"
-alias lgf="find . -type f|grep"
-alias lgd="find . -type d|grep"
-alias lgl="find . -type l|grep"
-alias lgb="find . |grep .bak$"
-alias lgfl="find . -maxdepth 1 -type f|grep"
-alias lgdl="find . -maxdepth 1 -type d|grep"
-alias lgll="find . -maxdepth 1 -type l|grep"
-alias lgbl="find . -maxdepth 1 |grep .bak$"
+unset __lgf
+function __lgf {
+    find . -type f|__grep "$*"
+}
+export -f __lgf
+alias lgf="__lgf"
+
+unset __lgd
+function __lgd {
+    find . -type d|__grep "$*"
+}
+export -f __lgd
+alias lgd="__lgd"
+
+unset __lgl
+function __lgl {
+    find . -type l|__grep "$*"
+}
+export -f __lgl
+alias lgl="__lgl"
+
+unset __lgb
+function __lgb {
+    find . |__grep .bak$
+}
+export -f __lgb
+alias lgb="__lgb"
+
+unset __lgfl
+function __lgfl {
+    find . -maxdepth 1 -type f|__grep "$*"
+}
+export -f __lgfl
+alias lgfl="__lgfl"
+
+unset __lgdl
+function __lgdl {
+    find . -maxdepth 1 -type d|__grep "$*"
+}
+export -f __lgdl
+alias lgdl="__lgdl"
+
+unset __lgll
+function __lgll {
+    find . -maxdepth 1 -type l|__grep "$*"
+}
+export -f __lgll
+alias lgll="__lgll"
+
+unset __lgbl
+function __lgbl {
+    find . -maxdepth 1 |__grep .bak$
+}
+export -f __lgbl
+alias lgbl="__lgbl"
+
 alias i="__i"
 alias v="__v"
 # Tolerate typo.
@@ -268,12 +316,12 @@ function __rndf {
     [ "x$*" == "x" ]\
         && local rndfregexp__="."\
         || local rndfregexp__="$*"
-    local rndfcount__=`lgf $rndfregexp__|wc -l`
+    local rndfcount__=`__lgf $rndfregexp__|wc -l`
     [ $rndfcount__ -eq 0 ]\
         && echo "No such File Exist."\
         && return 1
     local rndfnum__=`shuf -i 1-${rndfcount__} -n 1`
-    local retstr__='"'`lgf $rndfregexp__|head -n ${rndfnum__}|tail -n 1`'"'
+    local retstr__='"'`__lgf $rndfregexp__|head -n ${rndfnum__}|tail -n 1`'"'
     echo "${retstr__}"
 }
 alias rndf="__rndf"
@@ -283,12 +331,12 @@ function __rndfl {
     [ "x$*" == "x" ]\
         && local rndflregexp__="."\
         || local rndflregexp__="$*"
-    local rndflcount__=`lgfl $rndflregexp__|wc -l`
+    local rndflcount__=`__lgfl $rndflregexp__|wc -l`
     [ $rndflcount__ -eq 0 ]\
         && echo "No such File Exist."\
         && return 1
     local rndflnum__=`shuf -i 1-${rndflcount__} -n 1`
-    local retstr__='"'`lgfl $rndflregexp__|head -n ${rndflnum__}|tail -n 1`'"'
+    local retstr__='"'`__lgfl $rndflregexp__|head -n ${rndflnum__}|tail -n 1`'"'
     echo ${retstr__}
 }
 alias rndfl="__rndfl"
@@ -315,37 +363,37 @@ function __rcd {
 
 unset __rgf
 function __rgf {
-    lgf "$1"|xargs -d "\n" rm -f
+    __lgf "$1"|xargs -d "\n" rm -f
 }
 
 unset __rgd
 function __rgd {
-    lgd "$1"|xargs -d "\n" rm -frd
+    __lgd "$1"|xargs -d "\n" rm -frd
 }
 
 unset __rgl
 function __rgl {
-    lgl "$1"|xargs -d "\n" rm -frd
+    __lgl "$1"|xargs -d "\n" rm -frd
 }
 
 unset __rgb
 function __rgb {
-    lgb|xargs -d "\n" rm -frd
+    __lgb|xargs -d "\n" rm -frd
 }
 
 unset __rgbl
 function __rgbl {
-    lgbl|xargs -d "\n" rm -frd
+    __lgbl|xargs -d "\n" rm -frd
 }
 
 unset __rgfl
 function __rgfl {
-    lgfl "$1"|xargs -d "\n" rm -f
+    __lgfl "$1"|xargs -d "\n" rm -f
 }
 
 unset __rgdl
 function __rgdl {
-    lgdl "$1"|xargs -d "\n" rm -frd
+    __lgdl "$1"|xargs -d "\n" rm -frd
 }
 
 unset __swf

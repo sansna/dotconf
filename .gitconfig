@@ -5,12 +5,14 @@
 	lgt = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
 	dt = diff-tree --name-only -r HEAD --no-commit-id
 	st = status --short
+	sp = "!f() { re='^[0-9]+$'; [[ $1 =~ $re ]] && git stash show -p stash@{$1} || ( [ "x$1" == "x" ] && git stash show -p stash@{0} || git stash show -p $1 ); }; f"
+	spl = stash list
 	a = add -p
 	dn = "!f() { [ "x$2" == "x" ] && git diff HEAD~$1..HEAD~$(($1-1)) || git diff HEAD~$1..HEAD~$2; }; f"
 	# print branch name
 	bn = "!git rev-parse --abbrev-ref HEAD"
-	b = "!git for-each-ref --sort=-authordate refs/heads/ --format='%(HEAD) %(color:reset)%(authordate:iso8601)%(color:reset) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)%(authorname)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'"
-	cm = "!f() { git commit -m \"@sansna[$(git bn)]: $@\"; }; f"
+	b = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:reset)%(authordate:iso8601)%(color:reset) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)%(authorname)%(color:reset) (%(color:green)%(authordate:relative)%(color:reset))'"
+	cm = "!f() { git commit -m \"@Wentao[$(git bn)]: $@ - sansna\";}; f"
 	publish = "!git push -u origin $(git bn)"
 	pm = "!git pull --rebase origin master"
 	#npm = "!f() { git checkout -b dev_devsrv02-$(git bn) && git pm;}; f"

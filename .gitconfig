@@ -4,60 +4,63 @@
 
 # Common git
 [user]
-	name = sansna
-	email = 1185280650@qq.com
+    name = sansna
+    email = 1185280650@qq.com
 [color]
-	ui = auto
+    ui = auto
 [alias]
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lgt = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
-	dt = diff-tree --name-only -r HEAD --no-commit-id
-	st = status --short
-	sp = "!f() { re='^[0-9]+$'; [[ $1 =~ $re ]] && git stash show -p stash@{$1} || ( [ "x$1" == "x" ] && git stash show -p stash@{0} || git stash show -p $1 ); }; f"
-	spl = stash list
-	a = add -p
-	dn = "!f() { [ "x$2" == "x" ] && git diff HEAD~$1..HEAD~$(($1-1)) || git diff HEAD~$1..HEAD~$2; }; f"
-	# print branch name
-	bn = "!git rev-parse --abbrev-ref HEAD"
-	b = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:reset)%(authordate:iso8601)%(color:reset) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)%(authorname)%(color:reset) (%(color:green)%(authordate:relative)%(color:reset))'"
-	cm = "!f() { git commit -m \"@Wentao[$(git bn)]: $@ - sansna\";}; f"
-	publish = "!git push -u origin $(git bn)"
-	pm = "!git pull --rebase origin master"
-	#npm = "!f() { git checkout -b dev_devsrv02-$(git bn) && git pm;}; f"
-	#qapublish = "!git push -u origin HEAD:QAOK-$(git bn)"
-	#qaunpublish = "!git push origin :QAOK-$(git bn)"
-	unpublish = "!git push origin :$(git bn)"
-	recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -d \"$@\" && git checkout -b \"$@\" && git publish; }; f"
-	code-review = difftool origin/master...
-	merge-span = "!f() { echo $(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f1)$1$(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f2); }; f"
-	merge-log = "!git log `git merge-span .. $1`"
-	merge-diff = "!git diff `git merge-span ... $1`"
-	merge-difftool = "!git difftool `git merge-span ... $1`"
-	rb = "!git rebase -i `git merge-base master HEAD`"
-	unstage = reset HEAD
-	rewind = "!f() { [ "x$1" == "x" ] && git reset --hard HEAD || git reset --hard HEAD~$1; }; f"
-	diffc = diff --cached
-	assume = update-index --assume-unchanged
-	unassume = update-index --no-assume-unchanged
-	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
-	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
-	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-	delete-merged-branches = "!git checkout master && git pull origin master && git branch --merged | grep -v '\\*'|grep -vw test | xargs -I{} git push origin :{} && git branch --merged | grep -v '\\*' | xargs -I{} git branch -d {};"
-	lines = "!f() { git log --author=$@ --pretty=tformat: --numstat | gawk '{ add += $1; subs += $2; loc += $1 - $2  } END { printf \"added lines: %s removed lines: %s total lines: %s\\n\", add, subs, loc  }' -; }; f"
+    ; test case
+    ;z = "!bash -c 'echo $1 $2 $3' $1 $2 $3 $4"
+    ;ss = "!bash -c 'f() { echo $1 $2 $3; }; f $0 $1 $2' $1 $2"
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lgt = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+    dt = diff-tree --name-only -r HEAD --no-commit-id
+    st = status --short
+    sp = "!bash -c 'f() { re='^[0-9]+$'; [[ $1 =~ $re ]] && (git stash show -p stash@{$1};echo -n) || ( [ "x$1" == "xbash" ] && (git stash show -p stash@{0};echo -n) || git stash show -p $1 ); }; f $0 $1' $1"
+    spl = stash list
+    a = add -p
+    dn = "!bash -c 'f() { [ "x$3" == "x" ] && git diff HEAD~$1..HEAD~$(($1-1)) || git diff HEAD~$1..HEAD~$2; }; f $0 $1 $2' $1 $2"
+    # print branch name
+    bn = "!git rev-parse --abbrev-ref HEAD"
+    b = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:reset)%(authordate:iso8601)%(color:reset) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)%(authorname)%(color:reset) (%(color:green)%(authordate:relative)%(color:reset))'"
+    cm = "!f() { git commit -m \"@Wentao[$(git bn)]: $@ - sansna\";}; f"
+    publish = "!git push -u origin $(git bn)"
+    pm = "!git pull --rebase origin master"
+    #npm = "!f() { git checkout -b dev_devsrv02-$(git bn) && git pm;}; f"
+    #qapublish = "!git push -u origin HEAD:QAOK-$(git bn)"
+    #qaunpublish = "!git push origin :QAOK-$(git bn)"
+    unpublish = "!git push origin :$(git bn)"
+    recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -d \"$@\" && git checkout -b \"$@\" && git publish; }; f"
+    code-review = difftool origin/master...
+    merge-span = "!bash -c 'f() { echo $(git log -1 $1 --merges --pretty=format:%P | cut -d' ' -f1)$0$(git log -1 $1 --merges --pretty=format:%P | cut -d' ' -f2); }; f $0 $1'$1 $2"
+    merge-log = "!git log `git merge-span .. $1`"
+    merge-diff = "!git diff `git merge-span ... $1`"
+    merge-difftool = "!git difftool `git merge-span ... $1`"
+    rb = "!git rebase -i `git merge-base master HEAD`"
+    unstage = reset HEAD
+    rewind = "!bash -c 'f() { [ "x$2" == "x" ] && git reset --hard HEAD || git reset --hard HEAD~$1; }; f $0 $1' $1"
+    diffc = diff --cached
+    assume = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+    ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+    theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+    delete-merged-branches = "!git checkout master && git pull origin master && git branch --merged | grep -v '\\*'|grep -vw test | xargs -I{} git push origin :{} && git branch --merged | grep -v '\\*' | xargs -I{} git branch -d {};"
+    lines = "!f() { git log --author=$@ --pretty=tformat: --numstat | gawk '{ add += $1; subs += $2; loc += $1 - $2  } END { printf \"added lines: %s removed lines: %s total lines: %s\\n\", add, subs, loc  }' -; }; f"
 [diff]
-	tool = vimdiff3
+    tool = vimdiff3
 [difftool]
-	prompt = false
+    prompt = false
 [difftool.vimdiff3]
-	cmd = vd $REMOTE $LOCAL
+    cmd = vd $REMOTE $LOCAL
 [push]
-	default = simple
+    default = simple
 
 # Following are gpg related
 [gpg]
-	program = gpg2
+    program = gpg2
 [commit]
-	gpgsign = true
+    gpgsign = true
 #[user]
 #    signingkey = ED3893A4
 # Walkaround if SSL cert not installed:

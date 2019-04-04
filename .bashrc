@@ -267,7 +267,7 @@ alias ssh="__ssh"
 unset __vim
 function __vim {
     vim -i /tmp/.info\
-        -c "set nocompatible| set foldcolumn=0|set diffopt=foldcolumn:2| filetype off| set path+=/usr/include| set tags=tags;|set viminfo='100,<1000,s100,h| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on| set t_ti= t_te=|set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac|highlight! link DiffText MatchParen| nnoremap <c-s> :w! .%.bak<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :let __line=line('.')<CR>:let __col=col('.')<CR>:w !sudo tee % 2>&1 1>/dev/null<CR>:edit!<CR><CR>:cal cursor(__line, __col)<CR>:unlet __line<CR>:unlet __col<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/a.vim |source /tmp/auto-pairs.vim|source /tmp/boolpat.vim |source /tmp/pasta.vim |source /tmp/taglist.vim| source /tmp/tabular.vim|source /tmp/tabular2.vim|:nohl | nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>bp :BoolPat| normal zz"\
+        -c "set nocompatible| set foldcolumn=0|set diffopt=foldcolumn:2| filetype off| set path+=/usr/include| set tags=tags;|set viminfo='100,<1000,s100,h| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on| set t_ti= t_te=|set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac|highlight! link DiffText MatchParen| nnoremap <c-s> :w! .%.wkg<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :let __line=line('.')<CR>:let __col=col('.')<CR>:w !sudo tee % 2>&1 1>/dev/null<CR>:edit!<CR><CR>:cal cursor(__line, __col)<CR>:unlet __line<CR>:unlet __col<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/a.vim |source /tmp/auto-pairs.vim|source /tmp/boolpat.vim |source /tmp/pasta.vim |source /tmp/taglist.vim| source /tmp/tabular.vim|source /tmp/tabular2.vim|:nohl | nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>bp :BoolPat| normal zz"\
         $*
 }
 #function __vim {
@@ -364,6 +364,13 @@ function __lgb {
 export -f __lgb
 alias lgb="__lgb"
 
+unset __lgw
+function __lgw {
+    find . |__grep .wkg$
+}
+export -f __lgw
+alias lgw="__lgw"
+
 unset __lgfl
 function __lgfl {
     find . -maxdepth 1 -type f|__grep "$*"
@@ -391,6 +398,13 @@ function __lgbl {
 }
 export -f __lgbl
 alias lgbl="__lgbl"
+
+unset __lgwl
+function __lgwl {
+    find . -maxdepth 1 |__grep .wkg$
+}
+export -f __lgwl
+alias lgwl="__lgwl"
 
 alias i="__i"
 alias v="__v"
@@ -495,7 +509,7 @@ function __mb {
     local count__=`__lgb|wc -l`
     while [ $count__ -ne 0 ]; do
         read -n 1 -p "Is it okay?(y/n) " yn
-        case $yn in 
+        case $yn in
             [Yy]* ) __lgb | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\"";break;;
             [Nn]* ) break;;
             * ) echo "Answer y/n.";;
@@ -511,7 +525,7 @@ function __mbl {
     local count__=`__lgbl|wc -l`
     while [ $count__ -ne 0 ]; do
         read -n 1 -p "Is it okay?(y/n) " yn
-        case $yn in 
+        case $yn in
             [Yy]* ) __lgbl | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\"";break;;
             [Nn]* ) break;;
             * ) echo "Answer y/n.";;
@@ -520,6 +534,38 @@ function __mbl {
 }
 export -f __mbl
 alias mbl="__mbl"
+
+unset __mw
+function __mw {
+    __lgw
+    local count__=`__lgw|wc -l`
+    while [ $count__ -ne 0 ]; do
+        read -n 1 -p "Is it okay?(y/n) " yn
+        case $yn in
+            [Yy]* ) __lgw | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).wkg$/\\1/g')\"";break;;
+            [Nn]* ) break;;
+            * ) echo "Answer y/n.";;
+        esac
+    done
+}
+export -f __mw
+alias mw="__mw"
+
+unset __mwl
+function __mwl {
+    __lgwl
+    local count__=`__lgwl|wc -l`
+    while [ $count__ -ne 0 ]; do
+        read -n 1 -p "Is it okay?(y/n) " yn
+        case $yn in
+            [Yy]* ) __lgwl | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).wkg$/\\1/g')\"";break;;
+            [Nn]* ) break;;
+            * ) echo "Answer y/n.";;
+        esac
+    done
+}
+export -f __mwl
+alias mwl="__mwl"
 
 unset __swf
 function __swf {

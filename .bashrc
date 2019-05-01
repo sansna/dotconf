@@ -933,6 +933,11 @@ stty -ixon ixany
 #            ;;
 #    esac
 #}
+
+# Copy from/to crouton
+#alias cf="xclip -selection clipboard"
+#alias ct="xclip -selection clipboard -o"
+
 find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
 
 # End of function __init.

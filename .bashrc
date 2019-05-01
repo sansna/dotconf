@@ -1,6 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
 # This function is used to load the bashrc script without the .bashrc.
+unset __init
 function __init {
 # Start of function __init.
 
@@ -15,6 +16,7 @@ function __init {
 #local ip_addr__=`ip r s t local | grep local | grep -vw lo | grep $default_if__ 2>/dev/null| gawk '{print $2}'`
 #export PS1="\$RC_LAST_CMD_STAT[\u@$ip_addr__\[\033[1;36m\]$os_str__\[\033[m\]\${TERM:0:1}#$ttyid__§\$SHLVL \W]\\$ "
 
+unset __update_cmd_stat
 function __update_cmd_stat {
     local stat=$?
     [ $stat -eq 0 ]\
@@ -93,6 +95,10 @@ export PYTHONSTARTUP=~/.pythonrc
 #   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/pasta.vim -O /tmp/.d.tmp --quiet
 #[ -s /tmp/.e.tmp ]\
 #   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/taglist.vim -O /tmp/.e.tmp --quiet
+#[ -s /tmp/.f1.tmp ]\
+#   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/tabular.vim -O /tmp/.f1.tmp --quiet
+#[ -s /tmp/.f2.tmp ]\
+#   || wget https://raw.githubusercontent.com/sansna/vimrc/master/vimscripts/tabular2.vim -O /tmp/.f2.tmp --quiet
 
 # The following specifies TERM for cur-bash window.
 #[ $TERM != "screen-256color" ] || export TERM=rxvt-unicode-256color
@@ -123,6 +129,7 @@ export BASE16_SHELL=$HOME/.config/base16-shell/
 #alias cp='cp -i'
 #alias mv='mv -i'
 
+unset __ls
 function __ls {
     # Note the following $* is intentionally not parenthesized.
     #+ Otherwise options cannot be append to this command.
@@ -131,6 +138,7 @@ function __ls {
 }
 export -f __ls
 
+unset __grep
 function __grep {
     \grep --color=auto $*
 }
@@ -142,6 +150,7 @@ alias grep="__grep"
 alias pcregrep="pcre2grep --color=auto"
 
 export RCAUTOMAXDISP__=100
+unset __cd
 function __cd {
     local tmpdir__=$*
     [ "x$tmpdir__" == "x" ]\
@@ -171,6 +180,7 @@ export -f __cd
 alias cd="__cd"
 
 # Use sshrc(from russell91/sshrc) other than ssh
+unset __ssh
 function __ssh {
     sshrc "$*"
 }
@@ -180,9 +190,10 @@ alias ssh="__ssh"
 # Bring basic vim shortcuts with sshrc, uncomment following in .sshrc file
 #function __vim {
 #   vim \
-#       -c "set nocompatible| set foldcolumn=0|set diffopt=foldcolumn:2| filetype off| set path+=/usr/include| set tags=tags;| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on|set t_ti= t_te= |set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac|highlight! link DiffText MatchParen| nnoremap <c-s> :w<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :w !sudo tee % 2>&1 1>/dev/null<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp |:nohl| nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>bp :BoolPat| normal zz"\
+#       -c "set nocompatible| set foldcolumn=0|set diffopt=foldcolumn:2| filetype off| set path+=/usr/include| set tags=tags;|set viminfo='100,<1000,s100,h| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on|set t_ti= t_te= |set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac|highlight! link DiffText MatchParen| nnoremap <c-s> :w! .%.wkg<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :let __line=line('.')<CR>:let __col=col('.')<CR>:w !sudo tee % 2>&1 1>/dev/null<CR>:edit!<CR><CR>:cal cursor(__line, __col)<CR>:unlet __line<CR>:unlet __col<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp|source /tmp/.f1.tmp| source /tmp/.f2.tmp |:nohl| nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>bp :BoolPat| normal zz"\
 #       $*
 #}
+unset __vim
 function __vim {
     vim $*
 }
@@ -190,6 +201,7 @@ export -f __vim
 alias vd="__vim -d"
 
 # Using function for alias because needs parameter.
+unset __w
 function __w {
     [ "x$*" == "x" ] \
         && (w3m https://www.google.com/ncr; return 0 )\
@@ -197,18 +209,22 @@ function __w {
             && w3m https://www.google.com/search?ie=ISO-8859-1\&hl=en\&source=hp\&biw=\&bih=\&q=${website__}\&btnG=Google+Search\&gbv=1)
 }
 
+unset __rfc
 function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
 }
 
+unset __we
 function __we {
     w3m https://en.wikipedia.org/wiki/$*
 }
 
+unset __wk
 function __wk {
     w3m http://www.kernel.org/doc
 }
 
+unset __i
 function __i {
     pandoc "$1"|w3m -T text/html
 }
@@ -216,6 +232,7 @@ function __i {
 alias wt="curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 \(Windows NT 10.0; Win64; x64\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '\"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
 
 # Open with longest match of file, together with line numbers.
+unset __v
 function __v {
     local cutfilename__=`echo $1|cut -d ';' -f 1|cut -d '(' -f 1|cut -d ')' -f 1`
     local nf__=`echo $cutfilename__|gawk -vFS=":" '{print NF}'`
@@ -234,23 +251,87 @@ function __v {
 }
 export -f __v
 
+unset __sgs
 function __sgs {
     grep "$1" -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
 
+unset __sgsl
 function __sgsl {
     find . -maxdepth 1 -type f|xargs -d '\n' grep "$1" -l |xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
 
 #alias ct="cp -t ~/test/"
-alias lgf="find . -type f|__grep"
-alias lgd="find . -type d|__grep"
-alias lgl="find . -type l|__grep"
-alias lgb="find . |__grep .bak$"
-alias lgfl="find . -maxdepth 1 -type f|__grep"
-alias lgdl="find . -maxdepth 1 -type d|__grep"
-alias lgll="find . -maxdepth 1 -type l|__grep"
-alias lgbl="find . -maxdepth 1 |__grep .bak$"
+unset __lgf
+function __lgf {
+    find . -type f|__grep "$*"
+}
+export -f __lgf
+alias lgf="__lgf"
+
+unset __lgd
+function __lgd {
+    find . -type d|__grep "$*"
+}
+export -f __lgd
+alias lgd="__lgd"
+
+unset __lgl
+function __lgl {
+    find . -type l|__grep "$*"
+}
+export -f __lgl
+alias lgl="__lgl"
+
+unset __lgb
+function __lgb {
+    find . |__grep .bak$
+}
+export -f __lgb
+alias lgb="__lgb"
+
+unset __lgw
+function __lgw {
+    find . |__grep .wkg$
+}
+export -f __lgw
+alias lgw="__lgw"
+
+unset __lgfl
+function __lgfl {
+    find . -maxdepth 1 -type f|__grep "$*"
+}
+export -f __lgfl
+alias lgfl="__lgfl"
+
+unset __lgdl
+function __lgdl {
+    find . -maxdepth 1 -type d|__grep "$*"
+}
+export -f __lgdl
+alias lgdl="__lgdl"
+
+unset __lgll
+function __lgll {
+    find . -maxdepth 1 -type l|__grep "$*"
+}
+export -f __lgll
+alias lgll="__lgll"
+
+unset __lgbl
+function __lgbl {
+    find . -maxdepth 1 |__grep .bak$
+}
+export -f __lgbl
+alias lgbl="__lgbl"
+
+unset __lgwl
+function __lgwl {
+    find . -maxdepth 1 |__grep .wkg$
+}
+export -f __lgwl
+alias lgwl="__lgwl"
+
 alias i="__i"
 alias v="__v"
 # Tolerate typo.
@@ -260,37 +341,40 @@ alias vv="__v"
 #alias nt0="gawk -vORS='\0' '{print \$0}'"
 alias nts="gawk -vORS='\ ' '{print \$0}'"
 
+unset __rndf
 function __rndf {
     [ "x$*" == "x" ]\
         && local rndfregexp__="."\
         || local rndfregexp__="$*"
-    local rndfcount__=`lgf $rndfregexp__|wc -l`
+    local rndfcount__=`__lgf $rndfregexp__|wc -l`
     [ $rndfcount__ -eq 0 ]\
         && echo "No such File Exist."\
         && return 1
     local rndfnum__=`shuf -i 1-${rndfcount__} -n 1`
-    local retstr__='"'`lgf $rndfregexp__|head -n ${rndfnum__}|tail -n 1`'"'
+    local retstr__='"'`__lgf $rndfregexp__|head -n ${rndfnum__}|tail -n 1`'"'
     echo "${retstr__}"
 }
 export -f __rndf
 alias rndf="__rndf"
 
+unset __rndfl
 function __rndfl {
     [ "x$*" == "x" ]\
         && local rndflregexp__="."\
         || local rndflregexp__="$*"
-    local rndflcount__=`lgfl $rndflregexp__|wc -l`
+    local rndflcount__=`__lgfl $rndflregexp__|wc -l`
     [ $rndflcount__ -eq 0 ]\
         && echo "No such File Exist."\
         && return 1
     local rndflnum__=`shuf -i 1-${rndflcount__} -n 1`
-    local retstr__='"'`lgfl $rndflregexp__|head -n ${rndflnum__}|tail -n 1`'"'
+    local retstr__='"'`__lgfl $rndflregexp__|head -n ${rndflnum__}|tail -n 1`'"'
     echo ${retstr__}
 }
 export -f __rndfl
 alias rndfl="__rndfl"
 
 # Remove current dir
+unset __rcd
 function __rcd {
     local filecount__=`ls -a|wc -w`;
     filecount__=$((filecount__-2))
@@ -310,34 +394,106 @@ function __rcd {
 }
 export -f __rcd
 
+unset __rgf
 function __rgf {
-    lgf "$1"|xargs -d "\n" rm -f
+    __lgf "$1"|xargs -d "\n" rm -f
 }
 
+unset __rgd
 function __rgd {
-    lgd "$1"|xargs -d "\n" rm -frd
+    __lgd "$1"|xargs -d "\n" rm -frd
 }
 
+unset __rgl
 function __rgl {
-    lgl "$1"|xargs -d "\n" rm -frd
+    __lgl "$1"|xargs -d "\n" rm -frd
 }
 
+unset __rgb
 function __rgb {
-    lgb|xargs -d "\n" rm -frd
+    __lgb|xargs -d "\n" rm -frd
 }
 
+unset __rgbl
 function __rgbl {
-    lgbl|xargs -d "\n" rm -frd
+    __lgbl|xargs -d "\n" rm -frd
 }
 
+unset __rgfl
 function __rgfl {
-    lgfl "$1"|xargs -d "\n" rm -f
+    __lgfl "$1"|xargs -d "\n" rm -f
 }
 
+unset __rgdl
 function __rgdl {
-    lgdl "$1"|xargs -d "\n" rm -frd
+    __lgdl "$1"|xargs -d "\n" rm -frd
 }
 
+unset __mb
+function __mb {
+    __lgb
+    local count__=`__lgb|wc -l`
+    while [ $count__ -ne 0  ]; do
+        read -n 1 -p "Is it okay?(y/n) " yn
+        case $yn in
+            [Yy]* ) __lgb | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\"";break;;
+            [Nn]* ) break;;
+            * ) echo "Answer y/n.";;
+        esac
+    done
+}
+export -f __mb
+alias mb="__mb"
+
+unset __mbl
+function __mbl {
+    __lgbl
+    local count__=`__lgbl|wc -l`
+    while [ $count__ -ne 0  ]; do
+        read -n 1 -p "Is it okay?(y/n) " yn
+        case $yn in
+            [Yy]* ) __lgbl | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).bak$/\\1/g')\"";break;;
+            [Nn]* ) break;;
+            * ) echo "Answer y/n.";;
+        esac
+    done
+}
+export -f __mbl
+alias mbl="__mbl"
+
+unset __mw
+function __mw {
+    __lgw
+    local count__=`__lgw|wc -l`
+    while [ $count__ -ne 0  ]; do
+        read -n 1 -p "Is it okay?(y/n) " yn
+        case $yn in
+            [Yy]* ) __lgw | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).wkg$/\\1/g')\"";break;;
+            [Nn]* ) break;;
+            * ) echo "Answer y/n.";;
+        esac
+    done
+}
+export -f __mw
+alias mw="__mw"
+
+unset __mwl
+function __mwl {
+    __lgwl
+    local count__=`__lgwl|wc -l`
+    while [ $count__ -ne 0  ]; do
+        read -n 1 -p "Is it okay?(y/n) " yn
+        case $yn in
+            [Yy]* ) __lgwl | xargs -I{} sh -c "mv {} \"\$(echo {}|sed 's/^\\.\/[\\.]\\?\\(.*\\).wkg$/\\1/g')\"";break;;
+            [Nn]* ) break;;
+            * ) echo "Answer y/n.";;
+        esac
+    done
+}
+export -f __mwl
+alias mwl="__mwl"
+
+unset __swf
 function __swf {
     [ -e $1 ] && [ -e $2 ] || return 1
     local tmp=$(date +%s)
@@ -347,6 +503,7 @@ function __swf {
 }
 export -f __swf
 
+unset __gt
 function __gt {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
@@ -357,6 +514,7 @@ function __gt {
 }
 export -f __gt
 
+unset __gts
 function __gts {
     mkdir -p ~/GitRepo
     [[ $1 == *"/"* ]]\
@@ -367,27 +525,32 @@ function __gts {
 }
 export -f __gts
 
+unset __gush
 function __gush {
     local commitinfo__=${@:2}
     git add -A; git commit -S -m "$commitinfo__"; git push origin $1;
 }
 export -f __gush
 
+unset __cget
 function __cget {
     curl -u just:123 -o "$1" ftp://10.0.2.33/"$1"
 }
 
+unset __cput
 function __cput {
     curl -u just:123 -T "$1" ftp://10.0.2.33/"$1"
 }
 
 # Expr string modifier
+unset __cog
 function __cog {
     gcc -O0 -g "$1" -o $(expr substr "$1" 1 $(expr index "$1" .))out
 }
 export -f __cog
 
 # Now kd support option -n: no prompt for time.
+unset __kd
 function __kd {
     [ "x$1" == "x-n" ]\
         && while true ; do
@@ -404,6 +567,7 @@ export -f __kd
 
 # auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
 #+ always update on comfirmation.. Although can also be automated by adding --no-comfirm..
+unset __updatesystem
 function __updatesystem {
     arc__=`cat /etc/os-release |grep ^NAME|gawk -vRS='\"' '{print $1}'|gawk -vRS='=' '{print $1}'|grep -v NAME`
     [ "x" == "x$arc__" ] && echo "No OS detected.\n"&& return 1
@@ -457,6 +621,7 @@ alias gfs="__grep . -rnwe"
 alias gsf="__grep . -rlnwe"
 
 # Grep certain extension: Command concat, from 2nd arg to last.
+unset __gesf
 function __gesf {
     local ext__="--include=\*."$1""
     local arg__=${@:2}
@@ -467,6 +632,7 @@ function __gesf {
 }
 export -f __gesf
 
+unset __gefs
 function __gefs {
     local ext__="--include=\*."$1""
     local arg__=${@:2}
@@ -477,6 +643,7 @@ function __gefs {
 }
 export -f __gefs
 
+unset __gbsf
 function __gbsf {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
@@ -487,6 +654,7 @@ function __gbsf {
 }
 export -f __gbsf
 
+unset __gbfs
 function __gbfs {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
@@ -497,6 +665,7 @@ function __gbfs {
 }
 export -f __gbfs
 
+unset __pesf
 function __pesf {
     local ext__="--include=\.\*\\\\."$1""
     local arg__=${@:2}
@@ -507,6 +676,7 @@ function __pesf {
 }
 export -f __pesf
 
+unset __pefs
 function __pefs {
     local ext__="--include=\.\*\\\\."$1""
     local arg__=${@:2}
@@ -517,6 +687,7 @@ function __pefs {
 }
 export -f __pefs
 
+unset __pbsf
 function __pbsf {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
@@ -527,6 +698,7 @@ function __pbsf {
 }
 export -f __pbsf
 
+unset __pbfs
 function __pbfs {
     local ext__="--include=^"$1"$"
     local arg__=${@:2}
@@ -547,11 +719,13 @@ alias pefs="__pefs"
 alias pbsf="__pbsf"
 alias pbfs="__pbfs"
 
+unset __gtf
 function __gtf {
     gsf ^struct\ "$1"\ \{
 }
 export -f __gtf
 
+unset __gcT
 function __gcT {
     mkdir -p ~/GitRepo/Trii
     [ -d "/Trii/"$1"" ] && echo "Repo exists." && return 1\
@@ -560,12 +734,14 @@ function __gcT {
 }
 export -f __gcT
 
+unset __gch
 function __gch {
     [ "x" == "x$1" ] && echo "Repo name required." && return 1\
         || curl -u 'sansna' https://api.github.com/user/repos -d "{\"name\":\"$1\"}"
 }
 export -f __gch
 
+unset __validate_ip4
 function __validate_ip4 {
     local stats=1
     if [[ $* =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
@@ -582,6 +758,7 @@ function __validate_ip4 {
 alias val_ip="__validate_ip4"
 export -f __validate_ip4
 
+unset __getasn
 function __getasn {
     __validate_ip4 $*
     [ $? -eq 0 ]\
@@ -654,7 +831,10 @@ alias we="__we"
 alias gt="__gt"
 alias gts="__gts"
 alias gush="__gush"
+alias gs="git status"
+alias gb="git branch"
 
+unset __pkz
 function __pkz {
     [[ $1 == *"/" ]]\
         && tar cfz $(expr substr "$1" 1 `echo "$[$(expr length "$1")-1]"`).tgz "$1"\
@@ -673,6 +853,7 @@ alias pdb2="python2 -m pdb"
 alias pdb3="python3 -m pdb"
 alias kd="__kd"
 
+unset __cu
 function __cu {
     local nf__=0
     local value__=0
@@ -742,6 +923,8 @@ alias ggi="\
 #           rm -f /tmp/boolpat.vim
 #           rm -f /tmp/pasta.vim
 #           rm -f /tmp/taglist.vim
+#           rm -f /tmp/tabular.vim
+#           rm -f /tmp/tabular2.vim
 #           rm -f /tmp/.screenrc
 #           rm -f /tmp/.lock.wt
 #           rm -f ~/.ssh/known_hosts
@@ -754,6 +937,7 @@ alias ggi="\
 #export -f __s
 #alias s="__s"
 
+unset __sc
 function __sc {
     export TERM=screen-256color
     screen -r
@@ -766,6 +950,7 @@ function __sc {
 export -f __sc
 alias sc="__sc"
 
+unset __tm
 function __tm {
     tmux at
     [ $? -eq 1 ] && tmux -f <(curl -s https://raw.githubusercontent.com/sansna/dotconf/master/tmux.conf)
@@ -788,6 +973,7 @@ alias getasn="__getasn"
 alias gcT="__gcT"
 alias gch="__gch"
 
+unset __gu
 function __gu {
     cd "$1"
     # Folder exist check. [ -d folder ]
@@ -866,6 +1052,7 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #export -f __getss
 #alias getss="__getss"
 
+unset __ssr
 function __ssr {
     local running__=`ps aux|grep ss-local|grep -v grep`
     [ "x$running__" == "x" ]\

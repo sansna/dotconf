@@ -154,6 +154,8 @@ $endif
 "\e.": "\C-r.\C-k"
 # Silent all outputs.
 "\eq": " >/dev/null 2>&1"
+# Search and edit with vim.
+"\ev": "| xargs -I{} bash -c '__v \"{}\"'; reset;"
 # Clear screen and show current folder info.
 "\C-l": "\C-uclear\ehcd .\eh"
 

@@ -111,6 +111,8 @@ unalias -a
 
 # Enable alias after sudo.
 alias sudo="sudo "
+alias xargs="xargs "
+alias parallel="parallel "
 
 # base-16 color scheme, see chriskempson/base16-shell
 export BASE16_SHELL=$HOME/.config/base16-shell/
@@ -137,16 +139,16 @@ function __ls {
     \ls --color=auto $*
 }
 export -f __ls
+alias ls="__ls"
 
 unset __grep
 function __grep {
     \grep --color=auto $*
 }
 export -f __grep
-
-alias ls="__ls"
-alias less="less -isXmQS"
 alias grep="__grep"
+
+alias less="less -isXmQS"
 alias pcregrep="pcre2grep --color=auto"
 
 export RCAUTOMAXDISP__=100
@@ -208,26 +210,31 @@ function __w {
         || (local website__=$(sed "s/\ /+/g"<<<$*)\
             && w3m https://www.google.com/search?ie=ISO-8859-1\&hl=en\&source=hp\&biw=\&bih=\&q=${website__}\&btnG=Google+Search\&gbv=1)
 }
+export -f __w
 
 unset __rfc
 function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
 }
+export __rfc
 
 unset __we
 function __we {
     w3m https://en.wikipedia.org/wiki/$*
 }
+export -f __we
 
 unset __wk
 function __wk {
     w3m http://www.kernel.org/doc
 }
+export -f __wk
 
 unset __i
 function __i {
     pandoc "$1"|w3m -T text/html
 }
+export -f __i
 
 alias wt="curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 \(Windows NT 10.0; Win64; x64\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '\"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
 
@@ -250,16 +257,19 @@ function __v {
     __vim -R -- "$cutfilename__"
 }
 export -f __v
+alias v="__v"
 
 unset __sgs
 function __sgs {
     grep "$1" -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
+export -f __sgs
 
 unset __sgsl
 function __sgsl {
     find . -maxdepth 1 -type f|xargs -d '\n' grep "$1" -l |xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
+export -f __sgsl
 
 #alias ct="cp -t ~/test/"
 unset __lgf
@@ -398,36 +408,43 @@ unset __rgf
 function __rgf {
     __lgf "$1"|xargs -d "\n" rm -f
 }
+export -f __rgf
 
 unset __rgd
 function __rgd {
     __lgd "$1"|xargs -d "\n" rm -frd
 }
+export -f __rgd
 
 unset __rgl
 function __rgl {
     __lgl "$1"|xargs -d "\n" rm -frd
 }
+export -f __rgl
 
 unset __rgb
 function __rgb {
     __lgb|xargs -d "\n" rm -frd
 }
+export -f __rgb
 
 unset __rgbl
 function __rgbl {
     __lgbl|xargs -d "\n" rm -frd
 }
+export -f __rgbl
 
 unset __rgfl
 function __rgfl {
     __lgfl "$1"|xargs -d "\n" rm -f
 }
+export -f __rgfl
 
 unset __rgdl
 function __rgdl {
     __lgdl "$1"|xargs -d "\n" rm -frd
 }
+export -f __rgdl
 
 unset __mb
 function __mb {
@@ -536,11 +553,13 @@ unset __cget
 function __cget {
     curl -u just:123 -o "$1" ftp://10.0.2.33/"$1"
 }
+export -f __cget
 
 unset __cput
 function __cput {
     curl -u just:123 -T "$1" ftp://10.0.2.33/"$1"
 }
+export -f __cput
 
 # Expr string modifier
 unset __cog
@@ -583,6 +602,7 @@ export -f __updatesystem
 #    sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
 #    sudo /usr/sbin/sshd
 #}
+#export -f __startsshd
 
 # To modify mount dir, edit /etc/vsftpd.conf
 #function __startvsftpd {
@@ -591,6 +611,7 @@ export -f __updatesystem
 #    sudo iptables -I INPUT -p tcp --dport 21 -j ACCEPT
 #    sudo /usr/sbin/vsftpd &
 #}
+#export -f __startvsftpd
 
 #function __scpp {
 #    scp "$1" pi@host:/home/pi/
@@ -909,6 +930,7 @@ alias ggi="\
 
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
+#unset __s
 #function __s {
 #   \ssh $* -t "bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc);\
 #       while true; do\
@@ -982,7 +1004,8 @@ function __gu {
     \cd -
 }
 export -f __gu
-alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
+alias gu="__gu ."
+#alias gugr="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 #function __ncs {
 #   tar cf - "$1"|nc -l -p $2
@@ -1016,6 +1039,7 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 # This function is used on debian machines to build ss-libev, however
 #+ in my tests, libev version seems not better but worse than pip version.
+#unset __getss
 #function __getss {
 #   __vim /etc/apt/sources.list
 #   sudo apt-get update

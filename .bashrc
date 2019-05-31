@@ -106,23 +106,13 @@ unalias -a
 
 # Enable alias after sudo.
 alias sudo="sudo "
+alias xargs="xargs "
+alias parallel="parallel "
 
 # base-16 color scheme, see chriskempson/base16-shell
 export BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)" 1>/dev/null 2>&1
 [ $? == 0 ] && base16_tomorrow-night 2>/dev/null
-
-# You may uncomment the following lines if you want `ls' to be colorized:
-# export LS_OPTIONS='--color=auto'
-# eval "`dircolors`"
-#alias ls='ls $LS_OPTIONS'
-#alias ll='ls $LS_OPTIONS -l'
-#alias l='ls $LS_OPTIONS -lA'
-#
-# Some more alias to avoid making mistakes:
-#alias rm='rm -i'
-#alias cp='cp -i'
-#alias mv='mv -i'
 
 unset __ls
 function __ls {
@@ -132,16 +122,16 @@ function __ls {
     \ls --color=auto $*
 }
 export -f __ls
+alias ls="__ls"
 
 unset __grep
 function __grep {
     \grep --color=auto $*
 }
 export -f __grep
-
-alias ls="__ls"
-alias less="less -isXmQS"
 alias grep="__grep"
+
+alias less="less -isXmQS"
 alias pcregrep="pcre2grep --color=auto"
 
 export RCAUTOMAXDISP__=100
@@ -182,6 +172,7 @@ alias cd="__cd"
 #       -c "set nocompatible| set foldcolumn=0|set diffopt=foldcolumn:2| filetype off| set path+=/usr/include| set tags=tags;|set viminfo='100,<1000,s100,h| noremap <c-k> <c-w>k| noremap <c-j> <c-w>j| noremap <c-h> <c-w>h| noremap <c-l> <c-w>l| syntax on| filetype on| filetype plugin on| filetype plugin indent on|set t_ti= t_te=| set t_Co=256| set backspace=2| set cindent| set cinoptions=(0,u0,U0| set tabstop=4| set shiftwidth=4| set showtabline=0| set foldenable!| set foldmethod=indent| set autoread| set ignorecase| set smartcase| imap <c-k> <Up>| imap <c-j> <Down>| imap <c-h> <Left>| imap <c-l> <Right>| set hlsearch| set nu| set relativenumber| set laststatus=2| set cmdheight=2| set cursorline| set nowrap| set background=dark| set shortmess=atI| set guioptions-=m| set guioptions-=T| set guioptions-=r| set guioptions-=L| set encoding=utf-8| set fileencodings=utf-8,latin-1,ascii,gbk,usc-bom,cp936,Shift-JIS| set ff=unix| set fileformats=unix,dos,mac|highlight! link DiffText MatchParen| nnoremap <c-s> :w! .%.wkg<CR>| inoremap <c-c> <ESC>| vnoremap // y/<C-r>\"<CR>N| nnoremap <c-c> :nohl<CR>:pclose<CR>| nnoremap <c-Q> :q!<CR>| let mapleader=\",\"| nnoremap <leader>g gg=G| nnoremap <leader>l /\/g<CR>jzt:nohl<CR>| nnoremap <leader>L ?\<CR>njzt:nohl<CR>| nnoremap <leader>v :68vs<CR>| nnoremap <leader>s :15sp<CR>| nnoremap <leader>S :let __line=line('.')<CR>:let __col=col('.')<CR>:w !sudo tee % 2>&1 1>/dev/null<CR>:edit!<CR><CR>:cal cursor(__line, __col)<CR>:unlet __line<CR>:unlet __col<CR>| nnoremap <leader>r :vertical resize 68<CR>| nnoremap <leader>w :set wrap!<CR>| nnoremap <leader>f :UpdateTypesFileOnly<CR>| nnoremap <leader>i :set nu!<CR>| nnoremap <leader>o :set foldenable!<CR>| nnoremap <leader>p :set relativenumber!<CR>| nnoremap <leader>j ::<C-r>=line('.')<CR>!python -m json.tool<CR>| nnoremap <leader>u :call clearmatches()<CR>| nnoremap <leader>m :!man 3 <C-R><C-W><CR><CR>| nnoremap <leader>t :TlistOpen<CR>| let g:Tlist_Auto_Highlight_Tag = 1| let g:Tlist_Tlist_Close_On_Select = 1| let g:Tlist_Compact_Format = 1| let g:Tlist_Display_Prototype = 0| let g:Tlist_Display_Tag_Scope = 1| let g:Tlist_Enable_Fold_Column = 1| let g:Tlist_Exit_OnlyWindow = 1| let g:Tlist_File_Fold_Auto_Close = 1| let g:Tlist_GainFocus_On_ToggleOpen = 0| let g:Tlist_Highlight_Tag_On_BufEnter = 1| let g:Tlist_Inc_Winwidth = 1| let g:Tlist_Process_File_Always = 0| let g:Tlist_Show_Menu = 1| let g:Tlist_Show_One_File = 1| let g:Tlist_Sort_Type = 1| let g:Tlist_Use_Right_Window = 1| let g:Tlist_Use_SingleClick = 1| let g:Tlist_WinWidth = 32| let g:Tlist_WinHeight = 12|source /tmp/.a.tmp |source /tmp/.b.tmp|source /tmp/.c.tmp |source /tmp/.d.tmp |source /tmp/.e.tmp|source /tmp/.f1.tmp|source /tmp/.f2.tmp|:nohl | nnoremap <leader>a :A<CR>|nnoremap <leader>e :set et<CR>:retab<CR>|nnoremap <leader>E :set noet<CR>:retab!<CR>| nnoremap <leader>bp :BoolPat| normal zz"\
 #       $*
 #}
+#export -f __vim
 #alias vim="__vim"
 alias vd="vim -d"
 
@@ -193,26 +184,36 @@ function __w {
         || (local website__=$(sed "s/\ /+/g"<<<$*)\
             && w3m https://www.google.com/search?ie=ISO-8859-1\&hl=en\&source=hp\&biw=\&bih=\&q=${website__}\&btnG=Google+Search\&gbv=1)
 }
+export -f __w
+alias w="__w"
 
 unset __rfc
 function __rfc {
     w3m http://www.ietf.org/rfc/rfc$*.txt
 }
+export -f __rfc
+alias wr="__rfc"
 
 unset __we
 function __we {
     w3m https://en.wikipedia.org/wiki/$*
 }
+export -f __we
+alias we="__we"
 
 unset __wk
 function __wk {
     w3m http://www.kernel.org/doc
 }
+export -f __wk
+alias wk="__wk"
 
 unset __i
 function __i {
     pandoc "$1"|w3m -T text/html
 }
+export -f __i
+alias i="__i"
 
 alias wt="curl -s ip.sb|xargs -I{} curl -s -X POST -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -A 'Mozilla/5.0 \(Windows NT 10.0; Win64; x64\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/67.0.3396.87 Safari/537.36' -d 'ip={}' iplocation.com|cut -d ':' -f 3|cut -d '\"' -f 2|xargs -I{} curl -s wttr.in/{}|grep ° -C 4|grep -v ─ |grep -v ^$ | grep -v ^-"
 
@@ -234,18 +235,25 @@ function __v {
     done;
     vim -R -- "$cutfilename__"
 }
+export -f __v
+alias v="__v"
 
 unset __sgs
 function __sgs {
     grep "$1" -rl . | xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
+export -f __sgs
+alias sgs="__sgs"
 
 unset __sgsl
 function __sgsl {
     find . -maxdepth 1 -type f|xargs -d '\n' grep "$1" -l |xargs -d '\n' sed -i".bak" "s/$1/$2/g"
 }
+export -f __sgsl
+alias sgsl="__sgsl"
 
 #alias ct="cp -t ~/test/"
+
 unset __lgf
 function __lgf {
     find . -type f|__grep "$*"
@@ -316,8 +324,6 @@ function __lgwl {
 export -f __lgwl
 alias lgwl="__lgwl"
 
-alias i="__i"
-alias v="__v"
 # Tolerate typo.
 alias vv="__v"
 
@@ -338,6 +344,7 @@ function __rndf {
     local retstr__='"'`__lgf $rndfregexp__|head -n ${rndfnum__}|tail -n 1`'"'
     echo "${retstr__}"
 }
+export -f __rndf
 alias rndf="__rndf"
 
 unset __rndfl
@@ -353,6 +360,7 @@ function __rndfl {
     local retstr__='"'`__lgfl $rndflregexp__|head -n ${rndflnum__}|tail -n 1`'"'
     echo ${retstr__}
 }
+export -f __rndfl
 alias rndfl="__rndfl"
 
 # Remove current dir
@@ -374,41 +382,57 @@ function __rcd {
  Use 'rcd -f' instead.\n" $filecount__
     return 0
 }
+export -f __rcd
+alias rcd="__rcd"
 
 unset __rgf
 function __rgf {
     __lgf "$1"|xargs -d "\n" rm -f
 }
+export -f __rgf
+alias rgf="__rgf"
 
 unset __rgd
 function __rgd {
     __lgd "$1"|xargs -d "\n" rm -frd
 }
+export -f __rgd
+alias rgd="__rgd"
 
 unset __rgl
 function __rgl {
     __lgl "$1"|xargs -d "\n" rm -frd
 }
+export -f __rgl
+alias rgl="__rgl"
 
 unset __rgb
 function __rgb {
     __lgb|xargs -d "\n" rm -frd
 }
+export -f __rgb
+alias rgb="__rgb"
 
 unset __rgbl
 function __rgbl {
     __lgbl|xargs -d "\n" rm -frd
 }
+export -f __rgbl
+alias rgbl="__rgbl"
 
 unset __rgfl
 function __rgfl {
     __lgfl "$1"|xargs -d "\n" rm -f
 }
+export -f __rgfl
+alias rgfl="__rgfl"
 
 unset __rgdl
 function __rgdl {
     __lgdl "$1"|xargs -d "\n" rm -frd
 }
+export -f __rgdl
+alias rgdl="__rgdl"
 
 unset __mb
 function __mb {
@@ -482,6 +506,8 @@ function __swf {
     mv $2 $1
     mv $tmp $2
 }
+export -f __swf
+alias swf="__swf"
 
 unset __gt
 function __gt {
@@ -492,6 +518,8 @@ function __gt {
     [ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
         || git clone https://github.com/$fullname__ ~/GitRepo/$fullname__
 }
+export -f __gt
+alias gt="__gt"
 
 unset __gts
 function __gts {
@@ -502,28 +530,38 @@ function __gts {
     [ "`curl -s https://github.com/$fullname__`" == 'Not Found' ]\
         || git clone ssh://git@github.com/$fullname__ ~/GitRepo/$fullname__
 }
+export -f __gts
+alias gts="__gts"
 
 unset __gush
 function __gush {
     local commitinfo__=${@:2}
     git add -A; git commit -S -m "$commitinfo__"; git push origin $1;
 }
+export -f __gush
+alias gush="__gush"
 
 unset __cget
 function __cget {
     curl -u just:123 -o "$1" ftp://10.0.2.33/"$1"
 }
+export -f __cget
+alias cget="__cget"
 
 unset __cput
 function __cput {
     curl -u just:123 -T "$1" ftp://10.0.2.33/"$1"
 }
+export -f __cput
+alias cput="__cput"
 
 # Expr string modifier
 unset __cog
 function __cog {
     gcc -O0 -g "$1" -o $(expr substr "$1" 1 $(expr index "$1" .))out
 }
+export -f __cog
+alias cog="__cog"
 
 # Now kd support option -n: no prompt for time.
 unset __kd
@@ -539,6 +577,8 @@ function __kd {
                 [ $? -eq 0 ] && break
             done
 }
+export -f __kd
+alias kd="__kd"
 
 # auto update CentOS/Ubuntu/Raspbian is preferred.. However Gentoo/Arch should
 #+ always update on comfirmation.. Although can also be automated by adding --no-comfirm..
@@ -551,12 +591,16 @@ function __updatesystem {
     [ "Gentoo" == "$arc__" ]&&emerge --sync
     [ "Raspbian" == "$arc__" ]||[ "Ubuntu" == "$arc__" ]||[ "Debian" == "$arc__" ]&&sudo apt-get update && sudo apt-get -y upgrade
 }
+export -f __updatesystem
+alias us="__updatesystem"
 
 #function __startsshd {
 #    sudo mkdir -p /var/run/sshd
 #    sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
 #    sudo /usr/sbin/sshd
 #}
+#export -f __startsshd
+#alias startsshd="__startsshd"
 
 # To modify mount dir, edit /etc/vsftpd.conf
 #function __startvsftpd {
@@ -565,6 +609,8 @@ function __updatesystem {
 #    sudo iptables -I INPUT -p tcp --dport 21 -j ACCEPT
 #    sudo /usr/sbin/vsftpd &
 #}
+#export -f __startvsftpd
+#alias startvsftpd="__startvsftpd"
 
 #function __scpp {
 #    scp "$1" pi@host:/home/pi/
@@ -589,8 +635,6 @@ alias pgsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xar
 # Search with perl-5 regexp support
 alias pgmsl="find . -maxdepth 1 -type f |grep -v tags$|grep -v types_c.taghl |xargs -d '\n' pcre2grep --color -snM"
 alias pglsl="find . -maxdepth 1 -type l |grep -v tags$|grep -v types_c.taghl|xargs -d '\n' pcre2grep --color -sn"
-alias sgs="__sgs"
-alias sgsl="__sgsl"
 alias gfs="grep . -rnwe"
 alias gsf="grep . -rlnwe"
 
@@ -604,6 +648,8 @@ function __gesf {
     eval $command__
     return 0
 }
+export -f __gesf
+alias gesf="__gesf"
 
 unset __gefs
 function __gefs {
@@ -614,6 +660,8 @@ function __gefs {
     eval $command__
     return 0
 }
+export -f __gefs
+alias gefs="__gefs"
 
 unset __gbsf
 function __gbsf {
@@ -624,6 +672,8 @@ function __gbsf {
     eval $command__
     return 0
 }
+export -f __gbsf
+alias gbsf="__gbsf"
 
 unset __gbfs
 function __gbfs {
@@ -634,6 +684,8 @@ function __gbfs {
     eval $command__
     return 0
 }
+export -f __gbfs
+alias gbfs="__gbfs"
 
 unset __pesf
 function __pesf {
@@ -644,6 +696,8 @@ function __pesf {
     eval $command__
     return 0
 }
+export -f __pesf
+alias pesf="__pesf"
 
 unset __pefs
 function __pefs {
@@ -654,6 +708,8 @@ function __pefs {
     eval $command__
     return 0
 }
+export -f __pefs
+alias pefs="__pefs"
 
 unset __pbsf
 function __pbsf {
@@ -664,6 +720,8 @@ function __pbsf {
     eval $command__
     return 0
 }
+export -f __pbsf
+alias pbsf="__pbsf"
 
 unset __pbfs
 function __pbfs {
@@ -674,21 +732,15 @@ function __pbfs {
     eval $command__
     return 0
 }
-
-alias gesf="__gesf"
-alias gefs="__gefs"
-alias gbsf="__gbsf"
-alias gbfs="__gbfs"
-
-alias pesf="__pesf"
-alias pefs="__pefs"
-alias pbsf="__pbsf"
+export -f __pbfs
 alias pbfs="__pbfs"
 
 unset __gtf
 function __gtf {
     gsf ^struct\ "$1"\ \{
 }
+export -f __gtf
+alias gtf="__gtf"
 
 unset __gcT
 function __gcT {
@@ -697,12 +749,16 @@ function __gcT {
                       ||( git init --bare ~/GitRepo/Trii/"$1"\
                           && chown -R git ~/GitRepo/Trii/"$1")
 }
+export -f __gcT
+alias gcT="__gcT"
 
 unset __gch
 function __gch {
     [ "x" == "x$1" ] && echo "Repo name required." && return 1\
         || curl -u 'sansna' https://api.github.com/user/repos -d "{\"name\":\"$1\"}"
 }
+export -f __gch
+alias gch="__gch"
 
 unset __validate_ip4
 function __validate_ip4 {
@@ -731,6 +787,8 @@ function __getasn {
     # The following is an example of using xargs to pass complicated args.
     #dig +short $1|xargs -I{} -d "\n" whois -h whois.cymru.com -v {}
 }
+export -f __getasn
+alias getasn="__getasn"
 
 #function __getsslproxy {
 #   local tmp__=`curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"\
@@ -759,17 +817,9 @@ function __getasn {
 #       break
 #   done" &
 #}
+#export -f __wspbg
+#alias wspbg="__wspbg"
 
-alias gtf="__gtf"
-alias rcd="__rcd"
-alias rgf="__rgf"
-alias rgd="__rgd"
-alias rgl="__rgl"
-alias rgb="__rgb"
-alias rgfl="__rgfl"
-alias rgdl="__rgdl"
-alias rgbl="__rgbl"
-alias swf="__swf"
 alias gr="cd ~/GitRepo"
 alias grT="cd ~/GitRepo/Trii"
 # The first two is used in archlinux's chromium, the second is used in raspbian
@@ -783,20 +833,13 @@ alias grT="cd ~/GitRepo/Trii"
 #+ set by: xdg-mime default pcmanfm.desktop inode/directory
 #alias e="xdg-open ."
 #alias m="cd /usr/mf/"
-alias w="__w"
 alias how="w how to"
 alias what="w what is"
 alias difference="what the difference between"
 alias def="w definition"
-alias wr="__rfc"
-alias wk="__wk"
-alias we="__we"
 #alias x="omxplayer"
-alias gt="__gt"
-alias gts="__gts"
-alias gush="__gush"
-alias gs="git status"
-alias gb="git branch"
+#alias gs="git status"
+#alias gb="git branch"
 
 unset __pkz
 function __pkz {
@@ -804,17 +847,14 @@ function __pkz {
         && tar cfz $(expr substr "$1" 1 `echo "$[$(expr length "$1")-1]"`).tgz "$1"\
         || tar cfz "$1".tgz "$1"/
 }
-
+export -f __pkz
 alias pkz="__pkz"
-alias cget="__cget"
-alias cput="__cput"
-alias cog="__cog"
+
 # To add src file in other dir recursively
 #alias gdbs="gdb `find /usr/local/src/debug -type d -printf '-d %p '`"
 alias pdb="python -m pdb"
 alias pdb2="python2 -m pdb"
 alias pdb3="python3 -m pdb"
-alias kd="__kd"
 
 unset __cu
 function __cu {
@@ -848,13 +888,12 @@ function __cu {
 
     return 0
 }
-
+export -f __cu
 alias cu="__cu"
-alias cs="cu 100"
+alias cs="__cu 100"
 
 # The following tmux-save-session.sh is located in zsoltf/tmux-save-session
 alias ts="\cd ~;tmux-save-session.sh;mv sessions*.sh session.sh;\cd -;"
-alias us="__updatesystem"
 alias ctg="ctags -R --extra=+f --exclude={.git,.svn} . /usr/include/ /usr/include/linux/ /usr/include/sys/ $*"
 alias lse="find . -type f |grep -v \.git\/|perl -ne 'print \$1 if m/\.([^.\/]+)$/' | sort -u"
 alias lsn="find . -type f ! -name '*.*'|grep -v \.git\/|xargs -n1 basename|sort -u"
@@ -866,11 +905,10 @@ alias ggi="\
     lse | sed -e 's/^/!\/**\/*\./g' >> \.gitignore;\
     echo '# [Normal Files]' >> \.gitignore;\
     lsn | sed -e 's/^/!\/**\//g' >> \.gitignore"
-#alias startsshd="__startsshd"
-#alias startvsftpd="__startvsftpd"
 
 # Auto-clean login/command history through ssh.
 #+ Before using this alias, ssh-copy-id to user@host is recommended.
+#unset __s
 #function __s {
 #    \ssh $* -t "bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc);\
 #        while true; do\
@@ -896,6 +934,7 @@ alias ggi="\
 #            break
 #        done"
 #}
+#export -f __s
 #alias s="__s"
 
 unset __sc
@@ -908,7 +947,7 @@ function __sc {
     done
     export TERM=linux
 }
-
+export -f __sc
 alias sc="__sc"
 
 unset __tm
@@ -916,7 +955,7 @@ function __tm {
     tmux at
     [ $? -eq 1 ] && tmux -f <(curl -s https://raw.githubusercontent.com/sansna/dotconf/master/tmux.conf)
 }
-
+export -f __tm
 alias tm="__tm"
 
 # Some templates of ssh/rdesktop.
@@ -925,14 +964,8 @@ alias tm="__tm"
 #alias rp="rdesktop -P -b -z -a 8 -x lan -u user -p passwd host:port -f -r sound:local -r clipboard:PRIMARYCLIPBOARD"
 #alias sxp="ssh -X -C user@host -pport"
 
-alias getasn="__getasn"
-#alias getsslpxy="__getsslproxy"
-#alias wsp="__writesslproxy"
-#alias wspbg="__wspbg"
 #alias pacman="sudo pacman"
 #alias r="aria2c *.meta4"
-alias gcT="__gcT"
-alias gch="__gch"
 
 unset __gu
 function __gu {
@@ -943,7 +976,8 @@ function __gu {
     \cd -
 }
 export -f __gu
-alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
+alias gu="__gu ."
+#alias gugr="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 
 #function __ncs {
 #   tar cf - "$1"|nc -l -p $2
@@ -961,13 +995,14 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #    exit
 #    echo "" > ~/.bash_history
 #}
+#export -f __exit
+#alias exit="__exit"
 
 #function __reboot {
 #   sleep 1
 #   reboot
 #}
-
-#alias exit="__exit"
+#export -f __reboot
 #alias reboot="__reboot"
 
 #alias gba="sudo /usr/games/mednafen /root/Downloads/sum-nigh3.gba"
@@ -1009,21 +1044,23 @@ alias gu="\cd ~/GitRepo;find . -maxdepth 2 -type d|xargs -I{} bash -c '__gu {}'"
 #   ./configure; make -j`nproc`; make install
 #   ss-server -s 0.0.0.0 -p port -k passwd -m method -t time &
 #}
+#export -f __getss
 #alias getss="__getss"
 
 unset __ssr
 function __ssr {
-    local running__=`ps aux|grep ss-local|grep -v grep`
+    local running__=`ps aux|grep ss-local -w|grep -v grep`
     [ "x$running__" == "x" ]\
         && (ss-local -s serv-addr -p serv-port -k password -t time_out\
                -l local-port -m secret-method &)\
         && (polipo -c /etc/polipo/config &)\
         && alias pxy="http_proxy=http://localhost:8123"
 }
+export -f __ssr
 alias ssr="__ssr"
 
 # automatically detect if sslocal started and alias.
-running__=`ps aux|grep ss-local|grep -v grep`
+running__=`ps aux|grep ss-local -w|grep -v grep`
 [ "x$running__" != "x" ]\
     && alias pxy="http_proxy=http://localhost:8123"
 unset running__

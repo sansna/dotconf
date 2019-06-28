@@ -157,7 +157,7 @@ $endif
 # Search and edit with vim.
 "\ev": "| xargs -I{} bash -c '__v \"{}\"'; reset;"
 # Clear screen and show current folder info.
-"\C-l": "\C-ucd -\ehclear\ehcd -\eh"
+"\C-l": "\C-uclear\ehl\eh"
 
 $endif
 

@@ -152,13 +152,8 @@ alias less="less -isXmQS"
 alias pcregrep="pcre2grep --color=auto"
 
 export RCAUTOMAXDISP__=100
-unset __cd
-function __cd {
-    local tmpdir__=$*
-    [ "x$tmpdir__" == "x" ]\
-        && \cd\
-        || \cd "${tmpdir__}"
-
+unset __l
+function __l {
     local total__=`\ls -a|wc -l`
     [ $total__ -eq 2 ]\
         && echo "No Entries in this Folder."\
@@ -174,6 +169,20 @@ function __cd {
             && echo "Too many items in this Folder."\
             || __ls
     fi
+
+    return 0
+}
+export -f __l
+alias cd="__l"
+
+unset __cd
+function __cd {
+    local tmpdir__=$*
+    [ "x$tmpdir__" == "x" ]\
+        && \cd\
+        || \cd "${tmpdir__}"
+
+    __l
 
     return 0
 }

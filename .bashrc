@@ -135,7 +135,7 @@ alias less="less -isXmQS"
 alias pcregrep="pcre2grep --color=auto"
 
 export RCAUTOMAXDISP__=100
-unset __cd
+unset __l
 function __l {
     local total__=`\ls -a|wc -l`
     [ $total__ -eq 2 ]\

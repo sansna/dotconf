@@ -1165,9 +1165,9 @@ find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
 [ -d $HOME/.pyenv ]\
     && [[ $PATH != *pyenv* ]]\
     && export PYENV_ROOT=$HOME/.pyenv\
-    && export PATH=$PYENV_ROOT/bin:$PATH\
-    && if command -v pyenv 1>/dev/null 2>&1; then
-        eval $(pyenv init -)
-    fi
+    && export PATH=$PYENV_ROOT/bin:$PATH
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval $(pyenv init -)
+fi
 export -f __init
 __init

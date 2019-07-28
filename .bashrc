@@ -1237,10 +1237,10 @@ alias ver="echo $RCVER__"
 [ -d $HOME/.pyenv ]\
     && [[ $PATH != *pyenv* ]]\
     && export PYENV_ROOT=$HOME/.pyenv\
-    && export PATH=$PYENV_ROOT/bin:$PATH
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval $(pyenv init -)
-fi
+    && export PATH=$PYENV_ROOT/bin:$PATH\
+    && if command -v pyenv 1>/dev/null 2>&1; then
+        eval $(pyenv init -)
+    fi
 export -f __init
 export RCVER__="Version 0.2.0001"
 [ "x`ver 2>/dev/null`" == "x$RCVER__" ] || __init

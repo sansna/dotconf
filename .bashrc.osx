@@ -302,6 +302,15 @@ function __vim {
 export -f __vim
 alias vd="__vim -d"
 
+# tr PATH to deduplicate of paths
+#+ also learn this usage of awk/sed
+unset __trp
+function __trp {
+    PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: '!x[$0]++' | sed "s/\(.*\).\{1\}/\1/")
+}
+export -f __trp
+alias trp="__trp"
+
 # Using function for alias because needs parameter.
 unset __w
 function __w {

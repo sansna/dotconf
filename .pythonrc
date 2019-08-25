@@ -2,3 +2,7 @@
 # let each python ide load the following scripts.
 import rlcompleter, readline
 readline.parse_and_bind('tab:complete')
+# Da usages
+#import pandas as pd
+#import numpy as np
+#from matplotlib import pyplot as plt

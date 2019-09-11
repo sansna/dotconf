@@ -778,6 +778,7 @@ function __gch {
 export -f __gch
 alias gch="__gch"
 
+# see man ipcalc. this function is obsoleted
 unset __validate_ip4
 function __validate_ip4 {
     local stats=1

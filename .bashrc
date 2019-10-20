@@ -61,8 +61,10 @@ export LC_COLLATE=C
 export LANG=en_US.UTF-8
 
 # The Golang paths
-[ "x$GOPATH" == "x" ] &&\
-    export GOPATH=~/GO; export PATH=$PATH:$GOPATH/bin
+[ "x$GOPATH" == "x" ]\
+       && [[ $PATH != *GO* ]]\
+    && export GOPATH=~/GO\
+    && export PATH=$PATH:$GOPATH/bin
 
 # The Python env
 export PYTHONSTARTUP=~/.pythonrc
@@ -189,7 +191,7 @@ alias vd="vim -d"
 #+ also learn this usage of awk/sed
 unset __trp
 function __trp {
-    PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: '!x[$0]++' | sed "s/\(.*\).\{1\}/\1/")
+    export PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: '!x[$0]++' | sed "s/\(.*\).\{1\}/\1/")
 }
 export -f __trp
 alias trp="__trp"
@@ -1140,10 +1142,44 @@ stty -ixon ixany
 #alias ct="xclip -selection clipboard -o"
 
 find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
+
+# NOTE: bash boolean ops
+# pyenv initials
+__rc_pypath_remove=false
 [ -d $HOME/.pyenv ]\
-    && [[ $PATH != *pyenv* ]]\
-    && export PYENV_ROOT=$HOME/.pyenv\
-    && export PATH=$PYENV_ROOT/bin:$PATH\
-    && if command -v pyenv 1>/dev/null 2>&1; then
-        eval $(pyenv init -)
+	&& [[ $PATH != *pyenv* ]]\
+	&& while true;
+		do
+			export PYENV_ROOT=$HOME/.pyenv;
+			export PATH=$PYENV_ROOT/bin:$PATH;
+			break
+		done\
+	|| __rc_pypath_remove=true\
+	&& if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+		if $__rc_pypath_remove; then
+			export PATH=$(echo $PATH | cut -d: -f 2-)
+		fi
     fi
+unset __rc_pypath_remove
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$($HOME'/.pyenv/versions/miniconda-latest/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$HOME/.pyenv/versions/miniconda-latest/etc/profile.d/conda.sh" ]; then
+        . "$HOME/.pyenv/versions/miniconda-latest/etc/profile.d/conda.sh"
+    else
+        export PATH="$HOME/.pyenv/versions/miniconda-latest/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# path de-duplication, used when reloading bashrc from a subshell.
+#+ NOTE: sometimes paths not de-duplicated totally, because there maybe scripts
+#+ running after this .bashrc adding duplicate paths.
+#+ At these times, manually calling trp is okay.
+__trp

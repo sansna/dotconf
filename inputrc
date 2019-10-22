@@ -138,6 +138,7 @@ $endif
 "\ep": "\C-ups aux"
 "\em": "\C-ugit cm \"\"\C-b"
 "\ec": "\C-ugit checkout \eh"
+"\eca": "\C-uconda activate \eh"
 "\ec\ec": "\C-ugit checkout -\eh"
 "\eav": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
 "\ea\ev": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"

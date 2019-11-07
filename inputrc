@@ -125,6 +125,15 @@ $endif
 # Quick add sudo to command.
 "\es":"\C-asudo \C-e"
 "\eS":"\C-asudo bash -c '\C-e'"
+# Quick sed commands
+"\ese":"\C-e | sed -e 's/^.*\\([]\\+\\).*$/\\1/g'\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b"
+"\esne":"\C-e | sed -ne 's/^.*\\([]\\+\\).*$/\\1/p'\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b"
+"\esb":".*\\(\\)\C-b\C-b\C-b\C-b"
+"\esbr":".*\\([]\\+\\)\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b"
+# Quick iteration get columns
+"\esf":"for i in $; do echo $i; done\C-a\C-f\C-f\C-f\C-f\C-f\C-f\C-f\C-f\C-f\C-f"
+"\esfv":"__oldifs__=$IFS;IFS='\n'; for i in $; do echo $i; done;IFS=$__oldifs__;unset __oldifs__\C-a\ef\ef\ef\ef\ef\ef\C-f\C-f"
+"\esfi":"=$(echo $i|gawk -vFS=' ' -vRS='\\n' '{print $}');\C-b\C-b\C-b\C-b"
 # Run command in subshell.
 "\e\C-s\e\C-s":"\C-e > /dev/null 2>&1 &\C-m"
 # Use less to see results.
@@ -133,8 +142,8 @@ $endif
 # Frequently used patterns.
 "\eg": "\C-e | grep "
 "\ex\ev": "\C-e | xargs -I{} "
-"\exv": "\C-e | xargs -I{} "
-"\ex": "\C-e | xargs "
+"\exv": "\C-e | xargs -I{} bash -c ''\C-b"
+"\ex": "\C-e | xargs -I{} "
 "\ep": "\C-ups aux"
 "\em": "\C-ugit cm \"\"\C-b"
 "\ec": "\C-ugit checkout \eh"

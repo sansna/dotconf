@@ -39,6 +39,7 @@
     theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
     delete-merged-branches = "!git checkout master && git pull origin master && git branch --merged | grep -v '\\*'|grep -vw test | xargs -I{} git push origin :{} && git branch --merged | grep -v '\\*' | xargs -I{} git branch -d {};"
     lines = "!f() { git log --author=$@ --pretty=tformat: --numstat | gawk '{ add += $1; subs += $2; loc += $1 - $2  } END { printf \"added lines: %s removed lines: %s total lines: %s\\n\", add, subs, loc  }' -; }; f"
+	rinse = "!f() { git clean -xfd && git submodule foreach --recursive git clean -xfd && git reset --hard && git submodule foreach --recursive git reset --hard && git submodule update --init --recursive; }; f"
 [diff]
     tool = vimdiff3
 [difftool]

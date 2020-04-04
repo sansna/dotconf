@@ -1098,7 +1098,7 @@ alias gu="__gu ."
 
 unset __ssr
 function __ssr {
-    local running__=`ps aux|grep ss-local|grep -v grep`
+    local running__=`pidof ss-local`
     [ "x$running__" == "x" ]\
         && (ss-local -s serv-addr -p serv-port -k password -t time_out -u\
                -l local-port -m secret-method --plugin name --plugin-opts opts &)\
@@ -1109,7 +1109,7 @@ export -f __ssr
 alias ssr="__ssr"
 
 # automatically detect if sslocal started and alias.
-running__=`ps aux|grep ss-local|grep -v grep`
+running__=`pidof ss-local`
 [ "x$running__" != "x" ]\
     && alias pxy="http_proxy=http://localhost:8123"
 unset running__

@@ -1070,7 +1070,7 @@ alias gu="__gu ."
 
 unset __ssr
 function __ssr {
-    local running__=`ps aux|grep ss-local -w|grep -v grep`
+    local running__=`pidof ss-local`
     [ "x$running__" == "x" ]\
         && (ss-local -s serv-addr -p serv-port -k password -t time_out\
                -l local-port -m secret-method &)\
@@ -1081,7 +1081,7 @@ export -f __ssr
 alias ssr="__ssr"
 
 # automatically detect if sslocal started and alias.
-running__=`ps aux|grep ss-local -w|grep -v grep`
+running__=`pidof ss-local`
 [ "x$running__" != "x" ]\
     && alias pxy="http_proxy=http://localhost:8123"
 unset running__
@@ -1147,19 +1147,19 @@ find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
 # pyenv initials
 __rc_pypath_remove=false
 [ -d $HOME/.pyenv ]\
-	&& [[ $PATH != *pyenv* ]]\
-	&& while true;
-		do
-			export PYENV_ROOT=$HOME/.pyenv;
-			export PATH=$PYENV_ROOT/bin:$PATH;
-			break
-		done\
-	|| __rc_pypath_remove=true\
-	&& if command -v pyenv 1>/dev/null 2>&1; then
+    && [[ $PATH != *pyenv* ]]\
+    && while true;
+        do
+            export PYENV_ROOT=$HOME/.pyenv;
+            export PATH=$PYENV_ROOT/bin:$PATH;
+            break
+        done\
+    || __rc_pypath_remove=true\
+    && if command -v pyenv 1>/dev/null 2>&1; then
         eval "$(pyenv init -)"
-		if $__rc_pypath_remove; then
-			export PATH=$(echo $PATH | cut -d: -f 2-)
-		fi
+        if $__rc_pypath_remove; then
+            export PATH=$(echo $PATH | cut -d: -f 2-)
+        fi
     fi
 unset __rc_pypath_remove
 

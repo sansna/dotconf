@@ -1185,7 +1185,7 @@ export -f __getss
 alias getss="__getss"
 
 #function __ssr {
-#   local running__=`ps aux|grep ss-local|grep -v grep`
+#   local running__=`pidof ss-local`
 #   [ "x$running__" == "x" ]\
 #       && (ss-local -s serv-addr -p serv-port -k password -t time_out -u\
 #              -l local-port -m secret-method --plugin name --plugin-opts opts &)\
@@ -1196,7 +1196,8 @@ alias getss="__getss"
 #alias ssr="__ssr"
 
 # automatically detect if sslocal started and alias.
-running__=`ps aux|grep ss-local|grep -v grep`
+#+ install pidof by brew install pidof
+running__=`pidof ss-local`
 [ "x$running__" != "x" ]\
     && alias pxy="http_proxy=http://localhost:8123"
 unset running__
@@ -1252,7 +1253,7 @@ stty -ixon ixany
 #    esac
 #}
 find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
-agent_running__=`ps aux|grep ssh-agent|grep -v grep`
+agent_running__=`pidof ssh-agent`
 SSH_AGENT_SOCK_FILE=~/.ssh-agent.sock
 [ "x$agent_running__" == "x" ]\
     && echo "$(ssh-agent)" > $SSH_AGENT_SOCK_FILE

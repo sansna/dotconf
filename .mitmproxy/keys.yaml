@@ -1,0 +1,14 @@
+-
+  key: c
+  ctx: ["flowlist","flowview"]
+  cmd: export.clip curl @focus
+  help: Export a flow as a curl command to the clipboard.
+-
+  key: ctrl k
+  # ctrl f as pagedown
+  cmd: console.nav.pageup
+  help: Pageup
+-
+  key: s
+  cmd: save.file @all allflows
+  help: Export all flows for next process. Process it with py scripts. ("printurl.py")

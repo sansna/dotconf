@@ -76,7 +76,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 #alias mv='mv -i'
 
 alias ls="colorls -G"
-alias grep="grep --color=auto"
+alias grep="grep --color=auto --line-buffered"
 
 unset __cd
 function __cd {

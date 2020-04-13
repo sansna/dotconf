@@ -128,7 +128,7 @@ alias ls="__ls"
 
 unset __grep
 function __grep {
-    \grep --color=auto $*
+    \grep --color=auto --line-buffered $*
 }
 export -f __grep
 alias grep="__grep"

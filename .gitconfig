@@ -41,7 +41,7 @@
     lines = "!f() { git log --author=$@ --pretty=tformat: --numstat | gawk '{ add += $1; subs += $2; loc += $1 - $2  } END { printf \"added lines: %s removed lines: %s total lines: %s\\n\", add, subs, loc  }' -; }; f"
     rinse = "!f() { git clean -xfd && git submodule foreach --recursive git clean -xfd && git reset --hard && git submodule foreach --recursive git reset --hard && git submodule update --init --recursive; }; f"
     fold = "!git st | grep \\\\?\\\\? | gawk -vFS=' ' -vRS='\n' '{print $2}'  | xargs -I{} git add {} && git stash && git checkout master && git pull origin master;"
-    unfold = "!git spl | head -n 1 | gawk -vFS=' ' -vRS='\n' '{print $4}'  | rev|cut -d: -f 2- | rev| xargs -I{} git checkout {} && git stash apply stash@{0} && git stash drop stash@{0} && git reset;"
+    unfold = "!f() { [ -z $1 ] && (git spl | head -n 1 | gawk -vFS=' ' -vRS='\n' '{print $4}'  | rev|cut -d: -f 2- | rev| xargs -I{} git checkout {} && git stash apply stash@{0} && git stash drop stash@{0} && git reset;) || (git spl | head -n $1| tail -n 1 | gawk -vFS=' ' -vRS='\n' '{print $4}'  | rev|cut -d: -f 2- | rev| xargs -I{} git checkout {} && git stash apply stash@{$[$1-1]} && git stash drop stash@{$[$1-1]} && git reset;) }; f"
 [diff]
     tool = vimdiff3
 [difftool]

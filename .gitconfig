@@ -20,6 +20,7 @@
     spl = stash list
     a = add -p
     dn = "!bash -c 'f() { [ "x$3" == "x" ] && git diff HEAD~$1..HEAD~$(($1-1)) || git diff HEAD~$1..HEAD~$2; }; f $0 $1 $2' $1 $2"
+    dnn = "!bash -c 'f() { [ "x$3" == "x" ] && git diff HEAD~$1..HEAD~$(($1-1)) --name-status || git diff HEAD~$1..HEAD~$2 --name-status; }; f $0 $1 $2' $1 $2"
     # print branch name
     bn = "!git rev-parse --abbrev-ref HEAD"
     b = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:reset)%(authordate:iso8601)%(color:reset) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)%(authorname)%(color:reset) (%(color:green)%(authordate:relative)%(color:reset))'"

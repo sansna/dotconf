@@ -1,7 +1,12 @@
 # ~/.pythonrc: work together with bashrc to
 # let each python ide load the following scripts.
 import rlcompleter, readline
-readline.parse_and_bind('tab:complete')
+readline.parse_and_bind('tab: complete')
+import os
+import atexit
+history_file = os.path.expanduser("~/.python_history")
+readline.read_history_file(history_file)
+atexit.register(readline.write_history_file, history_file)
 # Da usages
 #import pandas as pd
 #import numpy as np

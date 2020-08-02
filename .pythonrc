@@ -7,7 +7,7 @@ import atexit
 history_file = os.path.expanduser("~/.python_history")
 if not os.path.exists(history_file):
     from pathlib import Path
-    Path.touch(history_file)
+    Path(history_file).touch()
 readline.read_history_file(history_file)
 atexit.register(readline.write_history_file, history_file)
 # Da usages

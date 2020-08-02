@@ -51,14 +51,20 @@
     rinse = "!f() { git clean -xfd && git submodule foreach --recursive git clean -xfd && git reset --hard && git submodule foreach --recursive git reset --hard && git submodule update --init --recursive; }; f"
     fold = "!f() { git st | grep \\\\?\\\\? | gawk -vFS=' ' -vRS='\n' '{print $2}'  | xargs -I{} git add {} && git stash && git checkout master && git pull origin master; [ $# -ne 0 ] && git checkout -b $1; }; f"
     unfold = "!f() { [ -z $1 ] && (git spl | head -n 1 | gawk -vFS=' ' -vRS='\n' '{print $4}'  | rev|cut -d: -f 2- | rev| xargs -I{} git checkout {} && git stash apply stash@{0} && git stash drop stash@{0} && git reset;) || (git spl | head -n $1| tail -n 1 | gawk -vFS=' ' -vRS='\n' '{print $4}'  | rev|cut -d: -f 2- | rev| xargs -I{} git checkout {} && git stash apply stash@{$[$1-1]} && git stash drop stash@{$[$1-1]} && git reset;) }; f"
+[status]
+    submodulesummary = 1
 [diff]
     tool = vimdiff3
+    submodule = log
 [difftool]
     prompt = false
 [difftool.vimdiff3]
     cmd = vd $REMOTE $LOCAL
 [push]
     default = simple
+    recurseSubmodules = check
+[submodule]
+    recurse = true
 
 # Following are gpg related
 [gpg]

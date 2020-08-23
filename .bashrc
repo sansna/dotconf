@@ -1171,6 +1171,16 @@ stty -ixon ixany
 
 find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
 
+# SSH-AGENT
+agent_running__=`pidof ssh-agent`
+SSH_AGENT_SOCK_FILE=~/.ssh-agent.sock
+[ "x$agent_running__" == "x" ]\
+    && echo "$(ssh-agent)" > $SSH_AGENT_SOCK_FILE
+unset agent_running__
+eval $(cat $SSH_AGENT_SOCK_FILE)
+
+#ssh-add
+
 # End of function __init.
 }
 export -f __init

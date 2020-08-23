@@ -57,3 +57,5 @@
     recurseSubmodules = check
 [submodule]
     recurse = true
+[url "git@github.com:sansna"]
+	insteadOf = https://github.com/sansna

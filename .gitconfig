@@ -76,3 +76,5 @@
 # Walkaround if SSL cert not installed:
 #[http]
 #    sslVerify = false
+[url "git@github.com:sansna"]
+	insteadOf = https://github.com/sansna

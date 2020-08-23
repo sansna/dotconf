@@ -1183,3 +1183,12 @@ unset __conda_setup
 #+ running after this .bashrc adding duplicate paths.
 #+ At these times, manually calling trp is okay.
 __trp
+
+agent_running__=`pidof ssh-agent`
+SSH_AGENT_SOCK_FILE=~/.ssh-agent.sock
+[ "x$agent_running__" == "x" ]\
+    && echo "$(ssh-agent)" > $SSH_AGENT_SOCK_FILE
+unset agent_running__
+eval $(cat $SSH_AGENT_SOCK_FILE)
+
+#ssh-add

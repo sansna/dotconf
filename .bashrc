@@ -11,7 +11,7 @@ sudo yum makecache;
 sudo yum install epel-release centos-release-scl -y;
 sudo yum makecache;
 sudo yum groups install "Development Tools" -y;
-sudo yum install bind-utils whois wget screen bash-completion bash-completion-extras nawk bc procps-ng -y;
+sudo yum install bind-utils whois wget screen bash-completion bash-completion-extras nawk bc procps-ng atop tcpdump -y;
 )
 
 [ "Raspbian" == "$RCARC__" ]||[ "Ubuntu" == "$RCARC__" ]||[ "Debian" == "$RCARC__" ]\
@@ -1171,6 +1171,14 @@ alias getss="__getss"
 #}
 #export -f __ssr
 #alias ssr="__ssr"
+
+unset __diskbench
+function __diskbench {
+    dd if=/dev/zero of=diskbench bs=1M count=1024 conv=fdatasync
+    rm diskbench
+}
+export -f __diskbench
+alias diskbench="__diskbench"
 
 # automatically detect if sslocal started and alias.
 running__=`pidof ss-local`

@@ -1108,6 +1108,14 @@ function __ssr {
 export -f __ssr
 alias ssr="__ssr"
 
+unset __diskbench
+function __diskbench {
+    dd if=/dev/zero of=diskbench bs=1M count=1024 conv=fdatasync
+    rm diskbench
+}
+export -f __diskbench
+alias diskbench="__diskbench"
+
 # automatically detect if sslocal started and alias.
 running__=`pidof ss-local`
 [ "x$running__" != "x" ]\

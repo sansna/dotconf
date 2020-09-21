@@ -4,14 +4,14 @@
 export RCARC__=`cat /etc/os-release | grep ^NAME|cut -d '"' -f 2|cut -d ' ' -f 1`
 
 [ "CentOS" == "$RCARC__" ]||[ "Red" == "$RCARC__" ]||[ "Fedora" == "$RCARC__" ]\
-    && export PATH=$PATH:/sbin/\
+    && export PATH=$PATH:/sbin/:/usr/local/go/bin\
     && [ `rpm -qa|grep nawk|wc -l` -eq 0 ]\
     &&(
 sudo yum makecache;
 sudo yum install epel-release centos-release-scl -y;
 sudo yum makecache;
 sudo yum groups install "Development Tools" -y;
-sudo yum install bind-utils whois wget screen bash-completion bash-completion-extras nawk bc -y;
+sudo yum install bind-utils whois wget screen bash-completion bash-completion-extras nawk bc procps-ng atop tcpdump -y;
 )
 
 [ "Raspbian" == "$RCARC__" ]||[ "Ubuntu" == "$RCARC__" ]||[ "Debian" == "$RCARC__" ]\
@@ -1172,6 +1172,14 @@ alias getss="__getss"
 #export -f __ssr
 #alias ssr="__ssr"
 
+unset __diskbench
+function __diskbench {
+    dd if=/dev/zero of=diskbench bs=1M count=1024 conv=fdatasync
+    rm diskbench
+}
+export -f __diskbench
+alias diskbench="__diskbench"
+
 # automatically detect if sslocal started and alias.
 running__=`pidof ss-local`
 [ "x$running__" != "x" ]\
@@ -1234,6 +1242,16 @@ stty -ixon ixany
 #alias ct="xclip -selection clipboard -o"
 
 find /tmp -maxdepth 1 -type d |grep sshrc|xargs rm -frd
+
+# SSH-AGENT
+agent_running__=`pidof ssh-agent`
+SSH_AGENT_SOCK_FILE=~/.ssh-agent.sock
+[ "x$agent_running__" == "x" ]\
+    && echo "$(ssh-agent)" > $SSH_AGENT_SOCK_FILE
+unset agent_running__
+eval $(cat $SSH_AGENT_SOCK_FILE)
+
+#ssh-add
 
 # Display current bashrc version.
 alias ver="echo $RCVER__"

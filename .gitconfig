@@ -58,3 +58,5 @@
 [submodule]
     recurse = true
     fetchJobs = 4
+[url "git@github.com:sansna"]
+	insteadOf = https://github.com/sansna

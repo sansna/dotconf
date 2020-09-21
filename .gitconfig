@@ -65,6 +65,7 @@
     recurseSubmodules = check
 [submodule]
     recurse = true
+    fetchJobs = 4
 
 # Following are gpg related
 [gpg]

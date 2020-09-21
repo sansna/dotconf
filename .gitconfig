@@ -57,3 +57,4 @@
     recurseSubmodules = check
 [submodule]
     recurse = true
+    fetchJobs = 4

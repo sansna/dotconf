@@ -1080,6 +1080,14 @@ function __ssr {
 export -f __ssr
 alias ssr="__ssr"
 
+unset __diskbench
+function __diskbench {
+    dd if=/dev/zero of=diskbench bs=1M count=1024 conv=fdatasync
+    rm diskbench
+}
+export -f __diskbench
+alias diskbench="__diskbench"
+
 # automatically detect if sslocal started and alias.
 running__=`pidof ss-local`
 [ "x$running__" != "x" ]\
@@ -1183,3 +1191,12 @@ unset __conda_setup
 #+ running after this .bashrc adding duplicate paths.
 #+ At these times, manually calling trp is okay.
 __trp
+
+agent_running__=`pidof ssh-agent`
+SSH_AGENT_SOCK_FILE=~/.ssh-agent.sock
+[ "x$agent_running__" == "x" ]\
+    && echo "$(ssh-agent)" > $SSH_AGENT_SOCK_FILE
+unset agent_running__
+eval $(cat $SSH_AGENT_SOCK_FILE)
+
+#ssh-add

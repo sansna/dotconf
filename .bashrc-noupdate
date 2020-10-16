@@ -11,20 +11,20 @@ export RCARC__=`cat /etc/os-release | grep ^NAME|cut -d '"' -f 2|cut -d ' ' -f 1
 #sudo yum install epel-release centos-release-scl -y;
 #sudo yum makecache;
 #sudo yum groups install "Development Tools" -y;
-#sudo yum install bind-utils whois wget screen bash-completion bash-completion-extras nawk bc procps-ng atop tcpdump -y;
+#sudo yum install bind-utils whois wget screen bash-completion bash-completion-extras nawk bc procps-ng atop tcpdump expect -y;
 #)
 #
 #[ "Raspbian" == "$RCARC__" ]||[ "Ubuntu" == "$RCARC__" ]||[ "Debian" == "$RCARC__" ]\
 #    && [ `dpkg -l|grep gawk|wc -l` -eq 0 ]\
 #    &&(
 #sudo apt-get update;
-#sudo apt-get install gawk less screen build-essential git apt-file bash-completion dnsutils whois -y;
+#sudo apt-get install gawk less screen build-essential git apt-file bash-completion dnsutils whois expect -y;
 #)
 #
 #[ "Arch" == "$RCARC__"  ]\
 #   && [ `pacman -Q nawk|wc -l` -eq 0  ]\
 #   &&(
-#sudo pacman -Syy base-devel nawk bash-completion screen git dnsutils whois --noconfirm;
+#sudo pacman -Syy base-devel nawk bash-completion screen git dnsutils whois expect --noconfirm;
 #
 #)
 

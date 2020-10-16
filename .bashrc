@@ -1122,6 +1122,7 @@ running__=`pidof ss-local`
     && alias pxy="http_proxy=http://localhost:8123"
 unset running__
 
+# This keeps ssh session alive in a chain.
 unset __ka
 function __ka {
     expect < <(echo "

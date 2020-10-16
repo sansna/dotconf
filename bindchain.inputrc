@@ -1,0 +1,4 @@
+# BindChain for other bashrc file to source. make it easy for using my own rc file.
+# Usage: echo "bi=\"bind -f /home/work/wentao/bindchain.inputrc\"" >> ~/.bashrc
+"\eh": "\C-ahistory -d $((HISTCMD-1)) && \C-e"
+"\e\C-i": "\C-uexport HOME=/home/work/wentao\ehexport PATH=~/usr/bin:$PATH\eh. ~/GitRepo/sansna/dotconf/.bashrc\ehcd\eh"

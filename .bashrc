@@ -1122,6 +1122,21 @@ running__=`pidof ss-local`
     && alias pxy="http_proxy=http://localhost:8123"
 unset running__
 
+unset __ka
+function __ka {
+    expect < <(echo "
+        proc llll {} {
+            while {1 == 1} {
+                puts "ls\\r"
+                sleep 30
+            }
+        }
+        llll
+        interact")
+}
+export -f __ka
+alias ka="__ka"
+
 # Disable ctrl+s functionality.
 stty -ixon ixany
 

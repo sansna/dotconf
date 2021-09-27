@@ -77,5 +77,6 @@
 # Walkaround if SSL cert not installed:
 #[http]
 #    sslVerify = false
+#    proxy = socks5://192.168.3.108:30180
 [url "git@github.com:sansna"]
 	insteadOf = https://github.com/sansna

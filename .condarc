@@ -1,0 +1,15 @@
+# CentOS: ~/.condarc
+# Defined 2 repos: conda-main for main repo, conda for custom repo
+channels:
+  - defaults
+default_channels:
+  - http://192.168.3.108:30188/repository/conda-main/main
+  - http://192.168.3.108:30188/repository/conda-main/r
+  - http://192.168.3.108:30188/repository/conda-main/msys2
+custom_channels:
+  conda-forge: http://192.168.3.108:30188/repository/conda
+  msys2: http://192.168.3.108:30188/repository/conda
+  bioconda: http://192.168.3.108:30188/repository/conda
+  menpo: http://192.168.3.108:30188/repository/conda
+  pytorch: http://192.168.3.108:30188/repository/conda
+  simpleitk: http://192.168.3.108:30188/repository/conda

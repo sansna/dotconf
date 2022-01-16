@@ -841,6 +841,23 @@ alias getasn="__getasn"
 #export -f __wspbg
 #alias wspbg="__wspbg"
 
+unset __ftimes
+function __ftimes {
+    # Using debugfs retrieving ftimes.
+    #+ Elaborated usage of grep perl -P option. (?<=) (?=) \K for cutting results.
+    local fn=$*
+    local inode=$(stat -c %i ${fn})
+    local fs=$(df  --output=source "${fn}"  | tail -1)
+    local crtime=$(sudo debugfs -R 'stat <'"$inode"'>' "${fs}" 2>/dev/null | grep -oP "(?<=^)^crtime.*--\s*\K.*(?=$)")
+    local atime=$(sudo debugfs -R 'stat <'"$inode"'>' "${fs}" 2>/dev/null | grep -oP "(?<=^)^ atime.*--\s*\K.*(?=$)")
+    local ctime=$(sudo debugfs -R 'stat <'"$inode"'>' "${fs}" 2>/dev/null | grep -oP "(?<=^)^ ctime.*--\s*\K.*(?=$)")
+    local mtime=$(sudo debugfs -R 'stat <'"$inode"'>' "${fs}" 2>/dev/null | grep -oP "(?<=^)^ mtime.*--\s*\K.*(?=$)")
+    #printf "%s\t%s\t%s\t%s\t%s\n\t\t%s\t%s\t%s\t%s\n" "${fn}" "ATIME" "CTIME" "MTIME" "CRTIME" "${atime}" "${ctime}" "${mtime}" "${crtime}"
+    printf "%s:\n%s:\t%s\n%s:\t%s\n%s:\t%s\n%s:\t%s\n" "${fn}" " ATIME" "${atime}" " MTIME" "${mtime}" " CTIME" "${ctime}" "CRTIME" "${crtime}"
+}
+export -f __ftimes
+alias ftimes="__ftimes"
+
 alias gr="cd ~/GitRepo"
 alias grT="cd ~/GitRepo/Trii"
 # The first two is used in archlinux's chromium, the second is used in raspbian

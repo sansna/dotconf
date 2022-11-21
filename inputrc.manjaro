@@ -1,0 +1,207 @@
+# /etc/inputrc - global inputrc for libreadline
+# See readline(3readline) and `info rluserman' for more information.
+
+# Be 8 bit clean.
+set input-meta on
+set output-meta on
+
+# Single tab show all matchings if multiple matches the same prefix.
+set show-all-if-ambiguous on
+# Single tab to show all matchings if multiple matches the prefix without any partial completion.
+set show-all-if-unmodified on
+
+# Color files by types
+set colored-stats On
+# Append char to indicate type
+set visible-stats off
+# Mark symlinked directories
+set mark-symlinked-directories on
+# Color the common prefix
+set colored-completion-prefix On
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix On
+# Color the file stats
+set colored-stats On
+
+# Other defined options
+set completion-display-width -1
+set completion-ignore-case on
+set completion-map-case on
+set completion-prefix-display-length 0
+set completion-query-items 36
+set convert-meta on
+set disable-completion off
+set editing-mode emacs
+set enable-bracketed-paste off
+set enable-meta-key on
+set expand-tilde on
+set history-preserve-point off
+set horizontal-scroll-mode off
+set input-meta off
+set keymap emacs
+set keyseq-timeout 500
+set mark-directories on
+set mark-modified-lines off
+set match-hidden-files on
+set menu-complete-display-prefix on
+set page-completions on
+set print-completions-horizontally on
+set revert-all-at-newline on
+set show-mode-in-prompt off
+set skip-completed-text on
+set visible-stats on
+
+# To allow the use of 8bit-characters like the german umlauts, uncomment
+# the line below. However this makes the meta key not work as a meta key,
+# which is annoying to those which don't need to type in 8-bit characters.
+
+# set convert-meta off
+
+# try to enable the application keypad when it is called.  Some systems
+# need this to enable the arrow keys.
+# set enable-keypad on
+
+# see /usr/share/doc/bash/inputrc.arrows for other codes of arrow keys
+
+# do not bell on tab-completion
+set bell-style none
+# set bell-style visible
+
+# some defaults / modifications for the emacs mode
+$if mode=emacs
+
+# allow the use of the Home/End keys
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+# allow the use of the Delete/Insert keys
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+
+# mappings for "page up" and "page down" to step to the beginning/end
+# of the history
+# "\e[5~": beginning-of-history
+# "\e[6~": end-of-history
+
+# alternate mappings for "page up" and "page down" to search the history
+# "\e[5~": history-search-backward
+# "\e[6~": history-search-forward
+
+# mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
+#+ On my chromebook the kill-line shortct seems being occupied by other app,
+#+ so have to change to alt-ctrl-k. (Occupied by Copy as Markdown in Chrome..)
+#"\e\C-k": kill-line
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+# Enable alt+ctrl+arrow to move cursor on a word base in bash.
+"\e[1;7C": forward-word
+"\e[1;7D": backward-word
+
+$if term=rxvt
+"\e[8~": end-of-line
+"\eOc": forward-word
+"\eOd": backward-word
+$endif
+
+# for non RH/Debian xterm, can't hurt for RH/Debian xterm
+# "\eOH": beginning-of-line
+# "\eOF": end-of-line
+
+# for freebsd console
+# "\e[H": beginning-of-line
+# "\e[F": end-of-line
+
+# Running commands not recording in history.
+"\eh": "\C-ahistory -d $HISTCMD && \C-e"
+
+# Quick open vim.
+"\e\C-v": "\C-av\C-a\ef \"\C-e\" 2>/dev/null"
+
+# Copied from Archwiki/Readline.
+# Quick add sudo to command.
+"\es":"\C-asudo \C-e"
+"\eS":"\C-asudo bash -c '\C-e'"
+# Quick sed commands
+"\ese":"\C-e | sed -e 's/^.*\\([]\\+\\).*$/\\1/g'\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b"
+"\esne":"\C-e | sed -ne 's/^.*\\([]\\+\\).*$/\\1/p'\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b"
+"\esb":".*\\(\\)\C-b\C-b\C-b\C-b"
+"\esbr":".*\\([]\\+\\)\C-b\C-b\C-b\C-b\C-b\C-b\C-b\C-b"
+# Quick iteration get columns
+"\esf":"for i in $; do echo $i; done\C-a\C-f\C-f\C-f\C-f\C-f\C-f\C-f\C-f\C-f\C-f"
+"\esfv":"__oldifs__=$IFS;IFS='\n'; for i in $; do echo $i; done;IFS=$__oldifs__;unset __oldifs__\C-a\ef\ef\ef\ef\ef\ef\C-f\C-f"
+"\esfi":"=$(echo $i|gawk -vFS=' ' -vRS='\\n' '{print $}');\C-b\C-b\C-b\C-b"
+# Run command in subshell.
+"\e\C-s\e\C-s":"\C-e > /dev/null 2>&1 &\C-m"
+# Use less to see results.
+"\e\C-l":"\C-e | less"
+
+# Frequently used patterns.
+"\eg": "\C-e | grep "
+"\ex\ev": "\C-e | xargs -I{} "
+"\exv": "\C-e | xargs -I{} bash -c ''\C-b"
+"\ex": "\C-e | xargs -I{} "
+"\ep": "\C-ups aux"
+"\em": "\C-ugit cm \"\"\C-b"
+"\ec": "\C-ugit checkout \eh"
+"\eca": "\C-uconda activate \eh"
+"\ec\ec": "\C-ugit checkout -\eh"
+"\eav": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
+"\ea\ev": "\C-e | gawk -vFS=' ' -vRS='\\n' '{print $}' \C-b\C-b\C-b"
+"\ea": "\C-e | gawk '{print $}' \C-b\C-b\C-b"
+"\el": "\C-e | while read -r linE; do printf \"$(echo $linE|wc -c) $linE\\n\"; done"
+"\et": "-t \"bash --rcfile <(curl -s https://raw.githubusercontent.com/sansna/dotconf/sshrc/.bashrc)\""
+# Backward delete till previous ?.
+"\ed": "\C-r|\C-b\C-k"
+"\e\"": "\C-r\"\C-k"
+"\e'": "\C-r'\C-k"
+"\e:": "\C-r:\C-k"
+"\e;": "\C-r;\C-k"
+"\e,": "\C-r,\C-k"
+"\e.": "\C-r.\C-k"
+# Silent all outputs.
+"\eq": " >/dev/null 2>&1"
+# Search and edit with vim.
+"\ev": "| xargs -I{} bash -c '__v \"{}\"'; reset;"
+# Clear screen and show current folder info.
+"\C-l": "\C-uclear\ehl\eh"
+
+$endif
+
+# Common used dir shortcuts.
+"\e\C-m": "\C-umake\eh"
+"\e\C-p": "\C-ucd -\eh"
+"\e\C-c": "\C-u\ec -\eh"
+"\e\C-u": "\C-ucd ..\eh"
+"\e\C-d": "\C-u[ `pwd` != $HOME ] && cd\eh"
+"\e\C-gr": "\C-u[ `pwd` != $HOME/GitRepo ] && gr\eh"
+"\e\C-h": "\C-u[ `pwd` != $HOME/GitRepo/sansna ] && cd $HOME/GitRepo/sansna\eh"
+"\e\C-e": "\C-ucd /etc/\eh"
+"\e\C-if": "\C-u[ -d /etc/udev/rules.d ] && cd /etc/udev/rules.d/ || cd /etc/sysconfig/netowrk-scripts\eh"
+"\e\C-ki": "\C-ucd /lib/modules/$(uname -r)/build/include\eh"
+"\e\C-kk": "\C-ucd /lib/modules/$(uname -r)/kernel\eh"
+"\e\C-k": "\C-u[ `pwd` != '\/lib\/modules\/'$(uname -r) ] && cd /lib/modules/$(uname -r)/\eh"
+"\e\C-lb": "\C-ucd /usr/local/bin/\eh"
+"\e\C-lsr": "\C-ucd /usr/local/src/\eh"
+"\e\C-lsh": "\C-ucd /usr/local/share/\eh"
+"\e\C-lsb": "\C-ucd /usr/local/sbin/\eh"
+"\e\C-m": "\C-ucd /mnt/\eh"
+"\e\C-bg": "\C-ucd /boot/grub2/\eh"
+"\e\C-be": "\C-ucd /boot/efi/\eh"
+"\e\C-b": "\C-u[ `pwd` != '/boot' ] && cd /boot/\eh"
+"\e\C-ub": "\C-ucd /usr/bin/\eh"
+"\e\C-ul6": "\C-ucd /usr/lib64/\eh"
+"\e\C-ul": "\C-ucd /usr/lib/\eh"
+"\e\C-usr": "\C-ucd /usr/src/\eh"
+"\e\C-ush": "\C-ucd /usr/share/\eh"
+"\e\C-usb": "\C-ucd /usr/sbin/\eh"
+"\e\C-debug": "\C-ucd /sys/kernel/debug/\eh"
+"\e\C-l6": "\C-ucd /lib64/\eh"
+"\e\C-log": "\C-ucd /var/log/\eh"
+"\e\C-li": "\C-ucd /lib/\eh"
+"\e\C-journ": "\C-ucd /run/log/journal/\eh"
+"\e\C-st": "\C-ucd /lib/systemd/system/\eh"
+"\e\C-clock": "\C-ucd /sys/devices/system/clocksource/clocksource0/\eh"

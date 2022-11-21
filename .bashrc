@@ -186,7 +186,7 @@ echo "Preparing w3m keymap file..."
 echo "Loading inputrc..."
 [ -s /tmp/.inputrc ]\
     || ([ "x$RCARC__" == "xManjaro" ]\
-        && wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/inputrc.manjaro -O /tmp/.inputrc --quiet
+        && wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/inputrc.manjaro -O /tmp/.inputrc --quiet\
         || wget https://raw.githubusercontent.com/sansna/dotconf/sshrc/inputrc -O /tmp/.inputrc --quiet)
 bind -f /tmp/.inputrc
 
